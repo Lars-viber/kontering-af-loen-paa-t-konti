@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+artifacts/
+playwright-report/
+test-results/
+.vite/
+.cache/
+tmp/
+temp/
+.env
+.env.*
+!.env.example
+*.local
+*.tsbuildinfo

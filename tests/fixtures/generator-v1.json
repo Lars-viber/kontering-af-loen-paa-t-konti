@@ -1,0 +1,846 @@
+{
+  "1": {
+    "generatorVersion": 1,
+    "variant": 1,
+    "employeeCount": 5,
+    "employees": [
+      {
+        "grossSalary": 68350,
+        "pensionRate": 10,
+        "taxRate": 38,
+        "deduction": 5000,
+        "atp": 99,
+        "pension": 6825,
+        "amBase": 61426,
+        "amContribution": 4914,
+        "aTax": 19575,
+        "netPay": 36937
+      },
+      {
+        "grossSalary": 49125,
+        "pensionRate": 8,
+        "taxRate": 40,
+        "deduction": 4750,
+        "atp": 99,
+        "pension": 3925,
+        "amBase": 45101,
+        "amContribution": 3608,
+        "aTax": 14697,
+        "netPay": 26796
+      },
+      {
+        "grossSalary": 46450,
+        "pensionRate": 8,
+        "taxRate": 37,
+        "deduction": 4750,
+        "atp": 99,
+        "pension": 3725,
+        "amBase": 42626,
+        "amContribution": 3410,
+        "aTax": 12752,
+        "netPay": 26464
+      },
+      {
+        "grossSalary": 43400,
+        "pensionRate": 5,
+        "taxRate": 40,
+        "deduction": 4250,
+        "atp": 99,
+        "pension": 2175,
+        "amBase": 41126,
+        "amContribution": 3290,
+        "aTax": 13434,
+        "netPay": 24402
+      },
+      {
+        "grossSalary": 56175,
+        "pensionRate": 4,
+        "taxRate": 42,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 2250,
+        "amBase": 53826,
+        "amContribution": 4306,
+        "aTax": 18383,
+        "netPay": 31137
+      }
+    ],
+    "payslipTotals": {
+      "grossSalary": 263500,
+      "atp": 495,
+      "pension": 18900,
+      "amBase": 244105,
+      "amContribution": 19528,
+      "aTax": 78841,
+      "netPay": 145736
+    },
+    "accounts": [
+      {
+        "id": "2210",
+        "name": "Lønninger",
+        "type": "Drift"
+      },
+      {
+        "id": "2215",
+        "name": "Pensioner",
+        "type": "Drift"
+      },
+      {
+        "id": "2223",
+        "name": "ATP",
+        "type": "Drift"
+      },
+      {
+        "id": "6920",
+        "name": "Skyldig A-skat",
+        "type": "Balance"
+      },
+      {
+        "id": "6921",
+        "name": "Skyldig ATP",
+        "type": "Balance"
+      },
+      {
+        "id": "6922",
+        "name": "Skyldig pension",
+        "type": "Balance"
+      },
+      {
+        "id": "6930",
+        "name": "Skyldig AM-bidrag",
+        "type": "Balance"
+      },
+      {
+        "id": "5820",
+        "name": "Bankkonto",
+        "type": "Balance"
+      }
+    ],
+    "answerKey": {
+      "2210": {
+        "debit": 244105,
+        "credit": 0
+      },
+      "2215": {
+        "debit": 18900,
+        "credit": 0
+      },
+      "2223": {
+        "debit": 495,
+        "credit": 0
+      },
+      "5820": {
+        "debit": 0,
+        "credit": 145736
+      },
+      "6920": {
+        "debit": 0,
+        "credit": 78841
+      },
+      "6921": {
+        "debit": 0,
+        "credit": 495
+      },
+      "6922": {
+        "debit": 0,
+        "credit": 18900
+      },
+      "6930": {
+        "debit": 0,
+        "credit": 19528
+      }
+    }
+  },
+  "2": {
+    "generatorVersion": 1,
+    "variant": 2,
+    "employeeCount": 9,
+    "employees": [
+      {
+        "grossSalary": 55050,
+        "pensionRate": 8,
+        "taxRate": 36,
+        "deduction": 5500,
+        "atp": 99,
+        "pension": 4400,
+        "amBase": 50551,
+        "amContribution": 4044,
+        "aTax": 14763,
+        "netPay": 31744
+      },
+      {
+        "grossSalary": 30225,
+        "pensionRate": 8,
+        "taxRate": 41,
+        "deduction": 6000,
+        "atp": 99,
+        "pension": 2425,
+        "amBase": 27701,
+        "amContribution": 2216,
+        "aTax": 7989,
+        "netPay": 17496
+      },
+      {
+        "grossSalary": 44125,
+        "pensionRate": 4,
+        "taxRate": 37,
+        "deduction": 4500,
+        "atp": 99,
+        "pension": 1775,
+        "amBase": 42251,
+        "amContribution": 3380,
+        "aTax": 12717,
+        "netPay": 26154
+      },
+      {
+        "grossSalary": 41050,
+        "pensionRate": 10,
+        "taxRate": 36,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 4100,
+        "amBase": 36851,
+        "amContribution": 2948,
+        "aTax": 10135,
+        "netPay": 23768
+      },
+      {
+        "grossSalary": 48450,
+        "pensionRate": 4,
+        "taxRate": 40,
+        "deduction": 4250,
+        "atp": 99,
+        "pension": 1950,
+        "amBase": 46401,
+        "amContribution": 3712,
+        "aTax": 15376,
+        "netPay": 27313
+      },
+      {
+        "grossSalary": 33475,
+        "pensionRate": 8,
+        "taxRate": 39,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 2675,
+        "amBase": 30701,
+        "amContribution": 2456,
+        "aTax": 8773,
+        "netPay": 19472
+      },
+      {
+        "grossSalary": 67350,
+        "pensionRate": 4,
+        "taxRate": 39,
+        "deduction": 5000,
+        "atp": 99,
+        "pension": 2700,
+        "amBase": 64551,
+        "amContribution": 5164,
+        "aTax": 21211,
+        "netPay": 38176
+      },
+      {
+        "grossSalary": 43175,
+        "pensionRate": 5,
+        "taxRate": 40,
+        "deduction": 4500,
+        "atp": 99,
+        "pension": 2150,
+        "amBase": 40926,
+        "amContribution": 3274,
+        "aTax": 13261,
+        "netPay": 24391
+      },
+      {
+        "grossSalary": 56400,
+        "pensionRate": 8,
+        "taxRate": 41,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 4500,
+        "amBase": 51801,
+        "amContribution": 4144,
+        "aTax": 17182,
+        "netPay": 30475
+      }
+    ],
+    "payslipTotals": {
+      "grossSalary": 419300,
+      "atp": 891,
+      "pension": 26675,
+      "amBase": 391734,
+      "amContribution": 31338,
+      "aTax": 121407,
+      "netPay": 238989
+    },
+    "accounts": [
+      {
+        "id": "2210",
+        "name": "Lønninger",
+        "type": "Drift"
+      },
+      {
+        "id": "2215",
+        "name": "Pensioner",
+        "type": "Drift"
+      },
+      {
+        "id": "2223",
+        "name": "ATP",
+        "type": "Drift"
+      },
+      {
+        "id": "6920",
+        "name": "Skyldig A-skat",
+        "type": "Balance"
+      },
+      {
+        "id": "6921",
+        "name": "Skyldig ATP",
+        "type": "Balance"
+      },
+      {
+        "id": "6922",
+        "name": "Skyldig pension",
+        "type": "Balance"
+      },
+      {
+        "id": "6930",
+        "name": "Skyldig AM-bidrag",
+        "type": "Balance"
+      },
+      {
+        "id": "5820",
+        "name": "Bankkonto",
+        "type": "Balance"
+      }
+    ],
+    "answerKey": {
+      "2210": {
+        "debit": 391734,
+        "credit": 0
+      },
+      "2215": {
+        "debit": 26675,
+        "credit": 0
+      },
+      "2223": {
+        "debit": 891,
+        "credit": 0
+      },
+      "5820": {
+        "debit": 0,
+        "credit": 238989
+      },
+      "6920": {
+        "debit": 0,
+        "credit": 121407
+      },
+      "6921": {
+        "debit": 0,
+        "credit": 891
+      },
+      "6922": {
+        "debit": 0,
+        "credit": 26675
+      },
+      "6930": {
+        "debit": 0,
+        "credit": 31338
+      }
+    }
+  },
+  "3": {
+    "generatorVersion": 1,
+    "variant": 3,
+    "employeeCount": 4,
+    "employees": [
+      {
+        "grossSalary": 65050,
+        "pensionRate": 10,
+        "taxRate": 39,
+        "deduction": 5000,
+        "atp": 99,
+        "pension": 6500,
+        "amBase": 58451,
+        "amContribution": 4676,
+        "aTax": 19022,
+        "netPay": 34753
+      },
+      {
+        "grossSalary": 28475,
+        "pensionRate": 5,
+        "taxRate": 41,
+        "deduction": 5500,
+        "atp": 99,
+        "pension": 1425,
+        "amBase": 26951,
+        "amContribution": 2156,
+        "aTax": 7911,
+        "netPay": 16884
+      },
+      {
+        "grossSalary": 37175,
+        "pensionRate": 8,
+        "taxRate": 41,
+        "deduction": 4000,
+        "atp": 99,
+        "pension": 2975,
+        "amBase": 34101,
+        "amContribution": 2728,
+        "aTax": 11223,
+        "netPay": 20150
+      },
+      {
+        "grossSalary": 67125,
+        "pensionRate": 10,
+        "taxRate": 40,
+        "deduction": 5250,
+        "atp": 99,
+        "pension": 6725,
+        "amBase": 60301,
+        "amContribution": 4824,
+        "aTax": 20091,
+        "netPay": 35386
+      }
+    ],
+    "payslipTotals": {
+      "grossSalary": 197825,
+      "atp": 396,
+      "pension": 17625,
+      "amBase": 179804,
+      "amContribution": 14384,
+      "aTax": 58247,
+      "netPay": 107173
+    },
+    "accounts": [
+      {
+        "id": "2210",
+        "name": "Lønninger",
+        "type": "Drift"
+      },
+      {
+        "id": "2215",
+        "name": "Pensioner",
+        "type": "Drift"
+      },
+      {
+        "id": "2223",
+        "name": "ATP",
+        "type": "Drift"
+      },
+      {
+        "id": "6920",
+        "name": "Skyldig A-skat",
+        "type": "Balance"
+      },
+      {
+        "id": "6921",
+        "name": "Skyldig ATP",
+        "type": "Balance"
+      },
+      {
+        "id": "6922",
+        "name": "Skyldig pension",
+        "type": "Balance"
+      },
+      {
+        "id": "6930",
+        "name": "Skyldig AM-bidrag",
+        "type": "Balance"
+      },
+      {
+        "id": "5820",
+        "name": "Bankkonto",
+        "type": "Balance"
+      }
+    ],
+    "answerKey": {
+      "2210": {
+        "debit": 179804,
+        "credit": 0
+      },
+      "2215": {
+        "debit": 17625,
+        "credit": 0
+      },
+      "2223": {
+        "debit": 396,
+        "credit": 0
+      },
+      "5820": {
+        "debit": 0,
+        "credit": 107173
+      },
+      "6920": {
+        "debit": 0,
+        "credit": 58247
+      },
+      "6921": {
+        "debit": 0,
+        "credit": 396
+      },
+      "6922": {
+        "debit": 0,
+        "credit": 17625
+      },
+      "6930": {
+        "debit": 0,
+        "credit": 14384
+      }
+    }
+  },
+  "42": {
+    "generatorVersion": 1,
+    "variant": 42,
+    "employeeCount": 8,
+    "employees": [
+      {
+        "grossSalary": 50100,
+        "pensionRate": 10,
+        "taxRate": 36,
+        "deduction": 5000,
+        "atp": 99,
+        "pension": 5000,
+        "amBase": 45001,
+        "amContribution": 3600,
+        "aTax": 13104,
+        "netPay": 28297
+      },
+      {
+        "grossSalary": 37375,
+        "pensionRate": 4,
+        "taxRate": 41,
+        "deduction": 5500,
+        "atp": 99,
+        "pension": 1500,
+        "amBase": 35776,
+        "amContribution": 2862,
+        "aTax": 11240,
+        "netPay": 21674
+      },
+      {
+        "grossSalary": 44350,
+        "pensionRate": 6,
+        "taxRate": 39,
+        "deduction": 5250,
+        "atp": 99,
+        "pension": 2650,
+        "amBase": 41601,
+        "amContribution": 3328,
+        "aTax": 12879,
+        "netPay": 25394
+      },
+      {
+        "grossSalary": 62350,
+        "pensionRate": 10,
+        "taxRate": 36,
+        "deduction": 4000,
+        "atp": 99,
+        "pension": 6225,
+        "amBase": 56026,
+        "amContribution": 4482,
+        "aTax": 17116,
+        "netPay": 34428
+      },
+      {
+        "grossSalary": 66400,
+        "pensionRate": 4,
+        "taxRate": 40,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 2650,
+        "amBase": 63651,
+        "amContribution": 5092,
+        "aTax": 21124,
+        "netPay": 37435
+      },
+      {
+        "grossSalary": 41100,
+        "pensionRate": 5,
+        "taxRate": 38,
+        "deduction": 4500,
+        "atp": 99,
+        "pension": 2050,
+        "amBase": 38951,
+        "amContribution": 3116,
+        "aTax": 11907,
+        "netPay": 23928
+      },
+      {
+        "grossSalary": 65425,
+        "pensionRate": 4,
+        "taxRate": 38,
+        "deduction": 4000,
+        "atp": 99,
+        "pension": 2625,
+        "amBase": 62701,
+        "amContribution": 5016,
+        "aTax": 20400,
+        "netPay": 37285
+      },
+      {
+        "grossSalary": 66275,
+        "pensionRate": 6,
+        "taxRate": 39,
+        "deduction": 5500,
+        "atp": 99,
+        "pension": 3975,
+        "amBase": 62201,
+        "amContribution": 4976,
+        "aTax": 20173,
+        "netPay": 37052
+      }
+    ],
+    "payslipTotals": {
+      "grossSalary": 433375,
+      "atp": 792,
+      "pension": 26675,
+      "amBase": 405908,
+      "amContribution": 32472,
+      "aTax": 127943,
+      "netPay": 245493
+    },
+    "accounts": [
+      {
+        "id": "2210",
+        "name": "Lønninger",
+        "type": "Drift"
+      },
+      {
+        "id": "2215",
+        "name": "Pensioner",
+        "type": "Drift"
+      },
+      {
+        "id": "2223",
+        "name": "ATP",
+        "type": "Drift"
+      },
+      {
+        "id": "6920",
+        "name": "Skyldig A-skat",
+        "type": "Balance"
+      },
+      {
+        "id": "6921",
+        "name": "Skyldig ATP",
+        "type": "Balance"
+      },
+      {
+        "id": "6922",
+        "name": "Skyldig pension",
+        "type": "Balance"
+      },
+      {
+        "id": "6930",
+        "name": "Skyldig AM-bidrag",
+        "type": "Balance"
+      },
+      {
+        "id": "5820",
+        "name": "Bankkonto",
+        "type": "Balance"
+      }
+    ],
+    "answerKey": {
+      "2210": {
+        "debit": 405908,
+        "credit": 0
+      },
+      "2215": {
+        "debit": 26675,
+        "credit": 0
+      },
+      "2223": {
+        "debit": 792,
+        "credit": 0
+      },
+      "5820": {
+        "debit": 0,
+        "credit": 245493
+      },
+      "6920": {
+        "debit": 0,
+        "credit": 127943
+      },
+      "6921": {
+        "debit": 0,
+        "credit": 792
+      },
+      "6922": {
+        "debit": 0,
+        "credit": 26675
+      },
+      "6930": {
+        "debit": 0,
+        "credit": 32472
+      }
+    }
+  },
+  "999999": {
+    "generatorVersion": 1,
+    "variant": 999999,
+    "employeeCount": 6,
+    "employees": [
+      {
+        "grossSalary": 60375,
+        "pensionRate": 8,
+        "taxRate": 39,
+        "deduction": 5000,
+        "atp": 99,
+        "pension": 4825,
+        "amBase": 55451,
+        "amContribution": 4436,
+        "aTax": 17946,
+        "netPay": 33069
+      },
+      {
+        "grossSalary": 56400,
+        "pensionRate": 10,
+        "taxRate": 38,
+        "deduction": 6000,
+        "atp": 99,
+        "pension": 5650,
+        "amBase": 50651,
+        "amContribution": 4052,
+        "aTax": 15428,
+        "netPay": 31171
+      },
+      {
+        "grossSalary": 52000,
+        "pensionRate": 10,
+        "taxRate": 41,
+        "deduction": 5250,
+        "atp": 99,
+        "pension": 5200,
+        "amBase": 46701,
+        "amContribution": 3736,
+        "aTax": 15463,
+        "netPay": 27502
+      },
+      {
+        "grossSalary": 57450,
+        "pensionRate": 4,
+        "taxRate": 41,
+        "deduction": 4250,
+        "atp": 99,
+        "pension": 2300,
+        "amBase": 55051,
+        "amContribution": 4404,
+        "aTax": 19023,
+        "netPay": 31624
+      },
+      {
+        "grossSalary": 43425,
+        "pensionRate": 4,
+        "taxRate": 41,
+        "deduction": 4250,
+        "atp": 99,
+        "pension": 1725,
+        "amBase": 41601,
+        "amContribution": 3328,
+        "aTax": 13949,
+        "netPay": 24324
+      },
+      {
+        "grossSalary": 69250,
+        "pensionRate": 4,
+        "taxRate": 37,
+        "deduction": 5750,
+        "atp": 99,
+        "pension": 2775,
+        "amBase": 66376,
+        "amContribution": 5310,
+        "aTax": 20467,
+        "netPay": 40599
+      }
+    ],
+    "payslipTotals": {
+      "grossSalary": 338900,
+      "atp": 594,
+      "pension": 22475,
+      "amBase": 315831,
+      "amContribution": 25266,
+      "aTax": 102276,
+      "netPay": 188289
+    },
+    "accounts": [
+      {
+        "id": "2210",
+        "name": "Lønninger",
+        "type": "Drift"
+      },
+      {
+        "id": "2215",
+        "name": "Pensioner",
+        "type": "Drift"
+      },
+      {
+        "id": "2223",
+        "name": "ATP",
+        "type": "Drift"
+      },
+      {
+        "id": "6920",
+        "name": "Skyldig A-skat",
+        "type": "Balance"
+      },
+      {
+        "id": "6921",
+        "name": "Skyldig ATP",
+        "type": "Balance"
+      },
+      {
+        "id": "6922",
+        "name": "Skyldig pension",
+        "type": "Balance"
+      },
+      {
+        "id": "6930",
+        "name": "Skyldig AM-bidrag",
+        "type": "Balance"
+      },
+      {
+        "id": "5820",
+        "name": "Bankkonto",
+        "type": "Balance"
+      }
+    ],
+    "answerKey": {
+      "2210": {
+        "debit": 315831,
+        "credit": 0
+      },
+      "2215": {
+        "debit": 22475,
+        "credit": 0
+      },
+      "2223": {
+        "debit": 594,
+        "credit": 0
+      },
+      "5820": {
+        "debit": 0,
+        "credit": 188289
+      },
+      "6920": {
+        "debit": 0,
+        "credit": 102276
+      },
+      "6921": {
+        "debit": 0,
+        "credit": 594
+      },
+      "6922": {
+        "debit": 0,
+        "credit": 22475
+      },
+      "6930": {
+        "debit": 0,
+        "credit": 25266
+      }
+    }
+  }
+}
