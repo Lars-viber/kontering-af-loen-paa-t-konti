@@ -1,0 +1,2224 @@
+{
+  "rulesetYear": 2026,
+  "rulesetVersion": 1,
+  "generatorVersion": 1,
+  "accounts": [
+    {
+      "accountNumber": "2210",
+      "name": "Lønninger – timelønnede",
+      "type": "operating",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "2211",
+      "name": "Lønninger – månedslønnede",
+      "type": "operating",
+      "teachingAccount": true
+    },
+    {
+      "accountNumber": "2215",
+      "name": "Pensioner",
+      "type": "operating",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "2223",
+      "name": "ATP",
+      "type": "operating",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "2230",
+      "name": "Feriepenge – timelønnede",
+      "type": "operating",
+      "teachingAccount": true
+    },
+    {
+      "accountNumber": "2235",
+      "name": "Regulering af feriepengeforpligtelse",
+      "type": "operating",
+      "teachingAccount": true
+    },
+    {
+      "accountNumber": "5820",
+      "name": "Bankkonto",
+      "type": "balance",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "6920",
+      "name": "Skyldig A-skat",
+      "type": "balance",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "6921",
+      "name": "Skyldig ATP",
+      "type": "balance",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "6922",
+      "name": "Skyldig pension",
+      "type": "balance",
+      "teachingAccount": false
+    },
+    {
+      "accountNumber": "6923",
+      "name": "Skyldige nettoferiepenge – FerieKonto",
+      "type": "balance",
+      "teachingAccount": true
+    },
+    {
+      "accountNumber": "6924",
+      "name": "Feriepengeforpligtelse",
+      "type": "balance",
+      "teachingAccount": true
+    },
+    {
+      "accountNumber": "6930",
+      "name": "Skyldig AM-bidrag",
+      "type": "balance",
+      "teachingAccount": false
+    }
+  ],
+  "hourlyEmployees": [
+    {
+      "id": "T1",
+      "hourlyRate": 240,
+      "taxRate": 36,
+      "monthlyDeduction": 4500,
+      "hours": {
+        "jan": 145,
+        "feb": 148,
+        "mar": 152,
+        "apr": 154,
+        "may": 156,
+        "jun": 155
+      }
+    },
+    {
+      "id": "T2",
+      "hourlyRate": 240,
+      "taxRate": 37,
+      "monthlyDeduction": 4750,
+      "hours": {
+        "jan": 155,
+        "feb": 160,
+        "mar": 163,
+        "apr": 162,
+        "may": 164,
+        "jun": 165
+      }
+    },
+    {
+      "id": "T3",
+      "hourlyRate": 230,
+      "taxRate": 38,
+      "monthlyDeduction": 5000,
+      "hours": {
+        "jan": 172,
+        "feb": 174,
+        "mar": 176,
+        "apr": 178,
+        "may": 177,
+        "jun": 180
+      }
+    },
+    {
+      "id": "T4",
+      "hourlyRate": 250,
+      "taxRate": 39,
+      "monthlyDeduction": 5250,
+      "hours": {
+        "jan": 172,
+        "feb": 170,
+        "mar": 176,
+        "apr": 174,
+        "may": 178,
+        "jun": 180
+      }
+    }
+  ],
+  "salariedEmployees": [
+    {
+      "id": "M1",
+      "monthlySalary": 42000,
+      "taxRate": 37,
+      "monthlyDeduction": 5000
+    },
+    {
+      "id": "M2",
+      "monthlySalary": 47500,
+      "taxRate": 38,
+      "monthlyDeduction": 5250
+    },
+    {
+      "id": "M3",
+      "monthlySalary": 52500,
+      "taxRate": 39,
+      "monthlyDeduction": 5500
+    },
+    {
+      "id": "M4",
+      "monthlySalary": 60500,
+      "taxRate": 40,
+      "monthlyDeduction": 5750
+    }
+  ],
+  "history": [
+    {
+      "month": "jan",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 34800,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1392,
+          "employerPension": 2784,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 33309,
+          "amContribution": 2665,
+          "taxBase": 26144,
+          "aTax": 9412,
+          "netPay": 21232
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 37200,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1488,
+          "employerPension": 2976,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 35613,
+          "amContribution": 2849,
+          "taxBase": 28014,
+          "aTax": 10365,
+          "netPay": 22399
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 39560,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1582,
+          "employerPension": 3165,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 37879,
+          "amContribution": 3030,
+          "taxBase": 29849,
+          "aTax": 11343,
+          "netPay": 23506
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 43000,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1720,
+          "employerPension": 3440,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 41181,
+          "amContribution": 3294,
+          "taxBase": 32637,
+          "aTax": 12728,
+          "netPay": 25159
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 154560,
+        "employeePension": 6182,
+        "employerPension": 12365,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 147982,
+        "amContribution": 11838,
+        "aTax": 43848,
+        "netPay": 92296
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 34800,
+          "taxRate": 36,
+          "grossHolidayPay": 4350,
+          "amContribution": 348,
+          "taxBase": 4002,
+          "aTax": 1441,
+          "netHolidayPay": 2561
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 37200,
+          "taxRate": 37,
+          "grossHolidayPay": 4650,
+          "amContribution": 372,
+          "taxBase": 4278,
+          "aTax": 1583,
+          "netHolidayPay": 2695
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 39560,
+          "taxRate": 38,
+          "grossHolidayPay": 4945,
+          "amContribution": 396,
+          "taxBase": 4549,
+          "aTax": 1729,
+          "netHolidayPay": 2820
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 43000,
+          "taxRate": 39,
+          "grossHolidayPay": 5375,
+          "amContribution": 430,
+          "taxBase": 4945,
+          "aTax": 1929,
+          "netHolidayPay": 3016
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 19320,
+        "amContribution": 1546,
+        "aTax": 6682,
+        "netHolidayPay": 11092
+      }
+    },
+    {
+      "month": "feb",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 35520,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1421,
+          "employerPension": 2842,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 34000,
+          "amContribution": 2720,
+          "taxBase": 26780,
+          "aTax": 9641,
+          "netPay": 21639
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 38400,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1536,
+          "employerPension": 3072,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 36765,
+          "amContribution": 2941,
+          "taxBase": 29074,
+          "aTax": 10757,
+          "netPay": 23067
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 40020,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1601,
+          "employerPension": 3202,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 38320,
+          "amContribution": 3066,
+          "taxBase": 30254,
+          "aTax": 11497,
+          "netPay": 23757
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 42500,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1700,
+          "employerPension": 3400,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40701,
+          "amContribution": 3256,
+          "taxBase": 32195,
+          "aTax": 12556,
+          "netPay": 24889
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 156440,
+        "employeePension": 6258,
+        "employerPension": 12516,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 149786,
+        "amContribution": 11983,
+        "aTax": 44451,
+        "netPay": 93352
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 35520,
+          "taxRate": 36,
+          "grossHolidayPay": 4440,
+          "amContribution": 355,
+          "taxBase": 4085,
+          "aTax": 1471,
+          "netHolidayPay": 2614
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 38400,
+          "taxRate": 37,
+          "grossHolidayPay": 4800,
+          "amContribution": 384,
+          "taxBase": 4416,
+          "aTax": 1634,
+          "netHolidayPay": 2782
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 40020,
+          "taxRate": 38,
+          "grossHolidayPay": 5003,
+          "amContribution": 400,
+          "taxBase": 4603,
+          "aTax": 1749,
+          "netHolidayPay": 2854
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 42500,
+          "taxRate": 39,
+          "grossHolidayPay": 5313,
+          "amContribution": 425,
+          "taxBase": 4888,
+          "aTax": 1906,
+          "netHolidayPay": 2982
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 19556,
+        "amContribution": 1564,
+        "aTax": 6760,
+        "netHolidayPay": 11232
+      }
+    },
+    {
+      "month": "mar",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 36480,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1459,
+          "employerPension": 2918,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 34922,
+          "amContribution": 2794,
+          "taxBase": 27628,
+          "aTax": 9946,
+          "netPay": 22182
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 39120,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1565,
+          "employerPension": 3130,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 37456,
+          "amContribution": 2996,
+          "taxBase": 29710,
+          "aTax": 10993,
+          "netPay": 23467
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 40480,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1619,
+          "employerPension": 3238,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 38762,
+          "amContribution": 3101,
+          "taxBase": 30661,
+          "aTax": 11651,
+          "netPay": 24010
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 44000,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1760,
+          "employerPension": 3520,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 42141,
+          "amContribution": 3371,
+          "taxBase": 33520,
+          "aTax": 13073,
+          "netPay": 25697
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 160080,
+        "employeePension": 6403,
+        "employerPension": 12806,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 153281,
+        "amContribution": 12262,
+        "aTax": 45663,
+        "netPay": 95356
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 36480,
+          "taxRate": 36,
+          "grossHolidayPay": 4560,
+          "amContribution": 365,
+          "taxBase": 4195,
+          "aTax": 1510,
+          "netHolidayPay": 2685
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 39120,
+          "taxRate": 37,
+          "grossHolidayPay": 4890,
+          "amContribution": 391,
+          "taxBase": 4499,
+          "aTax": 1665,
+          "netHolidayPay": 2834
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 40480,
+          "taxRate": 38,
+          "grossHolidayPay": 5060,
+          "amContribution": 405,
+          "taxBase": 4655,
+          "aTax": 1769,
+          "netHolidayPay": 2886
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 44000,
+          "taxRate": 39,
+          "grossHolidayPay": 5500,
+          "amContribution": 440,
+          "taxBase": 5060,
+          "aTax": 1973,
+          "netHolidayPay": 3087
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 20010,
+        "amContribution": 1601,
+        "aTax": 6917,
+        "netHolidayPay": 11492
+      }
+    },
+    {
+      "month": "apr",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 36960,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1478,
+          "employerPension": 2957,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 35383,
+          "amContribution": 2831,
+          "taxBase": 28052,
+          "aTax": 10099,
+          "netPay": 22453
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 38880,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1555,
+          "employerPension": 3110,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 37226,
+          "amContribution": 2978,
+          "taxBase": 29498,
+          "aTax": 10914,
+          "netPay": 23334
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 40940,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1638,
+          "employerPension": 3275,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 39203,
+          "amContribution": 3136,
+          "taxBase": 31067,
+          "aTax": 11805,
+          "netPay": 24262
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 43500,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1740,
+          "employerPension": 3480,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 41661,
+          "amContribution": 3333,
+          "taxBase": 33078,
+          "aTax": 12900,
+          "netPay": 25428
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 160280,
+        "employeePension": 6411,
+        "employerPension": 12822,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 153473,
+        "amContribution": 12278,
+        "aTax": 45718,
+        "netPay": 95477
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 36960,
+          "taxRate": 36,
+          "grossHolidayPay": 4620,
+          "amContribution": 370,
+          "taxBase": 4250,
+          "aTax": 1530,
+          "netHolidayPay": 2720
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 38880,
+          "taxRate": 37,
+          "grossHolidayPay": 4860,
+          "amContribution": 389,
+          "taxBase": 4471,
+          "aTax": 1654,
+          "netHolidayPay": 2817
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 40940,
+          "taxRate": 38,
+          "grossHolidayPay": 5118,
+          "amContribution": 409,
+          "taxBase": 4709,
+          "aTax": 1789,
+          "netHolidayPay": 2920
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 43500,
+          "taxRate": 39,
+          "grossHolidayPay": 5438,
+          "amContribution": 435,
+          "taxBase": 5003,
+          "aTax": 1951,
+          "netHolidayPay": 3052
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 20036,
+        "amContribution": 1603,
+        "aTax": 6924,
+        "netHolidayPay": 11509
+      }
+    },
+    {
+      "month": "may",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 37440,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1498,
+          "employerPension": 2995,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 35843,
+          "amContribution": 2867,
+          "taxBase": 28476,
+          "aTax": 10251,
+          "netPay": 22725
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 39360,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1574,
+          "employerPension": 3149,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 37687,
+          "amContribution": 3015,
+          "taxBase": 29922,
+          "aTax": 11071,
+          "netPay": 23601
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 40710,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1628,
+          "employerPension": 3257,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 38983,
+          "amContribution": 3119,
+          "taxBase": 30864,
+          "aTax": 11728,
+          "netPay": 24136
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 44500,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1780,
+          "employerPension": 3560,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 42621,
+          "amContribution": 3410,
+          "taxBase": 33961,
+          "aTax": 13245,
+          "netPay": 25966
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 162010,
+        "employeePension": 6480,
+        "employerPension": 12961,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 155134,
+        "amContribution": 12411,
+        "aTax": 46295,
+        "netPay": 96428
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 37440,
+          "taxRate": 36,
+          "grossHolidayPay": 4680,
+          "amContribution": 374,
+          "taxBase": 4306,
+          "aTax": 1550,
+          "netHolidayPay": 2756
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 39360,
+          "taxRate": 37,
+          "grossHolidayPay": 4920,
+          "amContribution": 394,
+          "taxBase": 4526,
+          "aTax": 1675,
+          "netHolidayPay": 2851
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 40710,
+          "taxRate": 38,
+          "grossHolidayPay": 5089,
+          "amContribution": 407,
+          "taxBase": 4682,
+          "aTax": 1779,
+          "netHolidayPay": 2903
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 44500,
+          "taxRate": 39,
+          "grossHolidayPay": 5563,
+          "amContribution": 445,
+          "taxBase": 5118,
+          "aTax": 1996,
+          "netHolidayPay": 3122
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 20252,
+        "amContribution": 1620,
+        "aTax": 7000,
+        "netHolidayPay": 11632
+      }
+    },
+    {
+      "month": "jun",
+      "hourlyPayroll": [
+        {
+          "employeeId": "T1",
+          "employeeGroup": "hourly",
+          "grossSalary": 37200,
+          "taxRate": 36,
+          "monthlyDeduction": 4500,
+          "employeePension": 1488,
+          "employerPension": 2976,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 35613,
+          "amContribution": 2849,
+          "taxBase": 28264,
+          "aTax": 10175,
+          "netPay": 22589
+        },
+        {
+          "employeeId": "T2",
+          "employeeGroup": "hourly",
+          "grossSalary": 39600,
+          "taxRate": 37,
+          "monthlyDeduction": 4750,
+          "employeePension": 1584,
+          "employerPension": 3168,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 37917,
+          "amContribution": 3033,
+          "taxBase": 30134,
+          "aTax": 11150,
+          "netPay": 23734
+        },
+        {
+          "employeeId": "T3",
+          "employeeGroup": "hourly",
+          "grossSalary": 41400,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "employeePension": 1656,
+          "employerPension": 3312,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 39645,
+          "amContribution": 3172,
+          "taxBase": 31473,
+          "aTax": 11960,
+          "netPay": 24513
+        },
+        {
+          "employeeId": "T4",
+          "employeeGroup": "hourly",
+          "grossSalary": 45000,
+          "taxRate": 39,
+          "monthlyDeduction": 5250,
+          "employeePension": 1800,
+          "employerPension": 3600,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 43101,
+          "amContribution": 3448,
+          "taxBase": 34403,
+          "aTax": 13417,
+          "netPay": 26236
+        }
+      ],
+      "salariedPayroll": [
+        {
+          "employeeId": "M1",
+          "employeeGroup": "salaried",
+          "grossSalary": 42000,
+          "taxRate": 37,
+          "monthlyDeduction": 5000,
+          "employeePension": 1680,
+          "employerPension": 3360,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 40221,
+          "amContribution": 3218,
+          "taxBase": 32003,
+          "aTax": 11841,
+          "netPay": 25162
+        },
+        {
+          "employeeId": "M2",
+          "employeeGroup": "salaried",
+          "grossSalary": 47500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250,
+          "employeePension": 1900,
+          "employerPension": 3800,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 45501,
+          "amContribution": 3640,
+          "taxBase": 36611,
+          "aTax": 13912,
+          "netPay": 27949
+        },
+        {
+          "employeeId": "M3",
+          "employeeGroup": "salaried",
+          "grossSalary": 52500,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "employeePension": 2100,
+          "employerPension": 4200,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 50301,
+          "amContribution": 4024,
+          "taxBase": 40777,
+          "aTax": 15903,
+          "netPay": 30374
+        },
+        {
+          "employeeId": "M4",
+          "employeeGroup": "salaried",
+          "grossSalary": 60500,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "employeePension": 2420,
+          "employerPension": 4840,
+          "employeeAtp": 99,
+          "employerAtp": 198,
+          "amBase": 57981,
+          "amContribution": 4638,
+          "taxBase": 47593,
+          "aTax": 19037,
+          "netPay": 34306
+        }
+      ],
+      "hourlyTotals": {
+        "grossSalary": 163200,
+        "employeePension": 6528,
+        "employerPension": 13056,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 156276,
+        "amContribution": 12502,
+        "aTax": 46702,
+        "netPay": 97072
+      },
+      "salariedTotals": {
+        "grossSalary": 202500,
+        "employeePension": 8100,
+        "employerPension": 16200,
+        "employeeAtp": 396,
+        "employerAtp": 792,
+        "amBase": 194004,
+        "amContribution": 15520,
+        "aTax": 60693,
+        "netPay": 117791
+      },
+      "hourlyHolidayPay": [
+        {
+          "employeeId": "T1",
+          "holidayEligibleSalary": 37200,
+          "taxRate": 36,
+          "grossHolidayPay": 4650,
+          "amContribution": 372,
+          "taxBase": 4278,
+          "aTax": 1540,
+          "netHolidayPay": 2738
+        },
+        {
+          "employeeId": "T2",
+          "holidayEligibleSalary": 39600,
+          "taxRate": 37,
+          "grossHolidayPay": 4950,
+          "amContribution": 396,
+          "taxBase": 4554,
+          "aTax": 1685,
+          "netHolidayPay": 2869
+        },
+        {
+          "employeeId": "T3",
+          "holidayEligibleSalary": 41400,
+          "taxRate": 38,
+          "grossHolidayPay": 5175,
+          "amContribution": 414,
+          "taxBase": 4761,
+          "aTax": 1809,
+          "netHolidayPay": 2952
+        },
+        {
+          "employeeId": "T4",
+          "holidayEligibleSalary": 45000,
+          "taxRate": 39,
+          "grossHolidayPay": 5625,
+          "amContribution": 450,
+          "taxBase": 5175,
+          "aTax": 2018,
+          "netHolidayPay": 3157
+        }
+      ],
+      "hourlyHolidayTotals": {
+        "grossHolidayPay": 20400,
+        "amContribution": 1632,
+        "aTax": 7052,
+        "netHolidayPay": 11716
+      }
+    }
+  ],
+  "holidayLiability": {
+    "holidayLiabilityBeforeAdjustment": 174000,
+    "systemAssessedHolidayLiability": 182500,
+    "adjustment": 8500
+  },
+  "atp": {
+    "monthly": {
+      "employeeCount": 8,
+      "months": 1,
+      "employeeShare": 792,
+      "employerShare": 1584,
+      "total": 2376
+    },
+    "q1": {
+      "employeeCount": 8,
+      "months": 3,
+      "employeeShare": 2376,
+      "employerShare": 4752,
+      "total": 7128
+    },
+    "q2": {
+      "employeeCount": 8,
+      "months": 3,
+      "employeeShare": 2376,
+      "employerShare": 4752,
+      "total": 7128
+    },
+    "januaryThroughMay": {
+      "employeeCount": 8,
+      "months": 5,
+      "employeeShare": 3960,
+      "employerShare": 7920,
+      "total": 11880
+    },
+    "januaryThroughJune": {
+      "employeeCount": 8,
+      "months": 6,
+      "employeeShare": 4752,
+      "employerShare": 9504,
+      "total": 14256
+    }
+  },
+  "startBalances": [
+    {
+      "accountNumber": "2210",
+      "amount": 759656,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2211",
+      "amount": 970020,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2215",
+      "amount": 216704,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2223",
+      "amount": 11880,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2230",
+      "amount": 99174,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2235",
+      "amount": 24000,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "5820",
+      "amount": 1500000,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "6920",
+      "amount": 113988,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6921",
+      "amount": 11880,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6922",
+      "amount": 43741,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6923",
+      "amount": 11632,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6924",
+      "amount": 174000,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6930",
+      "amount": 29551,
+      "side": "credit"
+    }
+  ],
+  "documents": [
+    {
+      "id": "B1",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+      "expectedPostings": [
+        {
+          "documentId": "B1",
+          "accountNumber": "6920",
+          "side": "debit",
+          "amount": 113988,
+          "text": "A-skat vedr. maj",
+          "role": "payment"
+        },
+        {
+          "documentId": "B1",
+          "accountNumber": "6930",
+          "side": "debit",
+          "amount": 29551,
+          "text": "AM-bidrag vedr. maj",
+          "role": "payment"
+        },
+        {
+          "documentId": "B1",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 143539,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 143539,
+      "creditTotal": 143539,
+      "balanced": true
+    },
+    {
+      "id": "B2",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Betaling af pension vedr. maj",
+      "expectedPostings": [
+        {
+          "documentId": "B2",
+          "accountNumber": "6922",
+          "side": "debit",
+          "amount": 43741,
+          "text": "Pension vedr. maj",
+          "role": "payment"
+        },
+        {
+          "documentId": "B2",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 43741,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 43741,
+      "creditTotal": 43741,
+      "balanced": true
+    },
+    {
+      "id": "B3",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Betaling til FerieKonto vedr. maj",
+      "expectedPostings": [
+        {
+          "documentId": "B3",
+          "accountNumber": "6923",
+          "side": "debit",
+          "amount": 11632,
+          "text": "Nettoferiepenge vedr. maj",
+          "role": "payment"
+        },
+        {
+          "documentId": "B3",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 11632,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 11632,
+      "creditTotal": 11632,
+      "balanced": true
+    },
+    {
+      "id": "B4",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Lønbilag – timelønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B4",
+          "accountNumber": "2210",
+          "side": "debit",
+          "amount": 156276,
+          "text": "Løn efter eget ATP og pension",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "2215",
+          "side": "debit",
+          "amount": 6528,
+          "text": "Medarbejderpension",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "2223",
+          "side": "debit",
+          "amount": 396,
+          "text": "Medarbejder-ATP",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "6920",
+          "side": "credit",
+          "amount": 46702,
+          "text": "Skyldig A-skat",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "6930",
+          "side": "credit",
+          "amount": 12502,
+          "text": "Skyldig AM-bidrag",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "6922",
+          "side": "credit",
+          "amount": 6528,
+          "text": "Skyldig medarbejderpension",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "6921",
+          "side": "credit",
+          "amount": 396,
+          "text": "Skyldig medarbejder-ATP",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B4",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 97072,
+          "text": "Nettoløn",
+          "employeeGroup": "hourly",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 163200,
+      "creditTotal": 163200,
+      "balanced": true
+    },
+    {
+      "id": "B5",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Arbejdsgiver ATP og pension – timelønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B5",
+          "accountNumber": "2215",
+          "side": "debit",
+          "amount": 13056,
+          "text": "Arbejdsgiverpension",
+          "employeeGroup": "hourly",
+          "role": "employer"
+        },
+        {
+          "documentId": "B5",
+          "accountNumber": "2223",
+          "side": "debit",
+          "amount": 792,
+          "text": "Arbejdsgiver-ATP",
+          "employeeGroup": "hourly",
+          "role": "employer"
+        },
+        {
+          "documentId": "B5",
+          "accountNumber": "6922",
+          "side": "credit",
+          "amount": 13056,
+          "text": "Skyldig arbejdsgiverpension",
+          "employeeGroup": "hourly",
+          "role": "employer"
+        },
+        {
+          "documentId": "B5",
+          "accountNumber": "6921",
+          "side": "credit",
+          "amount": 792,
+          "text": "Skyldig arbejdsgiver-ATP",
+          "employeeGroup": "hourly",
+          "role": "employer"
+        }
+      ],
+      "debitTotal": 13848,
+      "creditTotal": 13848,
+      "balanced": true
+    },
+    {
+      "id": "B6",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Feriepengebilag – timelønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B6",
+          "accountNumber": "2230",
+          "side": "debit",
+          "amount": 20400,
+          "text": "Bruttoferiepenge",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B6",
+          "accountNumber": "6930",
+          "side": "credit",
+          "amount": 1632,
+          "text": "AM-bidrag af feriepenge",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B6",
+          "accountNumber": "6920",
+          "side": "credit",
+          "amount": 7052,
+          "text": "A-skat af feriepenge",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        },
+        {
+          "documentId": "B6",
+          "accountNumber": "6923",
+          "side": "credit",
+          "amount": 11716,
+          "text": "Nettoferiepenge",
+          "employeeGroup": "hourly",
+          "role": "employee"
+        }
+      ],
+      "debitTotal": 20400,
+      "creditTotal": 20400,
+      "balanced": true
+    },
+    {
+      "id": "B7",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Lønbilag – månedslønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B7",
+          "accountNumber": "2211",
+          "side": "debit",
+          "amount": 194004,
+          "text": "Løn efter eget ATP og pension",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "2215",
+          "side": "debit",
+          "amount": 8100,
+          "text": "Medarbejderpension",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "2223",
+          "side": "debit",
+          "amount": 396,
+          "text": "Medarbejder-ATP",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "6920",
+          "side": "credit",
+          "amount": 60693,
+          "text": "Skyldig A-skat",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "6930",
+          "side": "credit",
+          "amount": 15520,
+          "text": "Skyldig AM-bidrag",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "6922",
+          "side": "credit",
+          "amount": 8100,
+          "text": "Skyldig medarbejderpension",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "6921",
+          "side": "credit",
+          "amount": 396,
+          "text": "Skyldig medarbejder-ATP",
+          "employeeGroup": "salaried",
+          "role": "employee"
+        },
+        {
+          "documentId": "B7",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 117791,
+          "text": "Nettoløn",
+          "employeeGroup": "salaried",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 202500,
+      "creditTotal": 202500,
+      "balanced": true
+    },
+    {
+      "id": "B8",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Arbejdsgiver ATP og pension – månedslønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B8",
+          "accountNumber": "2215",
+          "side": "debit",
+          "amount": 16200,
+          "text": "Arbejdsgiverpension",
+          "employeeGroup": "salaried",
+          "role": "employer"
+        },
+        {
+          "documentId": "B8",
+          "accountNumber": "2223",
+          "side": "debit",
+          "amount": 792,
+          "text": "Arbejdsgiver-ATP",
+          "employeeGroup": "salaried",
+          "role": "employer"
+        },
+        {
+          "documentId": "B8",
+          "accountNumber": "6922",
+          "side": "credit",
+          "amount": 16200,
+          "text": "Skyldig arbejdsgiverpension",
+          "employeeGroup": "salaried",
+          "role": "employer"
+        },
+        {
+          "documentId": "B8",
+          "accountNumber": "6921",
+          "side": "credit",
+          "amount": 792,
+          "text": "Skyldig arbejdsgiver-ATP",
+          "employeeGroup": "salaried",
+          "role": "employer"
+        }
+      ],
+      "debitTotal": 16992,
+      "creditTotal": 16992,
+      "balanced": true
+    },
+    {
+      "id": "B9",
+      "period": "june",
+      "phase": "june-booking",
+      "title": "Regulering af feriepengeforpligtelse – månedslønnede",
+      "expectedPostings": [
+        {
+          "documentId": "B9",
+          "accountNumber": "2235",
+          "side": "debit",
+          "amount": 8500,
+          "text": "Regulering af feriepengeforpligtelse",
+          "employeeGroup": "salaried",
+          "role": "adjustment"
+        },
+        {
+          "documentId": "B9",
+          "accountNumber": "6924",
+          "side": "credit",
+          "amount": 8500,
+          "text": "Feriepengeforpligtelse ultimo",
+          "employeeGroup": "salaried",
+          "role": "adjustment"
+        }
+      ],
+      "debitTotal": 8500,
+      "creditTotal": 8500,
+      "balanced": true
+    },
+    {
+      "id": "B10",
+      "period": "july",
+      "phase": "july-settlement",
+      "title": "Betaling af ATP vedr. Q1",
+      "expectedPostings": [
+        {
+          "documentId": "B10",
+          "accountNumber": "6921",
+          "side": "debit",
+          "amount": 7128,
+          "text": "ATP Q1",
+          "role": "payment"
+        },
+        {
+          "documentId": "B10",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 7128,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 7128,
+      "creditTotal": 7128,
+      "balanced": true
+    },
+    {
+      "id": "B11",
+      "period": "july",
+      "phase": "july-settlement",
+      "title": "Betaling af A-skat og AM-bidrag vedr. juni",
+      "expectedPostings": [
+        {
+          "documentId": "B11",
+          "accountNumber": "6920",
+          "side": "debit",
+          "amount": 114447,
+          "text": "A-skat vedr. juni",
+          "role": "payment"
+        },
+        {
+          "documentId": "B11",
+          "accountNumber": "6930",
+          "side": "debit",
+          "amount": 29654,
+          "text": "AM-bidrag vedr. juni",
+          "role": "payment"
+        },
+        {
+          "documentId": "B11",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 144101,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 144101,
+      "creditTotal": 144101,
+      "balanced": true
+    },
+    {
+      "id": "B12",
+      "period": "july",
+      "phase": "july-settlement",
+      "title": "Betaling af pension vedr. juni",
+      "expectedPostings": [
+        {
+          "documentId": "B12",
+          "accountNumber": "6922",
+          "side": "debit",
+          "amount": 43884,
+          "text": "Pension vedr. juni",
+          "role": "payment"
+        },
+        {
+          "documentId": "B12",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 43884,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 43884,
+      "creditTotal": 43884,
+      "balanced": true
+    },
+    {
+      "id": "B13",
+      "period": "july",
+      "phase": "july-settlement",
+      "title": "Betaling til FerieKonto vedr. juni",
+      "expectedPostings": [
+        {
+          "documentId": "B13",
+          "accountNumber": "6923",
+          "side": "debit",
+          "amount": 11716,
+          "text": "Nettoferiepenge vedr. juni",
+          "role": "payment"
+        },
+        {
+          "documentId": "B13",
+          "accountNumber": "5820",
+          "side": "credit",
+          "amount": 11716,
+          "text": "Betaling via bank",
+          "role": "payment"
+        }
+      ],
+      "debitTotal": 11716,
+      "creditTotal": 11716,
+      "balanced": true
+    }
+  ],
+  "checkpointBalances": [
+    {
+      "accountNumber": "2210",
+      "amount": 915932,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2211",
+      "amount": 1164024,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2215",
+      "amount": 260588,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2223",
+      "amount": 14256,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2230",
+      "amount": 119574,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2235",
+      "amount": 32500,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "5820",
+      "amount": 1086225,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "6920",
+      "amount": 114447,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6921",
+      "amount": 14256,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6922",
+      "amount": 43884,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6923",
+      "amount": 11716,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6924",
+      "amount": 182500,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6930",
+      "amount": 29654,
+      "side": "credit"
+    }
+  ],
+  "ytdSpecification": {
+    "pension": {
+      "hourlyEmployee": 38262,
+      "hourlyEmployer": 76526,
+      "salariedEmployee": 48600,
+      "salariedEmployer": 97200
+    },
+    "atp": {
+      "hourlyEmployee": 2376,
+      "hourlyEmployer": 4752,
+      "salariedEmployee": 2376,
+      "salariedEmployer": 4752
+    }
+  },
+  "checkpoint": {
+    "hourlyGrossPayroll": {
+      "wageAccount": 915932,
+      "employeePension": 38262,
+      "employeeAtp": 2376,
+      "grossPayroll": 956570
+    },
+    "salariedGrossPayroll": {
+      "wageAccount": 1164024,
+      "employeePension": 48600,
+      "employeeAtp": 2376,
+      "grossPayroll": 1215000
+    },
+    "otherPayrollCosts": {
+      "employerPension": 173726,
+      "employerAtp": 9504,
+      "hourlyHolidayPay": 119574,
+      "holidayLiabilityAdjustment": 32500
+    },
+    "operatingTotal": 2506874,
+    "pensionSpecificationTotal": 260588,
+    "atpSpecificationTotal": 14256
+  },
+  "finalBalances": [
+    {
+      "accountNumber": "2210",
+      "amount": 915932,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2211",
+      "amount": 1164024,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2215",
+      "amount": 260588,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2223",
+      "amount": 14256,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2230",
+      "amount": 119574,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "2235",
+      "amount": 32500,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "5820",
+      "amount": 879396,
+      "side": "debit"
+    },
+    {
+      "accountNumber": "6920",
+      "amount": 0,
+      "side": "zero"
+    },
+    {
+      "accountNumber": "6921",
+      "amount": 7128,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6922",
+      "amount": 0,
+      "side": "zero"
+    },
+    {
+      "accountNumber": "6923",
+      "amount": 0,
+      "side": "zero"
+    },
+    {
+      "accountNumber": "6924",
+      "amount": 182500,
+      "side": "credit"
+    },
+    {
+      "accountNumber": "6930",
+      "amount": 0,
+      "side": "zero"
+    }
+  ]
+}
