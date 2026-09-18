@@ -45,6 +45,6 @@ Denne opgavekontekst kunne ikke selv hente live-URL'en via webværktøjet, så d
 
 Kilde, tests, fixtures, docs, public assets, packagefiler og konfiguration trackes. `artifacts/` forbliver ignored sammen med dependencies, build-output, coverage, browseroutput, cache/temp og lokale environment-filer. Lokale audit-screenshots og logs er ikke del af det offentlige repository.
 
-## Dokumentationscommit
+## Afsluttende dokumentation
 
-Denne fil dokumenterer den faktiske release efter initial commit. Commit-hash, push-resultat, final Git-state og eventuel efterfølgende workflowstatus tilføjes i committen, når den er oprettet og pushed.
+Releasejournalen er committed og pushed til `origin/main`. Ved afslutningen er working tree clean, og `main` tracker `origin/main`. Den nye Actions-run for dokumentationscommittet kunne ikke læses direkte fra denne opgavekontekst; den oprindelige deploy-run er oplyst som grøn/success.
