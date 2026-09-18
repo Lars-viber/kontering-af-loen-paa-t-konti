@@ -151,3 +151,39 @@ button.danger-action { color:#fff; border-color:var(--error); background:var(--e
   .completed-actions { justify-content:stretch; }
   .completed-actions button { flex:1; }
 }
+
+.level-home { width:min(1060px,calc(100% - 40px)); }
+.level-choice-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; align-items:start; }
+.level-card { min-height:290px; }
+.level-card>p { min-height:42px; }
+.level-card-actions,.level-shortcuts,.menu-footer-actions,.level2-shell-actions { display:flex; flex-wrap:wrap; gap:9px; }
+.level-shortcuts { margin-top:10px; padding-top:12px; border-top:1px solid #E4ECF3; }
+.level-card .session-card { padding:14px; align-items:flex-start; flex-direction:column; box-shadow:none; }
+.level-card .session-card button { width:100%; }
+.level2-problem { margin-top:12px; padding:14px; border:1px solid #e6b7b2; border-radius:8px; background:#fff8f7; }
+.level2-problem strong { color:var(--error); }
+.level2-problem p { min-height:0; margin:6px 0 12px; }
+.menu-footer-actions { justify-content:flex-end; margin-top:18px; }
+.level2-shell { width:min(760px,calc(100% - 40px)); margin:0 auto; padding:48px 0; }
+.level2-shell-card { padding:28px; border:1px solid var(--border); border-radius:14px; background:var(--surface); box-shadow:var(--shadow); }
+.level2-shell-card h2 { margin:6px 0 22px; color:var(--primary); font-size:30px; }
+.level2-summary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:0; }
+.level2-summary>div { padding:14px; border-radius:9px; background:#F1F6FC; }
+.level2-summary dt { color:var(--muted); font-size:12px; font-weight:700; }
+.level2-summary dd { margin:4px 0 0; color:var(--text); font-size:18px; font-weight:800; }
+.level2-next-note { margin:20px 0; color:var(--muted); }
+.save-status,.save-warning { margin:14px 0; padding:11px 13px; border-radius:8px; }
+.save-status.success { color:#185B49; background:#E5F5EF; font-weight:750; }
+.save-warning { border:1px solid #edcf91; background:#fff9e9; }
+.save-warning p { margin:0 0 9px; }
+.level2-shell-actions { justify-content:space-between; margin-top:24px; }
+button.danger-outline { color:var(--error); border-color:#D9A29C; }
+.split-actions { justify-content:space-between; }
+
+@media (max-width:700px) {
+  .level-choice-grid,.level2-summary { grid-template-columns:1fr; }
+  .level-card { min-height:0; }
+  .level2-shell { padding-top:28px; }
+  .level2-shell-actions,.split-actions { align-items:stretch; flex-direction:column-reverse; }
+  .level2-shell-actions button,.split-actions button { width:100%; }
+}

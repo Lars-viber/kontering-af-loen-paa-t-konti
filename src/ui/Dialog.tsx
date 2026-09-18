@@ -10,10 +10,14 @@ export function Dialog({ title, children, onClose }: { title: string; children: 
   }, [onClose]);
 
   useEffect(() => {
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     panel.current?.querySelector<HTMLElement>('input,button')?.focus();
     const close = (event: KeyboardEvent) => { if (event.key === 'Escape') closeRef.current(); };
     window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
+    return () => {
+      window.removeEventListener('keydown', close);
+      previousFocus?.focus();
+    };
   }, []);
 
   return <div className="dialog-backdrop" role="presentation">
