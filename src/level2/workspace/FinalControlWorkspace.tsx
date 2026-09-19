@@ -10,6 +10,7 @@ import {
 import { FINAL_REASON_LABELS } from './checkpointPresentation';
 import { FINAL_REASON_OPTIONS, presentFinalItems } from './finalPresentation';
 import { formatLevel2Balance } from './format';
+import { Level2Progress } from './Level2Progress';
 import { WorkspaceSaveStatus } from './WorkspaceSaveStatus';
 
 export function FinalControlWorkspace({
@@ -37,6 +38,7 @@ export function FinalControlWorkspace({
         <p>Forklar hvorfor de afsluttende saldi ser sådan ud.</p></div>
       <div className="l2-phase-progress"><strong>{correctCount} af 6 korrekte</strong></div>
     </header>
+    <Level2Progress state={state} />
     <div className="l2-final-grid">
       {presentation.map(item => {
         const studentItem = state.finalControl.items.find(candidate => candidate.itemId === item.itemId);

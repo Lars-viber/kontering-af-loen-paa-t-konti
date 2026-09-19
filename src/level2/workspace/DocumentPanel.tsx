@@ -2,6 +2,7 @@ import type { Level2CaseSnapshot } from '../session';
 import type { Level2StudentState, StudentDocumentTotals } from '../state';
 import { selectActiveDocument } from '../state';
 import { formatLevel2Amount } from './format';
+import { Level2Progress } from './Level2Progress';
 import { presentLevel2Document } from './documentPresentation';
 
 interface DocumentPanelProps {
@@ -29,6 +30,7 @@ export function DocumentPanel({
   return <aside className="l2-document-panel">
     <p className="eyebrow">{presentation.documentId} · {presentation.periodLabel}</p>
     <h2>{presentation.title}</h2>
+    <Level2Progress state={state} compact />
     <dl className="l2-document-lines">
       {presentation.rows.map((row, index) => <div className={row.emphasis === 'total' ? 'total' : ''} key={row.label + index}>
         <dt>{row.label}</dt><dd>{formatLevel2Amount(row.amount)}</dd>

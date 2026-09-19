@@ -48,6 +48,24 @@ describe('J3B Niveau 2 workspace', () => {
     expect(within(card('2210')).getByText(/Saldo ÅTD t.o.m. 31\/5/)).toBeTruthy();
     expect(within(card('5820')).getByText(/Saldo pr. 1\/6/)).toBeTruthy();
     expect(screen.getByRole('heading', { name: 'Niveau 2' })).toBeTruthy();
+    expect(screen.getByRole('navigation', { name: 'Niveau 2-progression' })).toBeTruthy();
+    expect(screen.getByText('0 af 13 bilag gennemført · 13 tilbage')).toBeTruthy();
+  });
+
+  it('viser den foretrukne kompakte progression ved B3', () => {
+    let state = createInitialStudentState(snapshot);
+    state = completeActiveDocument(snapshot, state);
+    state = completeActiveDocument(snapshot, state);
+    render(<Harness initial={state} />);
+    const progress = screen.getByRole('navigation', { name: 'Niveau 2-progression' });
+    expect(within(progress).getByText('B1')).toBeTruthy();
+    expect(within(progress).getByText('B2')).toBeTruthy();
+    expect(within(progress).getByText('B3')).toBeTruthy();
+    expect(within(progress).getByText('B4–B9')).toBeTruthy();
+    expect(within(progress).getByText('Checkpoint')).toBeTruthy();
+    expect(within(progress).getByText('B10–B13')).toBeTruthy();
+    expect(within(progress).getByText('Slutkontrol')).toBeTruthy();
+    expect(within(progress).getByText('B3').closest('li')?.getAttribute('aria-current')).toBe('step');
   });
 
   it('tilføjer, bevarer råt dansk input og fjerner en unlocked række', async () => {

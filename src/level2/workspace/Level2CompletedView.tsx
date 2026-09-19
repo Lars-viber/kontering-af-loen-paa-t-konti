@@ -1,6 +1,7 @@
 import type { Level2PersistedSession } from '../session';
 import { presentFinalItems } from './finalPresentation';
 import { formatLevel2Balance } from './format';
+import { Level2Progress } from './Level2Progress';
 
 export function Level2CompletedView({
   session, onGoHome,
@@ -11,6 +12,7 @@ export function Level2CompletedView({
   const items = presentFinalItems(session.caseSnapshot);
   return <main className="l2-phase-workspace l2-completed-workspace">
     <button type="button" className="l2-main-home" onClick={onGoHome}>Til forsiden</button>
+    <Level2Progress state={session.studentState} />
     <section className="l2-completed-panel">
       <div className="l2-completed-heading">
         <span aria-hidden="true">✓</span>

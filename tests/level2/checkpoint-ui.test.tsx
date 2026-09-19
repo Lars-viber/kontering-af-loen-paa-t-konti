@@ -3,18 +3,21 @@ import { useState } from 'react';
 import { afterEach, describe, expect, it } from 'vitest';
 import { cleanup, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { generateLevel2Case } from '../../src/domain/level2';
+import { LEVEL2_ACCOUNTS, generateLevel2Case } from '../../src/domain/level2';
 import { createLevel2PersistedSession } from '../../src/level2/session';
 import {
   CHECKPOINT_BALANCE_ACCOUNTS,
+  addStudentPostingRow,
+  checkActiveDocument,
   checkCheckpointSection,
+  createInitialStudentState,
   editCheckpointAmount,
   editCheckpointBalance,
   type CheckpointSectionId,
   type Level2StudentState,
 } from '../../src/level2/state';
-import { Level2Workspace, formatLevel2Amount } from '../../src/level2/workspace';
-import { advanceToCheckpoint } from './state-helpers';
+import { Level2Workspace, formatLevel2Amount, formatLevel2Balance, selectCurrentAccountBalance } from '../../src/level2/workspace';
+import { advanceToCheckpoint, completeActiveDocument } from './state-helpers';
 
 afterEach(cleanup);
 const snapshot = generateLevel2Case(42);
@@ -70,7 +73,11 @@ describe('J3C checkpoint UI', () => {
       ...Object.values(snapshot.derived.checkpoint.otherPayrollCosts),
       snapshot.derived.checkpoint.operatingTotal,
     ].filter(value => value > 1000);
-    for (const value of forbidden) expect(document.body.innerHTML).not.toContain(String(value));
+    const checkpointInputs = screen.getAllByPlaceholderText('Beløb');
+    for (const input of checkpointInputs) {
+      const attributes = [...input.attributes].map(attribute => attribute.value).join(' ');
+      for (const value of forbidden) expect(attributes).not.toContain(String(value));
+    }
   });
 
   it('bevarer rå input, viser neutral fejl og edit nulstiller incorrect til unchecked', async () => {
@@ -153,20 +160,61 @@ describe('J3C checkpoint UI', () => {
     expect(screen.queryByRole('button', { name: /Fortsæt/ })).toBeNull();
   });
 
-  it('viser ÅTD-specifikation readonly uden at ændre checkpoint og returnerer fokus', async () => {
+  it('viser inline ÅTD og 13 readonly T-konti samtidig med editable checkpointfelter', async () => {
     render(<Harness />);
     const user = userEvent.setup();
-    const opener = screen.getByRole('button', { name: 'Vis ÅTD-specifikation' });
-    expect(screen.queryByRole('dialog', { name: 'ÅTD-specifikation' })).toBeNull();
-    await user.click(opener);
-    const dialog = screen.getByRole('dialog', { name: 'ÅTD-specifikation' });
-    expect(within(dialog).getByRole('heading', { name: 'Pensioner' })).toBeTruthy();
-    expect(within(dialog).getByRole('heading', { name: 'ATP' })).toBeTruthy();
-    expect(within(dialog).getAllByText('Total')).toHaveLength(2);
-    expect(within(dialog).queryByRole('textbox')).toBeNull();
-    await user.keyboard('{Escape}');
-    expect(screen.queryByRole('dialog', { name: 'ÅTD-specifikation' })).toBeNull();
-    expect(document.activeElement).toBe(opener);
+    const reference = screen.getByRole('complementary', { name: 'Reference' });
+    const ytd = reference.querySelector<HTMLElement>('.l2-ytd-grid')!;
+    expect(within(reference).getByRole('heading', { name: 'ÅTD-specifikation' })).toBeTruthy();
+    expect(within(ytd).getByRole('heading', { name: 'Pensioner' })).toBeTruthy();
+    expect(within(ytd).getByRole('heading', { name: 'ATP' })).toBeTruthy();
+    expect(within(ytd).getAllByText('Total')).toHaveLength(2);
+    expect(reference.querySelectorAll('[data-reference-account]')).toHaveLength(13);
+    expect(within(reference).queryByPlaceholderText('Beløb')).toBeNull();
+    expect(within(reference).queryByRole('button', { name: /Tilføj postering/ })).toBeNull();
+    expect(screen.getAllByPlaceholderText('Beløb')).toHaveLength(19);
+
+    const toggle = screen.getByRole('button', { name: 'Skjul reference' });
+    await user.click(toggle);
+    expect(screen.queryByRole('complementary', { name: 'Reference' })).toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Vis reference' }));
+    expect(screen.getByRole('complementary', { name: 'Reference' })).toBeTruthy();
     expect(screen.getByText('0 af 5 korrekte')).toBeTruthy();
   });
+
+  it('viser student-derived rows og saldo pr. 30/6 uden at kollapse splitposteringer', async () => {
+    let state = createSplitCheckpointState();
+    render(<Harness initial={state} />);
+    const expectedPosting = snapshot.derived.documents[0].expectedPostings[0];
+    const reference = document.querySelector<HTMLElement>('[data-reference-account="' + expectedPosting.accountNumber + '"]')!;
+    const first = Math.max(1, Math.floor(expectedPosting.amount / 3));
+    await userEvent.click(within(reference).getByRole('button', { name: /tidligere/ }));
+    const history = screen.getByRole('dialog', { name: new RegExp(expectedPosting.accountNumber) });
+    expect(within(history).getByText(formatLevel2Amount(first))).toBeTruthy();
+    expect(within(history).getByText(formatLevel2Amount(expectedPosting.amount - first))).toBeTruthy();
+
+    for (const accountNumber of ['2210', '5820', '6920'] as const) {
+      const account = document.querySelector<HTMLElement>('[data-reference-account="' + accountNumber + '"]')!;
+      const balance = selectCurrentAccountBalance(snapshot, state, accountNumber);
+      expect(balance).not.toBeNull();
+      expect(within(account).getByText(formatLevel2Balance(balance!))).toBeTruthy();
+      expect(within(account).getByText('Saldo pr. 30/6')).toBeTruthy();
+    }
+    expect(document.querySelectorAll('[data-reference-account]').length).toBe(LEVEL2_ACCOUNTS.length);
+  });
 });
+
+function createSplitCheckpointState(): Level2StudentState {
+  let state = createInitialStudentState(snapshot);
+  const expected = snapshot.derived.documents[0].expectedPostings;
+  const split = expected[0];
+  const first = Math.max(1, Math.floor(split.amount / 3));
+  state = addStudentPostingRow(state, split.accountNumber, split.side, String(first), 'Første del');
+  state = addStudentPostingRow(state, split.accountNumber, split.side, String(split.amount - first), 'Anden del');
+  for (const posting of expected.slice(1)) {
+    state = addStudentPostingRow(state, posting.accountNumber, posting.side, String(posting.amount), posting.text);
+  }
+  state = checkActiveDocument(snapshot, state);
+  for (let index = 1; index < 9; index += 1) state = completeActiveDocument(snapshot, state);
+  return state;
+}
