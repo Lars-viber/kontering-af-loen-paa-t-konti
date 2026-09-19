@@ -1,0 +1,3681 @@
+{
+  "1": {
+    "identity": {
+      "rulesetYear": 2026,
+      "rulesetVersion": 2,
+      "generatorVersion": 2
+    },
+    "variant": 1,
+    "seed": "payroll-level2:ruleset-2026-v2:generator-v2:1",
+    "drawCount": 58,
+    "inputs": {
+      "employeeCounts": {
+        "hourly": 4,
+        "salaried": 4
+      },
+      "hourlyEmployees": [
+        {
+          "id": "T1",
+          "hourlyRate": 265,
+          "taxRate": 36,
+          "monthlyDeduction": 6000,
+          "hours": {
+            "jan": 144,
+            "feb": 137,
+            "mar": 128,
+            "apr": 135,
+            "may": 143,
+            "jun": 167
+          }
+        },
+        {
+          "id": "T2",
+          "hourlyRate": 255,
+          "taxRate": 37,
+          "monthlyDeduction": 4250,
+          "hours": {
+            "jan": 154,
+            "feb": 158,
+            "mar": 129,
+            "apr": 135,
+            "may": 168,
+            "jun": 148
+          }
+        },
+        {
+          "id": "T3",
+          "hourlyRate": 220,
+          "taxRate": 39,
+          "monthlyDeduction": 4250,
+          "hours": {
+            "jan": 177,
+            "feb": 133,
+            "mar": 153,
+            "apr": 154,
+            "may": 169,
+            "jun": 140
+          }
+        },
+        {
+          "id": "T4",
+          "hourlyRate": 265,
+          "taxRate": 41,
+          "monthlyDeduction": 5250,
+          "hours": {
+            "jan": 135,
+            "feb": 125,
+            "mar": 137,
+            "apr": 127,
+            "may": 150,
+            "jun": 174
+          }
+        }
+      ],
+      "salariedEmployees": [
+        {
+          "id": "M1",
+          "monthlySalary": 52500,
+          "taxRate": 36,
+          "monthlyDeduction": 5250
+        },
+        {
+          "id": "M2",
+          "monthlySalary": 55500,
+          "taxRate": 41,
+          "monthlyDeduction": 5000
+        },
+        {
+          "id": "M3",
+          "monthlySalary": 56000,
+          "taxRate": 37,
+          "monthlyDeduction": 5250
+        },
+        {
+          "id": "M4",
+          "monthlySalary": 61500,
+          "taxRate": 38,
+          "monthlyDeduction": 5250
+        }
+      ],
+      "holidayLiability": {
+        "factorPercent": 80,
+        "yearStartLiability": 180000,
+        "monthlyAdjustments": {
+          "jan": 5000,
+          "feb": 8500,
+          "mar": 3000,
+          "apr": 2000,
+          "may": 8500,
+          "jun": 5500
+        },
+        "holidayLiabilityBeforeAdjustment": 207000,
+        "systemAssessedHolidayLiability": 212500
+      },
+      "bank": {
+        "requiredCash": 433369,
+        "buffer": 250000,
+        "bankStart": 700000
+      }
+    },
+    "source": {
+      "startBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 692393,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1080420,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 222096,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 11880,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 90416,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 27000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 700000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 120215,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 11880,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 45980,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 11198,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 207000,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 30940,
+          "side": "credit"
+        }
+      ],
+      "documentSources": [
+        {
+          "id": "B1",
+          "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-a-tax",
+              "label": "Skyldig A-skat vedr. maj",
+              "amount": 120215
+            },
+            {
+              "id": "may-am-contribution",
+              "label": "Skyldigt AM-bidrag vedr. maj",
+              "amount": 30940
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B2",
+          "title": "Betaling af pension vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-pension",
+              "label": "Skyldig pension vedr. maj",
+              "amount": 45980
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B3",
+          "title": "Betaling til FerieKonto vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-net-holiday-pay",
+              "label": "Nettoferiepenge vedr. maj",
+              "amount": 11198
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B4",
+          "title": "Lønkørsel – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-pay",
+              "label": "Bruttoløn – timelønnede – juni",
+              "amount": 158905
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-pay-ytd",
+            "hourly-employee-pension-ytd",
+            "hourly-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B5",
+          "title": "Arbejdsgiverbidrag – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-employer-pension",
+              "label": "Arbejdsgiverpension – timelønnede – juni",
+              "amount": 12712
+            },
+            {
+              "id": "june-hourly-employer-atp",
+              "label": "Arbejdsgiver-ATP – timelønnede – juni",
+              "amount": 792
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-employer-pension-ytd",
+            "hourly-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B6",
+          "title": "Feriepenge – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-holiday-pay",
+              "label": "Bruttoferiepenge – juni",
+              "amount": 19864
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-holiday-pay-ytd"
+          ]
+        },
+        {
+          "id": "B7",
+          "title": "Lønkørsel – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-gross-pay",
+              "label": "Bruttoløn – månedslønnede – juni",
+              "amount": 225500
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-gross-pay-ytd",
+            "salaried-employee-pension-ytd",
+            "salaried-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B8",
+          "title": "Arbejdsgiverbidrag – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-employer-pension",
+              "label": "Arbejdsgiverpension – månedslønnede – juni",
+              "amount": 18040
+            },
+            {
+              "id": "june-salaried-employer-atp",
+              "label": "Arbejdsgiver-ATP – månedslønnede – juni",
+              "amount": 792
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-employer-pension-ytd",
+            "salaried-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B9",
+          "title": "Regulering af feriepengeforpligtelse pr. 30/6",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "holiday-liability-before-adjustment",
+              "label": "Bogført saldo før regulering",
+              "amount": 207000
+            },
+            {
+              "id": "holiday-liability-system-assessed",
+              "label": "Systemopgjort saldo pr. 30/6",
+              "amount": 212500
+            }
+          ],
+          "visibleTallyIds": [
+            "holiday-liability-system-assessed"
+          ]
+        }
+      ],
+      "tallies": [
+        {
+          "id": "hourly-gross-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 882210,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 35288,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 2376,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 70576,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 4752,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-gross-holiday-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-holiday-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 110280,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoferiepenge ÅTD – timelønnede"
+        },
+        {
+          "id": "salaried-gross-pay-ytd",
+          "employeeGroup": "salaried",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 1353000,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 54120,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 2376,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 108240,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 4752,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "holiday-liability-adjustment-ytd",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-adjustment",
+          "period": "ytd-through-2026-06",
+          "amount": 32500,
+          "source": "payroll-system",
+          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
+        },
+        {
+          "id": "holiday-liability-system-assessed",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-balance",
+          "period": "as-of-2026-06-30",
+          "amount": 212500,
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse pr. 30/6"
+        }
+      ],
+      "liabilityControls": [
+        {
+          "id": "june-a-tax",
+          "accountNumber": "6920",
+          "amount": 120736,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "A-skat vedr. juni"
+        },
+        {
+          "id": "june-am-contribution",
+          "accountNumber": "6930",
+          "amount": 31047,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "AM-bidrag vedr. juni"
+        },
+        {
+          "id": "june-pension",
+          "accountNumber": "6922",
+          "amount": 46128,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Pension vedr. juni"
+        },
+        {
+          "id": "atp-as-of-june-30",
+          "accountNumber": "6921",
+          "amount": 14256,
+          "period": "as-of-2026-06-30",
+          "source": "settlement-report",
+          "presentationLabel": "ATP akkumuleret pr. 30/6"
+        },
+        {
+          "id": "june-net-holiday-pay",
+          "accountNumber": "6923",
+          "amount": 11282,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Nettoferiepenge til FerieKonto vedr. juni"
+        },
+        {
+          "id": "holiday-liability-as-of-june-30",
+          "accountNumber": "6924",
+          "amount": 212500,
+          "period": "as-of-2026-06-30",
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse"
+        }
+      ]
+    },
+    "answers": {
+      "documentTotals": [
+        {
+          "id": "B1",
+          "debitTotal": 151155,
+          "creditTotal": 151155
+        },
+        {
+          "id": "B2",
+          "debitTotal": 45980,
+          "creditTotal": 45980
+        },
+        {
+          "id": "B3",
+          "debitTotal": 11198,
+          "creditTotal": 11198
+        },
+        {
+          "id": "B4",
+          "debitTotal": 158905,
+          "creditTotal": 158905
+        },
+        {
+          "id": "B5",
+          "debitTotal": 13504,
+          "creditTotal": 13504
+        },
+        {
+          "id": "B6",
+          "debitTotal": 19864,
+          "creditTotal": 19864
+        },
+        {
+          "id": "B7",
+          "debitTotal": 225500,
+          "creditTotal": 225500
+        },
+        {
+          "id": "B8",
+          "debitTotal": 18832,
+          "creditTotal": 18832
+        },
+        {
+          "id": "B9",
+          "debitTotal": 5500,
+          "creditTotal": 5500
+        }
+      ],
+      "reconciliation": {
+        "A": {
+          "wageAccountYtd": 844546,
+          "employeePensionYtd": 35288,
+          "employeeAtpYtd": 2376,
+          "calculatedGrossPayYtd": 882210,
+          "externalTallyId": "hourly-gross-pay-ytd",
+          "bookedAmount": 882210,
+          "controlAmount": 882210,
+          "difference": 0
+        },
+        "B": {
+          "wageAccountYtd": 1296504,
+          "employeePensionYtd": 54120,
+          "employeeAtpYtd": 2376,
+          "calculatedGrossPayYtd": 1353000,
+          "externalTallyId": "salaried-gross-pay-ytd",
+          "bookedAmount": 1353000,
+          "controlAmount": 1353000,
+          "difference": 0
+        },
+        "C": {
+          "employerPension": {
+            "bookedAmount": 178816,
+            "controlAmount": 178816,
+            "difference": 0
+          },
+          "employerAtp": {
+            "bookedAmount": 9504,
+            "controlAmount": 9504,
+            "difference": 0
+          },
+          "grossHolidayPay": {
+            "bookedAmount": 110280,
+            "controlAmount": 110280,
+            "difference": 0
+          },
+          "holidayLiabilityAdjustment": {
+            "bookedAmount": 32500,
+            "controlAmount": 32500,
+            "difference": 0
+          }
+        },
+        "D": {
+          "bookedAmount": 2566310,
+          "controlAmount": 2566310,
+          "difference": 0
+        },
+        "E": [
+          {
+            "accountNumber": "6920",
+            "bookedSide": "credit",
+            "controlId": "june-a-tax",
+            "bookedAmount": 120736,
+            "controlAmount": 120736,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6930",
+            "bookedSide": "credit",
+            "controlId": "june-am-contribution",
+            "bookedAmount": 31047,
+            "controlAmount": 31047,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6922",
+            "bookedSide": "credit",
+            "controlId": "june-pension",
+            "bookedAmount": 46128,
+            "controlAmount": 46128,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6921",
+            "bookedSide": "credit",
+            "controlId": "atp-as-of-june-30",
+            "bookedAmount": 14256,
+            "controlAmount": 14256,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6923",
+            "bookedSide": "credit",
+            "controlId": "june-net-holiday-pay",
+            "bookedAmount": 11282,
+            "controlAmount": 11282,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6924",
+            "bookedSide": "credit",
+            "controlId": "holiday-liability-as-of-june-30",
+            "bookedAmount": 212500,
+            "controlAmount": 212500,
+            "difference": 0
+          }
+        ]
+      },
+      "finalBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 844546,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1296504,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 268224,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 14256,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 110280,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 32500,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 266631,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 120736,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 14256,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 46128,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 11282,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 212500,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 31047,
+          "side": "credit"
+        }
+      ]
+    }
+  },
+  "2": {
+    "identity": {
+      "rulesetYear": 2026,
+      "rulesetVersion": 2,
+      "generatorVersion": 2
+    },
+    "variant": 2,
+    "seed": "payroll-level2:ruleset-2026-v2:generator-v2:2",
+    "drawCount": 46,
+    "inputs": {
+      "employeeCounts": {
+        "hourly": 3,
+        "salaried": 3
+      },
+      "hourlyEmployees": [
+        {
+          "id": "T1",
+          "hourlyRate": 210,
+          "taxRate": 38,
+          "monthlyDeduction": 5000,
+          "hours": {
+            "jan": 148,
+            "feb": 133,
+            "mar": 143,
+            "apr": 173,
+            "may": 131,
+            "jun": 125
+          }
+        },
+        {
+          "id": "T2",
+          "hourlyRate": 215,
+          "taxRate": 39,
+          "monthlyDeduction": 5750,
+          "hours": {
+            "jan": 137,
+            "feb": 177,
+            "mar": 166,
+            "apr": 162,
+            "may": 169,
+            "jun": 136
+          }
+        },
+        {
+          "id": "T3",
+          "hourlyRate": 225,
+          "taxRate": 38,
+          "monthlyDeduction": 5750,
+          "hours": {
+            "jan": 144,
+            "feb": 149,
+            "mar": 152,
+            "apr": 140,
+            "may": 150,
+            "jun": 171
+          }
+        }
+      ],
+      "salariedEmployees": [
+        {
+          "id": "M1",
+          "monthlySalary": 62500,
+          "taxRate": 42,
+          "monthlyDeduction": 5750
+        },
+        {
+          "id": "M2",
+          "monthlySalary": 42500,
+          "taxRate": 37,
+          "monthlyDeduction": 6000
+        },
+        {
+          "id": "M3",
+          "monthlySalary": 52500,
+          "taxRate": 38,
+          "monthlyDeduction": 4750
+        }
+      ],
+      "holidayLiability": {
+        "factorPercent": 95,
+        "yearStartLiability": 150000,
+        "monthlyAdjustments": {
+          "jan": 8000,
+          "feb": 8500,
+          "mar": 4500,
+          "apr": 4500,
+          "may": 4500,
+          "jun": 4000
+        },
+        "holidayLiabilityBeforeAdjustment": 180000,
+        "systemAssessedHolidayLiability": 184000
+      },
+      "bank": {
+        "requiredCash": 285184,
+        "buffer": 400000,
+        "bankStart": 700000
+      }
+    },
+    "source": {
+      "startBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 471432,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 754515,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 153610,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 8910,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 61579,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 30000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 700000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 79096,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 8910,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 30611,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 6917,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 180000,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 20520,
+          "side": "credit"
+        }
+      ],
+      "documentSources": [
+        {
+          "id": "B1",
+          "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-a-tax",
+              "label": "Skyldig A-skat vedr. maj",
+              "amount": 79096
+            },
+            {
+              "id": "may-am-contribution",
+              "label": "Skyldigt AM-bidrag vedr. maj",
+              "amount": 20520
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B2",
+          "title": "Betaling af pension vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-pension",
+              "label": "Skyldig pension vedr. maj",
+              "amount": 30611
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B3",
+          "title": "Betaling til FerieKonto vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-net-holiday-pay",
+              "label": "Nettoferiepenge vedr. maj",
+              "amount": 6917
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B4",
+          "title": "Lønkørsel – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-pay",
+              "label": "Bruttoløn – timelønnede – juni",
+              "amount": 93965
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-pay-ytd",
+            "hourly-employee-pension-ytd",
+            "hourly-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B5",
+          "title": "Arbejdsgiverbidrag – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-employer-pension",
+              "label": "Arbejdsgiverpension – timelønnede – juni",
+              "amount": 7517
+            },
+            {
+              "id": "june-hourly-employer-atp",
+              "label": "Arbejdsgiver-ATP – timelønnede – juni",
+              "amount": 594
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-employer-pension-ytd",
+            "hourly-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B6",
+          "title": "Feriepenge – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-holiday-pay",
+              "label": "Bruttoferiepenge – juni",
+              "amount": 11745
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-holiday-pay-ytd"
+          ]
+        },
+        {
+          "id": "B7",
+          "title": "Lønkørsel – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-gross-pay",
+              "label": "Bruttoløn – månedslønnede – juni",
+              "amount": 157500
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-gross-pay-ytd",
+            "salaried-employee-pension-ytd",
+            "salaried-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B8",
+          "title": "Arbejdsgiverbidrag – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-employer-pension",
+              "label": "Arbejdsgiverpension – månedslønnede – juni",
+              "amount": 12600
+            },
+            {
+              "id": "june-salaried-employer-atp",
+              "label": "Arbejdsgiver-ATP – månedslønnede – juni",
+              "amount": 594
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-employer-pension-ytd",
+            "salaried-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B9",
+          "title": "Regulering af feriepengeforpligtelse pr. 30/6",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "holiday-liability-before-adjustment",
+              "label": "Bogført saldo før regulering",
+              "amount": 180000
+            },
+            {
+              "id": "holiday-liability-system-assessed",
+              "label": "Systemopgjort saldo pr. 30/6",
+              "amount": 184000
+            }
+          ],
+          "visibleTallyIds": [
+            "holiday-liability-system-assessed"
+          ]
+        }
+      ],
+      "tallies": [
+        {
+          "id": "hourly-gross-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 586585,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 23462,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 1782,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 46924,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-gross-holiday-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-holiday-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 73324,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoferiepenge ÅTD – timelønnede"
+        },
+        {
+          "id": "salaried-gross-pay-ytd",
+          "employeeGroup": "salaried",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 945000,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 37800,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 1782,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 75600,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "holiday-liability-adjustment-ytd",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-adjustment",
+          "period": "ytd-through-2026-06",
+          "amount": 34000,
+          "source": "payroll-system",
+          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
+        },
+        {
+          "id": "holiday-liability-system-assessed",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-balance",
+          "period": "as-of-2026-06-30",
+          "amount": 184000,
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse pr. 30/6"
+        }
+      ],
+      "liabilityControls": [
+        {
+          "id": "june-a-tax",
+          "accountNumber": "6920",
+          "amount": 77647,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "A-skat vedr. juni"
+        },
+        {
+          "id": "june-am-contribution",
+          "accountNumber": "6930",
+          "amount": 20204,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "AM-bidrag vedr. juni"
+        },
+        {
+          "id": "june-pension",
+          "accountNumber": "6922",
+          "amount": 30176,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Pension vedr. juni"
+        },
+        {
+          "id": "atp-as-of-june-30",
+          "accountNumber": "6921",
+          "amount": 10692,
+          "period": "as-of-2026-06-30",
+          "source": "settlement-report",
+          "presentationLabel": "ATP akkumuleret pr. 30/6"
+        },
+        {
+          "id": "june-net-holiday-pay",
+          "accountNumber": "6923",
+          "amount": 6666,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Nettoferiepenge til FerieKonto vedr. juni"
+        },
+        {
+          "id": "holiday-liability-as-of-june-30",
+          "accountNumber": "6924",
+          "amount": 184000,
+          "period": "as-of-2026-06-30",
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse"
+        }
+      ]
+    },
+    "answers": {
+      "documentTotals": [
+        {
+          "id": "B1",
+          "debitTotal": 99616,
+          "creditTotal": 99616
+        },
+        {
+          "id": "B2",
+          "debitTotal": 30611,
+          "creditTotal": 30611
+        },
+        {
+          "id": "B3",
+          "debitTotal": 6917,
+          "creditTotal": 6917
+        },
+        {
+          "id": "B4",
+          "debitTotal": 93965,
+          "creditTotal": 93965
+        },
+        {
+          "id": "B5",
+          "debitTotal": 8111,
+          "creditTotal": 8111
+        },
+        {
+          "id": "B6",
+          "debitTotal": 11745,
+          "creditTotal": 11745
+        },
+        {
+          "id": "B7",
+          "debitTotal": 157500,
+          "creditTotal": 157500
+        },
+        {
+          "id": "B8",
+          "debitTotal": 13194,
+          "creditTotal": 13194
+        },
+        {
+          "id": "B9",
+          "debitTotal": 4000,
+          "creditTotal": 4000
+        }
+      ],
+      "reconciliation": {
+        "A": {
+          "wageAccountYtd": 561341,
+          "employeePensionYtd": 23462,
+          "employeeAtpYtd": 1782,
+          "calculatedGrossPayYtd": 586585,
+          "externalTallyId": "hourly-gross-pay-ytd",
+          "bookedAmount": 586585,
+          "controlAmount": 586585,
+          "difference": 0
+        },
+        "B": {
+          "wageAccountYtd": 905418,
+          "employeePensionYtd": 37800,
+          "employeeAtpYtd": 1782,
+          "calculatedGrossPayYtd": 945000,
+          "externalTallyId": "salaried-gross-pay-ytd",
+          "bookedAmount": 945000,
+          "controlAmount": 945000,
+          "difference": 0
+        },
+        "C": {
+          "employerPension": {
+            "bookedAmount": 122524,
+            "controlAmount": 122524,
+            "difference": 0
+          },
+          "employerAtp": {
+            "bookedAmount": 7128,
+            "controlAmount": 7128,
+            "difference": 0
+          },
+          "grossHolidayPay": {
+            "bookedAmount": 73324,
+            "controlAmount": 73324,
+            "difference": 0
+          },
+          "holidayLiabilityAdjustment": {
+            "bookedAmount": 34000,
+            "controlAmount": 34000,
+            "difference": 0
+          }
+        },
+        "D": {
+          "bookedAmount": 1768561,
+          "controlAmount": 1768561,
+          "difference": 0
+        },
+        "E": [
+          {
+            "accountNumber": "6920",
+            "bookedSide": "credit",
+            "controlId": "june-a-tax",
+            "bookedAmount": 77647,
+            "controlAmount": 77647,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6930",
+            "bookedSide": "credit",
+            "controlId": "june-am-contribution",
+            "bookedAmount": 20204,
+            "controlAmount": 20204,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6922",
+            "bookedSide": "credit",
+            "controlId": "june-pension",
+            "bookedAmount": 30176,
+            "controlAmount": 30176,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6921",
+            "bookedSide": "credit",
+            "controlId": "atp-as-of-june-30",
+            "bookedAmount": 10692,
+            "controlAmount": 10692,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6923",
+            "bookedSide": "credit",
+            "controlId": "june-net-holiday-pay",
+            "bookedAmount": 6666,
+            "controlAmount": 6666,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6924",
+            "bookedSide": "credit",
+            "controlId": "holiday-liability-as-of-june-30",
+            "bookedAmount": 184000,
+            "controlAmount": 184000,
+            "difference": 0
+          }
+        ]
+      },
+      "finalBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 561341,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 905418,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 183786,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 10692,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 73324,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 34000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 414816,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 77647,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 10692,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 30176,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 6666,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 184000,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 20204,
+          "side": "credit"
+        }
+      ]
+    }
+  },
+  "3": {
+    "identity": {
+      "rulesetYear": 2026,
+      "rulesetVersion": 2,
+      "generatorVersion": 2
+    },
+    "variant": 3,
+    "seed": "payroll-level2:ruleset-2026-v2:generator-v2:3",
+    "drawCount": 73,
+    "inputs": {
+      "employeeCounts": {
+        "hourly": 6,
+        "salaried": 3
+      },
+      "hourlyEmployees": [
+        {
+          "id": "T1",
+          "hourlyRate": 280,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "hours": {
+            "jan": 174,
+            "feb": 151,
+            "mar": 178,
+            "apr": 174,
+            "may": 145,
+            "jun": 161
+          }
+        },
+        {
+          "id": "T2",
+          "hourlyRate": 200,
+          "taxRate": 40,
+          "monthlyDeduction": 5250,
+          "hours": {
+            "jan": 180,
+            "feb": 131,
+            "mar": 163,
+            "apr": 125,
+            "may": 173,
+            "jun": 171
+          }
+        },
+        {
+          "id": "T3",
+          "hourlyRate": 240,
+          "taxRate": 40,
+          "monthlyDeduction": 5500,
+          "hours": {
+            "jan": 127,
+            "feb": 166,
+            "mar": 135,
+            "apr": 177,
+            "may": 128,
+            "jun": 178
+          }
+        },
+        {
+          "id": "T4",
+          "hourlyRate": 245,
+          "taxRate": 42,
+          "monthlyDeduction": 5000,
+          "hours": {
+            "jan": 128,
+            "feb": 178,
+            "mar": 166,
+            "apr": 144,
+            "may": 139,
+            "jun": 177
+          }
+        },
+        {
+          "id": "T5",
+          "hourlyRate": 215,
+          "taxRate": 40,
+          "monthlyDeduction": 4750,
+          "hours": {
+            "jan": 153,
+            "feb": 133,
+            "mar": 135,
+            "apr": 158,
+            "may": 161,
+            "jun": 166
+          }
+        },
+        {
+          "id": "T6",
+          "hourlyRate": 300,
+          "taxRate": 38,
+          "monthlyDeduction": 4500,
+          "hours": {
+            "jan": 155,
+            "feb": 169,
+            "mar": 180,
+            "apr": 154,
+            "may": 174,
+            "jun": 171
+          }
+        }
+      ],
+      "salariedEmployees": [
+        {
+          "id": "M1",
+          "monthlySalary": 43500,
+          "taxRate": 40,
+          "monthlyDeduction": 5250
+        },
+        {
+          "id": "M2",
+          "monthlySalary": 56000,
+          "taxRate": 36,
+          "monthlyDeduction": 5500
+        },
+        {
+          "id": "M3",
+          "monthlySalary": 64000,
+          "taxRate": 40,
+          "monthlyDeduction": 5500
+        }
+      ],
+      "holidayLiability": {
+        "factorPercent": 95,
+        "yearStartLiability": 155000,
+        "monthlyAdjustments": {
+          "jan": 8000,
+          "feb": 6000,
+          "mar": 10000,
+          "apr": 3000,
+          "may": 9500,
+          "jun": 2000
+        },
+        "holidayLiabilityBeforeAdjustment": 191500,
+        "systemAssessedHolidayLiability": 193500
+      },
+      "bank": {
+        "requiredCash": 462336,
+        "buffer": 700000,
+        "bankStart": 1200000
+      }
+    },
+    "source": {
+      "startBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 1105018,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 783315,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 236600,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 13365,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 144270,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 36500,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 1200000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 127059,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 13365,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 46835,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 15690,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 191500,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 32170,
+          "side": "credit"
+        }
+      ],
+      "documentSources": [
+        {
+          "id": "B1",
+          "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-a-tax",
+              "label": "Skyldig A-skat vedr. maj",
+              "amount": 127059
+            },
+            {
+              "id": "may-am-contribution",
+              "label": "Skyldigt AM-bidrag vedr. maj",
+              "amount": 32170
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B2",
+          "title": "Betaling af pension vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-pension",
+              "label": "Skyldig pension vedr. maj",
+              "amount": 46835
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B3",
+          "title": "Betaling til FerieKonto vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-net-holiday-pay",
+              "label": "Nettoferiepenge vedr. maj",
+              "amount": 15690
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B4",
+          "title": "Lønkørsel – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-pay",
+              "label": "Bruttoløn – timelønnede – juni",
+              "amount": 252355
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-pay-ytd",
+            "hourly-employee-pension-ytd",
+            "hourly-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B5",
+          "title": "Arbejdsgiverbidrag – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-employer-pension",
+              "label": "Arbejdsgiverpension – timelønnede – juni",
+              "amount": 20188
+            },
+            {
+              "id": "june-hourly-employer-atp",
+              "label": "Arbejdsgiver-ATP – timelønnede – juni",
+              "amount": 1188
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-employer-pension-ytd",
+            "hourly-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B6",
+          "title": "Feriepenge – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-holiday-pay",
+              "label": "Bruttoferiepenge – juni",
+              "amount": 31545
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-holiday-pay-ytd"
+          ]
+        },
+        {
+          "id": "B7",
+          "title": "Lønkørsel – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-gross-pay",
+              "label": "Bruttoløn – månedslønnede – juni",
+              "amount": 163500
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-gross-pay-ytd",
+            "salaried-employee-pension-ytd",
+            "salaried-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B8",
+          "title": "Arbejdsgiverbidrag – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-employer-pension",
+              "label": "Arbejdsgiverpension – månedslønnede – juni",
+              "amount": 13080
+            },
+            {
+              "id": "june-salaried-employer-atp",
+              "label": "Arbejdsgiver-ATP – månedslønnede – juni",
+              "amount": 594
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-employer-pension-ytd",
+            "salaried-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B9",
+          "title": "Regulering af feriepengeforpligtelse pr. 30/6",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "holiday-liability-before-adjustment",
+              "label": "Bogført saldo før regulering",
+              "amount": 191500
+            },
+            {
+              "id": "holiday-liability-system-assessed",
+              "label": "Systemopgjort saldo pr. 30/6",
+              "amount": 193500
+            }
+          ],
+          "visibleTallyIds": [
+            "holiday-liability-system-assessed"
+          ]
+        }
+      ],
+      "tallies": [
+        {
+          "id": "hourly-gross-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 1406510,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 56262,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 112521,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 7128,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-gross-holiday-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-holiday-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 175815,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoferiepenge ÅTD – timelønnede"
+        },
+        {
+          "id": "salaried-gross-pay-ytd",
+          "employeeGroup": "salaried",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 981000,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 39240,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 1782,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 78480,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "holiday-liability-adjustment-ytd",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-adjustment",
+          "period": "ytd-through-2026-06",
+          "amount": 38500,
+          "source": "payroll-system",
+          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
+        },
+        {
+          "id": "holiday-liability-system-assessed",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-balance",
+          "period": "as-of-2026-06-30",
+          "amount": 193500,
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse pr. 30/6"
+        }
+      ],
+      "liabilityControls": [
+        {
+          "id": "june-a-tax",
+          "accountNumber": "6920",
+          "amount": 137472,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "A-skat vedr. juni"
+        },
+        {
+          "id": "june-am-contribution",
+          "accountNumber": "6930",
+          "amount": 34390,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "AM-bidrag vedr. juni"
+        },
+        {
+          "id": "june-pension",
+          "accountNumber": "6922",
+          "amount": 49903,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Pension vedr. juni"
+        },
+        {
+          "id": "atp-as-of-june-30",
+          "accountNumber": "6921",
+          "amount": 16038,
+          "period": "as-of-2026-06-30",
+          "source": "settlement-report",
+          "presentationLabel": "ATP akkumuleret pr. 30/6"
+        },
+        {
+          "id": "june-net-holiday-pay",
+          "accountNumber": "6923",
+          "amount": 17430,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Nettoferiepenge til FerieKonto vedr. juni"
+        },
+        {
+          "id": "holiday-liability-as-of-june-30",
+          "accountNumber": "6924",
+          "amount": 193500,
+          "period": "as-of-2026-06-30",
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse"
+        }
+      ]
+    },
+    "answers": {
+      "documentTotals": [
+        {
+          "id": "B1",
+          "debitTotal": 159229,
+          "creditTotal": 159229
+        },
+        {
+          "id": "B2",
+          "debitTotal": 46835,
+          "creditTotal": 46835
+        },
+        {
+          "id": "B3",
+          "debitTotal": 15690,
+          "creditTotal": 15690
+        },
+        {
+          "id": "B4",
+          "debitTotal": 252355,
+          "creditTotal": 252355
+        },
+        {
+          "id": "B5",
+          "debitTotal": 21376,
+          "creditTotal": 21376
+        },
+        {
+          "id": "B6",
+          "debitTotal": 31545,
+          "creditTotal": 31545
+        },
+        {
+          "id": "B7",
+          "debitTotal": 163500,
+          "creditTotal": 163500
+        },
+        {
+          "id": "B8",
+          "debitTotal": 13674,
+          "creditTotal": 13674
+        },
+        {
+          "id": "B9",
+          "debitTotal": 2000,
+          "creditTotal": 2000
+        }
+      ],
+      "reconciliation": {
+        "A": {
+          "wageAccountYtd": 1346684,
+          "employeePensionYtd": 56262,
+          "employeeAtpYtd": 3564,
+          "calculatedGrossPayYtd": 1406510,
+          "externalTallyId": "hourly-gross-pay-ytd",
+          "bookedAmount": 1406510,
+          "controlAmount": 1406510,
+          "difference": 0
+        },
+        "B": {
+          "wageAccountYtd": 939978,
+          "employeePensionYtd": 39240,
+          "employeeAtpYtd": 1782,
+          "calculatedGrossPayYtd": 981000,
+          "externalTallyId": "salaried-gross-pay-ytd",
+          "bookedAmount": 981000,
+          "controlAmount": 981000,
+          "difference": 0
+        },
+        "C": {
+          "employerPension": {
+            "bookedAmount": 191001,
+            "controlAmount": 191001,
+            "difference": 0
+          },
+          "employerAtp": {
+            "bookedAmount": 10692,
+            "controlAmount": 10692,
+            "difference": 0
+          },
+          "grossHolidayPay": {
+            "bookedAmount": 175815,
+            "controlAmount": 175815,
+            "difference": 0
+          },
+          "holidayLiabilityAdjustment": {
+            "bookedAmount": 38500,
+            "controlAmount": 38500,
+            "difference": 0
+          }
+        },
+        "D": {
+          "bookedAmount": 2803518,
+          "controlAmount": 2803518,
+          "difference": 0
+        },
+        "E": [
+          {
+            "accountNumber": "6920",
+            "bookedSide": "credit",
+            "controlId": "june-a-tax",
+            "bookedAmount": 137472,
+            "controlAmount": 137472,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6930",
+            "bookedSide": "credit",
+            "controlId": "june-am-contribution",
+            "bookedAmount": 34390,
+            "controlAmount": 34390,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6922",
+            "bookedSide": "credit",
+            "controlId": "june-pension",
+            "bookedAmount": 49903,
+            "controlAmount": 49903,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6921",
+            "bookedSide": "credit",
+            "controlId": "atp-as-of-june-30",
+            "bookedAmount": 16038,
+            "controlAmount": 16038,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6923",
+            "bookedSide": "credit",
+            "controlId": "june-net-holiday-pay",
+            "bookedAmount": 17430,
+            "controlAmount": 17430,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6924",
+            "bookedSide": "credit",
+            "controlId": "holiday-liability-as-of-june-30",
+            "bookedAmount": 193500,
+            "controlAmount": 193500,
+            "difference": 0
+          }
+        ]
+      },
+      "finalBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 1346684,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 939978,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 286503,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 16038,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 175815,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 38500,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 737664,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 137472,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 16038,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 49903,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 17430,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 193500,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 34390,
+          "side": "credit"
+        }
+      ]
+    }
+  },
+  "42": {
+    "identity": {
+      "rulesetYear": 2026,
+      "rulesetVersion": 2,
+      "generatorVersion": 2
+    },
+    "variant": 42,
+    "seed": "payroll-level2:ruleset-2026-v2:generator-v2:42",
+    "drawCount": 52,
+    "inputs": {
+      "employeeCounts": {
+        "hourly": 3,
+        "salaried": 5
+      },
+      "hourlyEmployees": [
+        {
+          "id": "T1",
+          "hourlyRate": 225,
+          "taxRate": 40,
+          "monthlyDeduction": 5250,
+          "hours": {
+            "jan": 163,
+            "feb": 139,
+            "mar": 169,
+            "apr": 144,
+            "may": 152,
+            "jun": 174
+          }
+        },
+        {
+          "id": "T2",
+          "hourlyRate": 250,
+          "taxRate": 42,
+          "monthlyDeduction": 5000,
+          "hours": {
+            "jan": 127,
+            "feb": 156,
+            "mar": 178,
+            "apr": 140,
+            "may": 155,
+            "jun": 146
+          }
+        },
+        {
+          "id": "T3",
+          "hourlyRate": 300,
+          "taxRate": 42,
+          "monthlyDeduction": 6000,
+          "hours": {
+            "jan": 163,
+            "feb": 168,
+            "mar": 135,
+            "apr": 161,
+            "may": 133,
+            "jun": 175
+          }
+        }
+      ],
+      "salariedEmployees": [
+        {
+          "id": "M1",
+          "monthlySalary": 41000,
+          "taxRate": 37,
+          "monthlyDeduction": 4000
+        },
+        {
+          "id": "M2",
+          "monthlySalary": 39500,
+          "taxRate": 40,
+          "monthlyDeduction": 4750
+        },
+        {
+          "id": "M3",
+          "monthlySalary": 46000,
+          "taxRate": 41,
+          "monthlyDeduction": 5750
+        },
+        {
+          "id": "M4",
+          "monthlySalary": 60000,
+          "taxRate": 38,
+          "monthlyDeduction": 5750
+        },
+        {
+          "id": "M5",
+          "monthlySalary": 61500,
+          "taxRate": 39,
+          "monthlyDeduction": 4500
+        }
+      ],
+      "holidayLiability": {
+        "factorPercent": 70,
+        "yearStartLiability": 174000,
+        "monthlyAdjustments": {
+          "jan": 2500,
+          "feb": 9500,
+          "mar": 5500,
+          "apr": 5000,
+          "may": 7000,
+          "jun": 7500
+        },
+        "holidayLiabilityBeforeAdjustment": 203500,
+        "systemAssessedHolidayLiability": 211000
+      },
+      "bank": {
+        "requiredCash": 410960,
+        "buffer": 700000,
+        "bankStart": 1150000
+      }
+    },
+    "source": {
+      "startBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 564507,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1187925,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 219549,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 11880,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 73699,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 29500,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 1150000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 115271,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 11880,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 43302,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 7606,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 203500,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 28779,
+          "side": "credit"
+        }
+      ],
+      "documentSources": [
+        {
+          "id": "B1",
+          "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-a-tax",
+              "label": "Skyldig A-skat vedr. maj",
+              "amount": 115271
+            },
+            {
+              "id": "may-am-contribution",
+              "label": "Skyldigt AM-bidrag vedr. maj",
+              "amount": 28779
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B2",
+          "title": "Betaling af pension vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-pension",
+              "label": "Skyldig pension vedr. maj",
+              "amount": 43302
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B3",
+          "title": "Betaling til FerieKonto vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-net-holiday-pay",
+              "label": "Nettoferiepenge vedr. maj",
+              "amount": 7606
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B4",
+          "title": "Lønkørsel – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-pay",
+              "label": "Bruttoløn – timelønnede – juni",
+              "amount": 128150
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-pay-ytd",
+            "hourly-employee-pension-ytd",
+            "hourly-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B5",
+          "title": "Arbejdsgiverbidrag – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-employer-pension",
+              "label": "Arbejdsgiverpension – timelønnede – juni",
+              "amount": 10252
+            },
+            {
+              "id": "june-hourly-employer-atp",
+              "label": "Arbejdsgiver-ATP – timelønnede – juni",
+              "amount": 594
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-employer-pension-ytd",
+            "hourly-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B6",
+          "title": "Feriepenge – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-holiday-pay",
+              "label": "Bruttoferiepenge – juni",
+              "amount": 16020
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-holiday-pay-ytd"
+          ]
+        },
+        {
+          "id": "B7",
+          "title": "Lønkørsel – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-gross-pay",
+              "label": "Bruttoløn – månedslønnede – juni",
+              "amount": 248000
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-gross-pay-ytd",
+            "salaried-employee-pension-ytd",
+            "salaried-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B8",
+          "title": "Arbejdsgiverbidrag – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-employer-pension",
+              "label": "Arbejdsgiverpension – månedslønnede – juni",
+              "amount": 19840
+            },
+            {
+              "id": "june-salaried-employer-atp",
+              "label": "Arbejdsgiver-ATP – månedslønnede – juni",
+              "amount": 990
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-employer-pension-ytd",
+            "salaried-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B9",
+          "title": "Regulering af feriepengeforpligtelse pr. 30/6",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "holiday-liability-before-adjustment",
+              "label": "Bogført saldo før regulering",
+              "amount": 203500
+            },
+            {
+              "id": "holiday-liability-system-assessed",
+              "label": "Systemopgjort saldo pr. 30/6",
+              "amount": 211000
+            }
+          ],
+          "visibleTallyIds": [
+            "holiday-liability-system-assessed"
+          ]
+        }
+      ],
+      "tallies": [
+        {
+          "id": "hourly-gross-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 717725,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 28709,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 1782,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 57418,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-gross-holiday-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-holiday-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 89719,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoferiepenge ÅTD – timelønnede"
+        },
+        {
+          "id": "salaried-gross-pay-ytd",
+          "employeeGroup": "salaried",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 1488000,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 59520,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 2970,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 119040,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 5940,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "holiday-liability-adjustment-ytd",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-adjustment",
+          "period": "ytd-through-2026-06",
+          "amount": 37000,
+          "source": "payroll-system",
+          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
+        },
+        {
+          "id": "holiday-liability-system-assessed",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-balance",
+          "period": "as-of-2026-06-30",
+          "amount": 211000,
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse pr. 30/6"
+        }
+      ],
+      "liabilityControls": [
+        {
+          "id": "june-a-tax",
+          "accountNumber": "6920",
+          "amount": 121585,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "A-skat vedr. juni"
+        },
+        {
+          "id": "june-am-contribution",
+          "accountNumber": "6930",
+          "amount": 30107,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "AM-bidrag vedr. juni"
+        },
+        {
+          "id": "june-pension",
+          "accountNumber": "6922",
+          "amount": 45138,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Pension vedr. juni"
+        },
+        {
+          "id": "atp-as-of-june-30",
+          "accountNumber": "6921",
+          "amount": 14256,
+          "period": "as-of-2026-06-30",
+          "source": "settlement-report",
+          "presentationLabel": "ATP akkumuleret pr. 30/6"
+        },
+        {
+          "id": "june-net-holiday-pay",
+          "accountNumber": "6923",
+          "amount": 8638,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Nettoferiepenge til FerieKonto vedr. juni"
+        },
+        {
+          "id": "holiday-liability-as-of-june-30",
+          "accountNumber": "6924",
+          "amount": 211000,
+          "period": "as-of-2026-06-30",
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse"
+        }
+      ]
+    },
+    "answers": {
+      "documentTotals": [
+        {
+          "id": "B1",
+          "debitTotal": 144050,
+          "creditTotal": 144050
+        },
+        {
+          "id": "B2",
+          "debitTotal": 43302,
+          "creditTotal": 43302
+        },
+        {
+          "id": "B3",
+          "debitTotal": 7606,
+          "creditTotal": 7606
+        },
+        {
+          "id": "B4",
+          "debitTotal": 128150,
+          "creditTotal": 128150
+        },
+        {
+          "id": "B5",
+          "debitTotal": 10846,
+          "creditTotal": 10846
+        },
+        {
+          "id": "B6",
+          "debitTotal": 16020,
+          "creditTotal": 16020
+        },
+        {
+          "id": "B7",
+          "debitTotal": 248000,
+          "creditTotal": 248000
+        },
+        {
+          "id": "B8",
+          "debitTotal": 20830,
+          "creditTotal": 20830
+        },
+        {
+          "id": "B9",
+          "debitTotal": 7500,
+          "creditTotal": 7500
+        }
+      ],
+      "reconciliation": {
+        "A": {
+          "wageAccountYtd": 687234,
+          "employeePensionYtd": 28709,
+          "employeeAtpYtd": 1782,
+          "calculatedGrossPayYtd": 717725,
+          "externalTallyId": "hourly-gross-pay-ytd",
+          "bookedAmount": 717725,
+          "controlAmount": 717725,
+          "difference": 0
+        },
+        "B": {
+          "wageAccountYtd": 1425510,
+          "employeePensionYtd": 59520,
+          "employeeAtpYtd": 2970,
+          "calculatedGrossPayYtd": 1488000,
+          "externalTallyId": "salaried-gross-pay-ytd",
+          "bookedAmount": 1488000,
+          "controlAmount": 1488000,
+          "difference": 0
+        },
+        "C": {
+          "employerPension": {
+            "bookedAmount": 176458,
+            "controlAmount": 176458,
+            "difference": 0
+          },
+          "employerAtp": {
+            "bookedAmount": 9504,
+            "controlAmount": 9504,
+            "difference": 0
+          },
+          "grossHolidayPay": {
+            "bookedAmount": 89719,
+            "controlAmount": 89719,
+            "difference": 0
+          },
+          "holidayLiabilityAdjustment": {
+            "bookedAmount": 37000,
+            "controlAmount": 37000,
+            "difference": 0
+          }
+        },
+        "D": {
+          "bookedAmount": 2518406,
+          "controlAmount": 2518406,
+          "difference": 0
+        },
+        "E": [
+          {
+            "accountNumber": "6920",
+            "bookedSide": "credit",
+            "controlId": "june-a-tax",
+            "bookedAmount": 121585,
+            "controlAmount": 121585,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6930",
+            "bookedSide": "credit",
+            "controlId": "june-am-contribution",
+            "bookedAmount": 30107,
+            "controlAmount": 30107,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6922",
+            "bookedSide": "credit",
+            "controlId": "june-pension",
+            "bookedAmount": 45138,
+            "controlAmount": 45138,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6921",
+            "bookedSide": "credit",
+            "controlId": "atp-as-of-june-30",
+            "bookedAmount": 14256,
+            "controlAmount": 14256,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6923",
+            "bookedSide": "credit",
+            "controlId": "june-net-holiday-pay",
+            "bookedAmount": 8638,
+            "controlAmount": 8638,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6924",
+            "bookedSide": "credit",
+            "controlId": "holiday-liability-as-of-june-30",
+            "bookedAmount": 211000,
+            "controlAmount": 211000,
+            "difference": 0
+          }
+        ]
+      },
+      "finalBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 687234,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1425510,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 264687,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 14256,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 89719,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 37000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 739040,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 121585,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 14256,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 45138,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 8638,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 211000,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 30107,
+          "side": "credit"
+        }
+      ]
+    }
+  },
+  "999999": {
+    "identity": {
+      "rulesetYear": 2026,
+      "rulesetVersion": 2,
+      "generatorVersion": 2
+    },
+    "variant": 999999,
+    "seed": "payroll-level2:ruleset-2026-v2:generator-v2:999999",
+    "drawCount": 82,
+    "inputs": {
+      "employeeCounts": {
+        "hourly": 6,
+        "salaried": 6
+      },
+      "hourlyEmployees": [
+        {
+          "id": "T1",
+          "hourlyRate": 215,
+          "taxRate": 37,
+          "monthlyDeduction": 4000,
+          "hours": {
+            "jan": 171,
+            "feb": 169,
+            "mar": 163,
+            "apr": 180,
+            "may": 135,
+            "jun": 175
+          }
+        },
+        {
+          "id": "T2",
+          "hourlyRate": 260,
+          "taxRate": 37,
+          "monthlyDeduction": 5250,
+          "hours": {
+            "jan": 139,
+            "feb": 139,
+            "mar": 130,
+            "apr": 132,
+            "may": 149,
+            "jun": 126
+          }
+        },
+        {
+          "id": "T3",
+          "hourlyRate": 225,
+          "taxRate": 41,
+          "monthlyDeduction": 6000,
+          "hours": {
+            "jan": 168,
+            "feb": 157,
+            "mar": 157,
+            "apr": 136,
+            "may": 141,
+            "jun": 178
+          }
+        },
+        {
+          "id": "T4",
+          "hourlyRate": 270,
+          "taxRate": 40,
+          "monthlyDeduction": 5750,
+          "hours": {
+            "jan": 152,
+            "feb": 159,
+            "mar": 150,
+            "apr": 139,
+            "may": 162,
+            "jun": 130
+          }
+        },
+        {
+          "id": "T5",
+          "hourlyRate": 285,
+          "taxRate": 38,
+          "monthlyDeduction": 4750,
+          "hours": {
+            "jan": 178,
+            "feb": 130,
+            "mar": 140,
+            "apr": 140,
+            "may": 154,
+            "jun": 133
+          }
+        },
+        {
+          "id": "T6",
+          "hourlyRate": 255,
+          "taxRate": 39,
+          "monthlyDeduction": 5500,
+          "hours": {
+            "jan": 174,
+            "feb": 163,
+            "mar": 134,
+            "apr": 173,
+            "may": 126,
+            "jun": 165
+          }
+        }
+      ],
+      "salariedEmployees": [
+        {
+          "id": "M1",
+          "monthlySalary": 59500,
+          "taxRate": 37,
+          "monthlyDeduction": 4000
+        },
+        {
+          "id": "M2",
+          "monthlySalary": 56000,
+          "taxRate": 39,
+          "monthlyDeduction": 5000
+        },
+        {
+          "id": "M3",
+          "monthlySalary": 61000,
+          "taxRate": 42,
+          "monthlyDeduction": 5750
+        },
+        {
+          "id": "M4",
+          "monthlySalary": 54500,
+          "taxRate": 39,
+          "monthlyDeduction": 6000
+        },
+        {
+          "id": "M5",
+          "monthlySalary": 43000,
+          "taxRate": 42,
+          "monthlyDeduction": 5000
+        },
+        {
+          "id": "M6",
+          "monthlySalary": 52000,
+          "taxRate": 39,
+          "monthlyDeduction": 6000
+        }
+      ],
+      "holidayLiability": {
+        "factorPercent": 100,
+        "yearStartLiability": 326000,
+        "monthlyAdjustments": {
+          "jan": 2500,
+          "feb": 8000,
+          "mar": 9500,
+          "apr": 2000,
+          "may": 6500,
+          "jun": 5500
+        },
+        "holidayLiabilityBeforeAdjustment": 354500,
+        "systemAssessedHolidayLiability": 360000
+      },
+      "bank": {
+        "requiredCash": 618387,
+        "buffer": 400000,
+        "bankStart": 1050000
+      }
+    },
+    "source": {
+      "startBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 1090798,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1561830,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 332323,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 17820,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 142422,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 28500,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 1050000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 173442,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 17820,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 65430,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 15465,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 354500,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 43972,
+          "side": "credit"
+        }
+      ],
+      "documentSources": [
+        {
+          "id": "B1",
+          "title": "Betaling af A-skat og AM-bidrag vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-a-tax",
+              "label": "Skyldig A-skat vedr. maj",
+              "amount": 173442
+            },
+            {
+              "id": "may-am-contribution",
+              "label": "Skyldigt AM-bidrag vedr. maj",
+              "amount": 43972
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B2",
+          "title": "Betaling af pension vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-pension",
+              "label": "Skyldig pension vedr. maj",
+              "amount": 65430
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B3",
+          "title": "Betaling til FerieKonto vedr. maj",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "may-net-holiday-pay",
+              "label": "Nettoferiepenge vedr. maj",
+              "amount": 15465
+            }
+          ],
+          "visibleTallyIds": []
+        },
+        {
+          "id": "B4",
+          "title": "Lønkørsel – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-pay",
+              "label": "Bruttoløn – timelønnede – juni",
+              "amount": 225515
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-pay-ytd",
+            "hourly-employee-pension-ytd",
+            "hourly-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B5",
+          "title": "Arbejdsgiverbidrag – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-employer-pension",
+              "label": "Arbejdsgiverpension – timelønnede – juni",
+              "amount": 18041
+            },
+            {
+              "id": "june-hourly-employer-atp",
+              "label": "Arbejdsgiver-ATP – timelønnede – juni",
+              "amount": 1188
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-employer-pension-ytd",
+            "hourly-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B6",
+          "title": "Feriepenge – timelønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-hourly-gross-holiday-pay",
+              "label": "Bruttoferiepenge – juni",
+              "amount": 28189
+            }
+          ],
+          "visibleTallyIds": [
+            "hourly-gross-holiday-pay-ytd"
+          ]
+        },
+        {
+          "id": "B7",
+          "title": "Lønkørsel – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-gross-pay",
+              "label": "Bruttoløn – månedslønnede – juni",
+              "amount": 326000
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-gross-pay-ytd",
+            "salaried-employee-pension-ytd",
+            "salaried-employee-atp-ytd"
+          ]
+        },
+        {
+          "id": "B8",
+          "title": "Arbejdsgiverbidrag – månedslønnede – juni",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "june-salaried-employer-pension",
+              "label": "Arbejdsgiverpension – månedslønnede – juni",
+              "amount": 26080
+            },
+            {
+              "id": "june-salaried-employer-atp",
+              "label": "Arbejdsgiver-ATP – månedslønnede – juni",
+              "amount": 1188
+            }
+          ],
+          "visibleTallyIds": [
+            "salaried-employer-pension-ytd",
+            "salaried-employer-atp-ytd"
+          ]
+        },
+        {
+          "id": "B9",
+          "title": "Regulering af feriepengeforpligtelse pr. 30/6",
+          "period": "june-2026",
+          "fields": [
+            {
+              "id": "holiday-liability-before-adjustment",
+              "label": "Bogført saldo før regulering",
+              "amount": 354500
+            },
+            {
+              "id": "holiday-liability-system-assessed",
+              "label": "Systemopgjort saldo pr. 30/6",
+              "amount": 360000
+            }
+          ],
+          "visibleTallyIds": [
+            "holiday-liability-system-assessed"
+          ]
+        }
+      ],
+      "tallies": [
+        {
+          "id": "hourly-gross-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 1364860,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 54597,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employee-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-pension-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 109187,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-employer-atp-ytd",
+          "employeeGroup": "hourly",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 7128,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – timelønnede"
+        },
+        {
+          "id": "hourly-gross-holiday-pay-ytd",
+          "employeeGroup": "hourly",
+          "measure": "gross-holiday-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 170611,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoferiepenge ÅTD – timelønnede"
+        },
+        {
+          "id": "salaried-gross-pay-ytd",
+          "employeeGroup": "salaried",
+          "measure": "gross-pay",
+          "period": "ytd-through-2026-06",
+          "amount": 1956000,
+          "source": "payroll-system",
+          "presentationLabel": "Bruttoløn ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 78240,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejderpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employee-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employee-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 3564,
+          "source": "payroll-system",
+          "presentationLabel": "Medarbejder-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-pension-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-pension",
+          "period": "ytd-through-2026-06",
+          "amount": 156480,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiverpension ÅTD – månedslønnede"
+        },
+        {
+          "id": "salaried-employer-atp-ytd",
+          "employeeGroup": "salaried",
+          "measure": "employer-atp",
+          "period": "ytd-through-2026-06",
+          "amount": 7128,
+          "source": "payroll-system",
+          "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
+        },
+        {
+          "id": "holiday-liability-adjustment-ytd",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-adjustment",
+          "period": "ytd-through-2026-06",
+          "amount": 34000,
+          "source": "payroll-system",
+          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
+        },
+        {
+          "id": "holiday-liability-system-assessed",
+          "employeeGroup": "all",
+          "measure": "holiday-liability-balance",
+          "period": "as-of-2026-06-30",
+          "amount": 360000,
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse pr. 30/6"
+        }
+      ],
+      "liabilityControls": [
+        {
+          "id": "june-a-tax",
+          "accountNumber": "6920",
+          "amount": 175968,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "A-skat vedr. juni"
+        },
+        {
+          "id": "june-am-contribution",
+          "accountNumber": "6930",
+          "amount": 44517,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "AM-bidrag vedr. juni"
+        },
+        {
+          "id": "june-pension",
+          "accountNumber": "6922",
+          "amount": 66181,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Pension vedr. juni"
+        },
+        {
+          "id": "atp-as-of-june-30",
+          "accountNumber": "6921",
+          "amount": 21384,
+          "period": "as-of-2026-06-30",
+          "source": "settlement-report",
+          "presentationLabel": "ATP akkumuleret pr. 30/6"
+        },
+        {
+          "id": "june-net-holiday-pay",
+          "accountNumber": "6923",
+          "amount": 15893,
+          "period": "june-2026",
+          "source": "settlement-report",
+          "presentationLabel": "Nettoferiepenge til FerieKonto vedr. juni"
+        },
+        {
+          "id": "holiday-liability-as-of-june-30",
+          "accountNumber": "6924",
+          "amount": 360000,
+          "period": "as-of-2026-06-30",
+          "source": "payroll-system",
+          "presentationLabel": "Systemopgjort feriepengeforpligtelse"
+        }
+      ]
+    },
+    "answers": {
+      "documentTotals": [
+        {
+          "id": "B1",
+          "debitTotal": 217414,
+          "creditTotal": 217414
+        },
+        {
+          "id": "B2",
+          "debitTotal": 65430,
+          "creditTotal": 65430
+        },
+        {
+          "id": "B3",
+          "debitTotal": 15465,
+          "creditTotal": 15465
+        },
+        {
+          "id": "B4",
+          "debitTotal": 225515,
+          "creditTotal": 225515
+        },
+        {
+          "id": "B5",
+          "debitTotal": 19229,
+          "creditTotal": 19229
+        },
+        {
+          "id": "B6",
+          "debitTotal": 28189,
+          "creditTotal": 28189
+        },
+        {
+          "id": "B7",
+          "debitTotal": 326000,
+          "creditTotal": 326000
+        },
+        {
+          "id": "B8",
+          "debitTotal": 27268,
+          "creditTotal": 27268
+        },
+        {
+          "id": "B9",
+          "debitTotal": 5500,
+          "creditTotal": 5500
+        }
+      ],
+      "reconciliation": {
+        "A": {
+          "wageAccountYtd": 1306699,
+          "employeePensionYtd": 54597,
+          "employeeAtpYtd": 3564,
+          "calculatedGrossPayYtd": 1364860,
+          "externalTallyId": "hourly-gross-pay-ytd",
+          "bookedAmount": 1364860,
+          "controlAmount": 1364860,
+          "difference": 0
+        },
+        "B": {
+          "wageAccountYtd": 1874196,
+          "employeePensionYtd": 78240,
+          "employeeAtpYtd": 3564,
+          "calculatedGrossPayYtd": 1956000,
+          "externalTallyId": "salaried-gross-pay-ytd",
+          "bookedAmount": 1956000,
+          "controlAmount": 1956000,
+          "difference": 0
+        },
+        "C": {
+          "employerPension": {
+            "bookedAmount": 265667,
+            "controlAmount": 265667,
+            "difference": 0
+          },
+          "employerAtp": {
+            "bookedAmount": 14256,
+            "controlAmount": 14256,
+            "difference": 0
+          },
+          "grossHolidayPay": {
+            "bookedAmount": 170611,
+            "controlAmount": 170611,
+            "difference": 0
+          },
+          "holidayLiabilityAdjustment": {
+            "bookedAmount": 34000,
+            "controlAmount": 34000,
+            "difference": 0
+          }
+        },
+        "D": {
+          "bookedAmount": 3805394,
+          "controlAmount": 3805394,
+          "difference": 0
+        },
+        "E": [
+          {
+            "accountNumber": "6920",
+            "bookedSide": "credit",
+            "controlId": "june-a-tax",
+            "bookedAmount": 175968,
+            "controlAmount": 175968,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6930",
+            "bookedSide": "credit",
+            "controlId": "june-am-contribution",
+            "bookedAmount": 44517,
+            "controlAmount": 44517,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6922",
+            "bookedSide": "credit",
+            "controlId": "june-pension",
+            "bookedAmount": 66181,
+            "controlAmount": 66181,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6921",
+            "bookedSide": "credit",
+            "controlId": "atp-as-of-june-30",
+            "bookedAmount": 21384,
+            "controlAmount": 21384,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6923",
+            "bookedSide": "credit",
+            "controlId": "june-net-holiday-pay",
+            "bookedAmount": 15893,
+            "controlAmount": 15893,
+            "difference": 0
+          },
+          {
+            "accountNumber": "6924",
+            "bookedSide": "credit",
+            "controlId": "holiday-liability-as-of-june-30",
+            "bookedAmount": 360000,
+            "controlAmount": 360000,
+            "difference": 0
+          }
+        ]
+      },
+      "finalBalances": [
+        {
+          "accountNumber": "2210",
+          "amount": 1306699,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2211",
+          "amount": 1874196,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2215",
+          "amount": 398504,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2223",
+          "amount": 21384,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2230",
+          "amount": 170611,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "2235",
+          "amount": 34000,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "5820",
+          "amount": 431613,
+          "side": "debit"
+        },
+        {
+          "accountNumber": "6920",
+          "amount": 175968,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6921",
+          "amount": 21384,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6922",
+          "amount": 66181,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6923",
+          "amount": 15893,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6924",
+          "amount": 360000,
+          "side": "credit"
+        },
+        {
+          "accountNumber": "6930",
+          "amount": 44517,
+          "side": "credit"
+        }
+      ]
+    }
+  }
+}
