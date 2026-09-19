@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { isValidVariant, type AccountId, type EntrySide } from './domain/payroll';
 import {
+  applyLevel2StudentState,
   browserLevel2Storage,
   browserLevel2Uint32,
   inspectLevel2Session,
@@ -17,6 +18,7 @@ import {
   type Level2Uint32Source,
 } from './level2/controller';
 import type { Level2Storage } from './level2/session';
+import { Level2Workspace } from './level2/workspace';
 import {
   clearSession,
   createSessionFromVariant,
@@ -219,6 +221,12 @@ export function App({
     if (level2.lifecycle === 'valid') setLevel2(retryLevel2Save(activeLevel2Storage, level2));
   };
 
+  const changeLevel2StudentState = (nextStudentState: Parameters<typeof applyLevel2StudentState>[2]) => {
+    setLevel2(current => current.lifecycle === 'valid'
+      ? applyLevel2StudentState(activeLevel2Storage, current, nextStudentState, activeLevel2Clock)
+      : current);
+  };
+
   const level1SessionCard = session && (session.completed ? <section className="session-card completed-session-card">
     <div><p className="eyebrow">AFSLUTTET OPGAVE</p><h3>Variant {session.variant}</h3><p>{session.exerciseSnapshot.employeeCount} medarbejdere · Gennemført</p></div>
     <button className="primary" onClick={() => { setLevel1View('completed'); setMode('level1'); }}>Se afsluttet opgave</button>
@@ -302,29 +310,21 @@ export function App({
     </div>
   </main>;
 
-  const level2Shell = level2.lifecycle === 'valid' ? <main className="level2-shell">
-    <section className="level2-shell-card">
-      <p className="eyebrow">AVANCERET LØNKONTERING</p>
-      <h2>Niveau 2</h2>
-      <dl className="level2-summary">
-        <div><dt>Variant</dt><dd>{level2.session.variant}</dd></div>
-        <div><dt>Aktuel fase</dt><dd>{level2PhaseLabel(level2.session)}</dd></div>
-      </dl>
-      <p className="level2-next-note">Niveau 2-arbejdsfladen implementeres i næste fase.</p>
-      {level2.saveStatus === 'saved' && <p className="save-status success" role="status">Gemt</p>}
-      {level2.saveStatus === 'error' && <div className="save-warning" role="alert">
-        <p>Din seneste ændring kunne ikke gemmes.</p>
-        <button onClick={retrySave}>Prøv at gemme igen</button>
-      </div>}
-      <div className="level2-shell-actions">
-        <button onClick={goHome}>Til forsiden</button>
-        <button className="danger-outline" onClick={() => setLevel2ResetOpen(true)}>Nulstil opgave</button>
-      </div>
-    </section>
-  </main> : null;
+  const level2Shell = level2.lifecycle === 'valid' ? <Level2Workspace
+    session={level2.session}
+    saveStatus={level2.saveStatus}
+    onStudentStateChange={changeLevel2StudentState}
+    onRetrySave={retrySave}
+    onGoHome={goHome}
+  /> : null;
 
   const headerContext = mode === 'level2' && level2.lifecycle === 'valid'
-    ? <div className="header-context"><span>Niveau 2 · Variant {level2.session.variant}</span><button onClick={goHome}>Til forsiden</button></div>
+    ? <div className="header-context">
+      <span>Niveau 2 · Variant {level2.session.variant}</span>
+      <span>{level2PhaseLabel(level2.session)}</span>
+      <button onClick={goHome}>Til forsiden</button>
+      <button className="header-reset" onClick={() => setLevel2ResetOpen(true)}>Nulstil opgave</button>
+    </div>
     : mode === 'level1' && level1View !== 'menu' && session
       ? <div className="header-context">
         <span>Variant {session.variant} · Generator v{session.generatorVersion}</span>
