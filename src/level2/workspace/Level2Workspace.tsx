@@ -14,9 +14,13 @@ import {
 } from '../state';
 import { AccountHistoryDialog } from './AccountHistoryDialog';
 import { AccountPlanDialog } from './AccountPlanDialog';
+import { CheckpointWorkspace } from './CheckpointWorkspace';
 import { DocumentPanel } from './DocumentPanel';
+import { FinalControlWorkspace } from './FinalControlWorkspace';
+import { Level2CompletedView } from './Level2CompletedView';
 import { TAccountCard } from './TAccountCard';
 import { VideoDialog } from './VideoDialog';
+import { WorkspaceSaveStatus } from './WorkspaceSaveStatus';
 import {
   selectApprovedHistory,
   selectCurrentAccountBalance,
@@ -39,16 +43,21 @@ export function Level2Workspace({
   const [historyAccount, setHistoryAccount] = useState<Level2Account | null>(null);
   const state = session.studentState;
 
-  if (state.phase.kind !== 'document') {
-    const copy = state.phase.kind === 'checkpoint'
-      ? ['Afstemning pr. 30/6', 'Checkpointformularen tilføjes i J3C.']
-      : state.phase.kind === 'finalControl'
-        ? ['Slutkontrol', 'Slutkontrolformularen tilføjes i J3C.']
-        : ['Niveau 2 gennemført', 'Opgaven er afsluttet.'];
-    return <main className="level2-shell"><section className="level2-shell-card">
-      <p className="eyebrow">NIVEAU 2</p><h2>{copy[0]}</h2><p className="level2-next-note">{copy[1]}</p>
-    </section></main>;
-  }
+  if (state.phase.kind === 'checkpoint') return <CheckpointWorkspace
+    session={session}
+    saveStatus={saveStatus}
+    onStudentStateChange={onStudentStateChange}
+    onRetrySave={onRetrySave}
+    onGoHome={onGoHome}
+  />;
+  if (state.phase.kind === 'finalControl') return <FinalControlWorkspace
+    session={session}
+    saveStatus={saveStatus}
+    onStudentStateChange={onStudentStateChange}
+    onRetrySave={onRetrySave}
+    onGoHome={onGoHome}
+  />;
+  if (state.phase.kind === 'completed') return <Level2CompletedView session={session} onGoHome={onGoHome} />;
 
   const active = selectActiveDocument(state);
   if (!active) return null;
@@ -68,11 +77,7 @@ export function Level2Workspace({
   return <main className="l2-workspace">
     <h2 className="sr-only">Niveau 2</h2>
     <button type="button" className="l2-main-home" onClick={onGoHome}>Til forsiden</button>
-    {saveStatus === 'saved' && <p className="save-status success l2-save-status" role="status">Gemt</p>}
-    {saveStatus === 'error' && <div className="save-warning l2-save-status" role="alert">
-      <p>Din seneste ændring kunne ikke gemmes.</p>
-      <button type="button" onClick={onRetrySave}>Prøv at gemme igen</button>
-    </div>}
+    <WorkspaceSaveStatus status={saveStatus} onRetry={onRetrySave} />
     <div className="l2-workspace-grid">
       <DocumentPanel
         snapshot={session.caseSnapshot}

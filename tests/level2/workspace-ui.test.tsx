@@ -142,11 +142,11 @@ describe('J3B Niveau 2 workspace', () => {
     expect(screen.getByText('Kontrollér ugyldigt beløb')).toBeTruthy();
   });
 
-  it('renderer checkpoint-placeholder uden at ændre state', () => {
+  it('renderer checkpoint-workspace uden at ændre state', () => {
     const state = advanceToCheckpoint(snapshot);
     render(<Harness initial={state} />);
     expect(screen.getByRole('heading', { name: 'Afstemning pr. 30/6' })).toBeTruthy();
-    expect(screen.getByText(/tilføjes i J3C/)).toBeTruthy();
+    expect(screen.getByText('0 af 5 korrekte')).toBeTruthy();
     expect(state.phase).toEqual({ kind: 'checkpoint' });
   });
 

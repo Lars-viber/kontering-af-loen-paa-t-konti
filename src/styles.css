@@ -270,3 +270,79 @@ button.danger-outline { color:var(--error); border-color:#D9A29C; }
 
 .l2-main-home { display:none; }
 @media (max-width:700px) { .l2-main-home { display:block; width:100%; margin-bottom:8px; } .topbar .header-context>button:first-of-type { display:none; } }
+
+
+/* J3C: checkpoint, slutkontrol og completed */
+.l2-phase-workspace { width:min(1180px,calc(100% - 28px)); margin:0 auto; padding:22px 0 42px; }
+.l2-phase-intro { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:15px; }
+.l2-phase-intro h1 { margin:4px 0 5px; color:var(--primary); font-size:clamp(23px,3vw,31px); }
+.l2-phase-intro p:last-child { max-width:720px; margin:0; color:var(--muted); font-size:13px; }
+.l2-phase-progress { display:flex; flex:0 0 auto; align-items:center; gap:10px; }
+.l2-phase-progress strong { color:var(--primary); white-space:nowrap; font-size:13px; }
+.l2-checkpoint-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:start; }
+.l2-checkpoint-section,.l2-final-item,.l2-completed-panel { padding:16px; border:1px solid var(--border); border-radius:10px; background:#fff; box-shadow:0 5px 14px rgba(25,61,91,.06); }
+.l2-checkpoint-section>header { display:flex; align-items:center; gap:9px; margin-bottom:9px; }
+.l2-checkpoint-section>header h2 { flex:1; margin:0; color:var(--primary); font-size:16px; }
+.l2-section-letter { display:grid; flex:0 0 28px; height:28px; place-items:center; border-radius:7px; color:#fff; background:var(--medium-blue); font-size:12px; font-weight:800; }
+.l2-section-status { font-size:12px; white-space:nowrap; }
+.l2-section-status.correct { color:var(--success); }
+.l2-relationship { margin:0 0 10px; color:var(--muted); font-size:11px; line-height:1.4; }
+.l2-checkpoint-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 10px; }
+.l2-checkpoint-field { display:grid; align-content:start; gap:4px; min-width:0; }
+.l2-checkpoint-field label,.l2-balance-input>label,.l2-final-control label { color:var(--text); font-size:11px; font-weight:700; }
+.l2-checkpoint-field input,.l2-balance-input>input,.l2-final-control select { width:100%; min-width:0; height:37px; padding:7px 8px; border:1px solid #91A9BD; border-radius:5px; background:#fff; text-align:right; font-size:12px; font-variant-numeric:tabular-nums; }
+.l2-readonly-amount { min-height:37px; padding:8px; border-radius:5px; color:#185B49; background:#EDF8F4; text-align:right; font-size:12px; font-variant-numeric:tabular-nums; }
+.l2-section-feedback { margin:9px 0 0; padding:7px 9px; border-radius:6px; color:#7F302A; background:#FBECEA; font-size:11px; font-weight:650; }
+.l2-section-check { margin-top:10px; min-height:36px; padding:7px 13px; }
+.l2-checkpoint-balance { grid-column:1/-1; }
+.l2-balance-inputs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.l2-balance-input { display:grid; grid-template-columns:minmax(0,1fr) 95px; gap:5px 8px; align-items:end; min-width:0; padding:9px; border:1px solid #E1E9F0; border-radius:7px; background:#FAFCFE; }
+.l2-balance-input>label { grid-column:1/-1; }
+.l2-balance-input>label strong { color:var(--primary); margin-right:4px; }
+.l2-balance-input fieldset { min-width:0; height:37px; display:flex; align-items:center; justify-content:center; gap:8px; margin:0; padding:4px 6px; border:1px solid #91A9BD; border-radius:5px; }
+.l2-balance-input fieldset legend { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+.l2-balance-input fieldset label { display:flex; align-items:center; gap:3px; font-size:11px; font-weight:750; }
+.l2-balance-input fieldset input { margin:0; }
+.l2-checkpoint-balance.status-correct .l2-balance-input { grid-template-columns:1fr auto; }
+.l2-checkpoint-balance.status-correct .l2-readonly-amount { min-width:100px; }
+.l2-dialog-intro { margin:-5px 0 12px; color:var(--muted); font-size:12px; }
+.l2-ytd-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.l2-ytd-section { min-width:0; padding:10px; border:1px solid var(--border); border-radius:8px; }
+.l2-ytd-section h3 { margin:0 0 7px; color:var(--primary); font-size:15px; }
+.l2-ytd-section dl { margin:0; }
+.l2-ytd-section dl>div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; padding:5px 0; border-top:1px solid #E4ECF3; font-size:10px; }
+.l2-ytd-section dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; font-weight:700; }
+.l2-ytd-section .total { border-top:2px solid #91A9BD; color:var(--primary); font-weight:800; }
+.l2-final-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; align-items:start; }
+.l2-final-item>header { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:11px; }
+.l2-final-item>header h2 { margin:0; color:var(--primary); font-size:15px; }
+.l2-final-item>header strong { flex:0 0 auto; text-align:right; font-size:15px; font-variant-numeric:tabular-nums; }
+.l2-final-control { display:grid; gap:5px; }
+.l2-final-control select { text-align:left; }
+.l2-final-reason { min-height:42px; margin:0 0 8px; color:#365F54; font-size:12px; line-height:1.4; }
+.l2-final-item>.l2-section-status { display:block; margin:0; }
+.l2-completed-panel { max-width:760px; margin:18px auto 0; padding:24px; border-color:#8DC7B5; }
+.l2-completed-heading { display:flex; gap:15px; align-items:flex-start; }
+.l2-completed-heading>span { display:grid; flex:0 0 42px; height:42px; place-items:center; border-radius:50%; color:#fff; background:var(--success); font-size:23px; font-weight:800; }
+.l2-completed-heading h1 { margin:4px 0 5px; color:#185B49; font-size:27px; }
+.l2-completed-heading p:last-child { margin:0; color:#365F54; font-size:13px; }
+.l2-completed-balances { margin:20px 0 0; }
+.l2-completed-balances>div { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; padding:8px 0; border-top:1px solid #D5E9E1; font-size:13px; }
+.l2-completed-balances dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; font-weight:750; }
+
+@media (max-width:1100px) {
+  .l2-final-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .l2-balance-inputs { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:760px) {
+  .l2-phase-intro { align-items:flex-start; flex-direction:column; }
+  .l2-phase-progress { width:100%; justify-content:space-between; }
+  .l2-checkpoint-grid,.l2-final-grid,.l2-ytd-grid,.l2-balance-inputs { grid-template-columns:1fr; }
+  .l2-checkpoint-balance { grid-column:auto; }
+}
+@media (max-width:480px) {
+  .l2-checkpoint-fields { grid-template-columns:1fr; }
+  .l2-balance-input { grid-template-columns:minmax(0,1fr) 88px; }
+  .l2-completed-panel { padding:17px; }
+  .l2-completed-heading { flex-direction:column; }
+}
