@@ -10,7 +10,7 @@ body { margin:0; min-width:320px; background:var(--background); }
 button,input { font:inherit; }
 button { min-height:40px; padding:9px 16px; border:1px solid #9DB4C8; border-radius:7px; color:var(--primary); background:#fff; font-weight:650; cursor:pointer; }
 button:hover:not(:disabled) { background:#EDF5FD; }
-button:focus-visible,input:focus-visible { outline:3px solid rgba(23,105,194,.32); outline-offset:2px; }
+button:focus-visible,input:focus-visible,select:focus-visible { outline:3px solid rgba(23,105,194,.32); outline-offset:2px; }
 button:disabled { color:#8293A2; background:#EEF2F5; cursor:not-allowed; opacity:.75; }
 button.primary { color:#fff; border-color:var(--primary); background:var(--primary); }
 button.primary:hover:not(:disabled) { background:var(--primary-hover); }
@@ -46,8 +46,7 @@ button.danger-action { color:#fff; border-color:var(--error); background:var(--e
 .card-heading>span,.section-heading>span { color:var(--muted); font-size:12px; }
 .card-intro { margin:6px 0 10px; font-size:13px; font-weight:500; }
 .payslip-lines { margin:0; }
-.payslip-lines>div { display:grid; grid-template-columns:1fr auto; gap:14px; padding:5px 0; border-top:1px solid #E4ECF3; }
-.payslip-lines dt { font-size:13px; }
+.payslip-lines>div { display:grid; grid-template-columns:1fr auto; gap:14px; padding:5px 0; border-top:1px solid #E4ECF3; font-size:13px; }
 .payslip-lines dd { margin:0; text-align:right; font-variant-numeric:tabular-nums; font-weight:650; }
 .payslip-lines .payslip-total { margin-top:2px; padding-top:8px; border-top:2px solid #91A9BD; color:var(--primary); font-weight:800; }
 .account-plan ol { margin:9px 0 0; padding:0; list-style:none; }

@@ -78,7 +78,7 @@ describe('J4 ny opgave efter completion', () => {
     const { storage, generator } = renderCompleted();
     await userEvent.click(screen.getByRole('button', { name: 'Generér ny opgave' }));
     expect(screen.queryByRole('dialog', { name: 'Du har en igangværende opgave' })).toBeNull();
-    expect(screen.getByText('Variant 1 · Generator v1')).toBeTruthy();
+    expect(screen.getByText('Variant 1')).toBeTruthy();
     expect(screen.getAllByRole('textbox').every(input => (input as HTMLInputElement).value === '')).toBe(true);
     const saved = JSON.parse(storage.getItem(SESSION_STORAGE_KEY)!);
     expect(saved.completed).toBe(false);

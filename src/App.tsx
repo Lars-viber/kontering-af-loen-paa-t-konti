@@ -327,7 +327,7 @@ export function App({
     </div>
     : mode === 'level1' && level1View !== 'menu' && session
       ? <div className="header-context">
-        <span>Variant {session.variant} · Generator v{session.generatorVersion}</span>
+        <span>Variant {session.variant}</span>
         {level1View === 'completed' && <span className="header-status">Afsluttet opgave</span>}
         <button onClick={goHome}>Til hovedmenu</button>
       </div>

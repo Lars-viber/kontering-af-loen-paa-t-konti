@@ -44,7 +44,7 @@ describe('Hovedmenu og exercise shell', () => {
     await userEvent.click(screen.getByRole('button', { name: 'Bestemt variant' }));
     await userEvent.type(screen.getByLabelText('Variantnummer'), '42');
     await userEvent.click(screen.getByRole('button', { name: 'Start opgave' }));
-    expect(screen.getByText('Variant 42 · Generator v1')).toBeTruthy();
+    expect(screen.getByText('Variant 42')).toBeTruthy();
     expect(screen.getByRole('heading', { name: 'Samlebilag for 8 medarbejdere' })).toBeTruthy();
     expect(generator).toHaveBeenCalledTimes(1);
     await userEvent.click(screen.getByRole('button', { name: 'Til hovedmenu' }));
@@ -84,7 +84,7 @@ describe('Hovedmenu og exercise shell', () => {
     await userEvent.type(screen.getByLabelText('Variantnummer'), '43');
     await userEvent.click(screen.getByRole('button', { name: 'Start opgave' }));
     await userEvent.click(screen.getByRole('button', { name: 'Start ny opgave' }));
-    expect(screen.getByText('Variant 43 · Generator v1')).toBeTruthy();
+    expect(screen.getByText('Variant 43')).toBeTruthy();
     expect(generator).toHaveBeenCalledTimes(2);
     const saved = JSON.parse(storage.getItem(SESSION_STORAGE_KEY)!);
     expect(saved.variant).toBe(43);
@@ -97,7 +97,7 @@ describe('Hovedmenu og exercise shell', () => {
     render(<App storage={storage} clock={clock} randomUint32={() => 0} />);
     await userEvent.click(screen.getByRole('button', { name: 'Generér ny opgave' }));
     await userEvent.click(screen.getByRole('button', { name: 'Start ny opgave' }));
-    expect(screen.getByText('Variant 2 · Generator v1')).toBeTruthy();
+    expect(screen.getByText('Variant 2')).toBeTruthy();
   });
 
   it('viser korrupt storage diskret og kan fjerne den', async () => {
