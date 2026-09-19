@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import { beforeAll, describe, expect, it } from 'vitest';
 import {
   LEVEL2_DOCUMENT_IDS,
@@ -210,7 +211,9 @@ function runAudit(): DistributionAudit {
     ranges,
     duplicateFingerprints,
   };
-  writeFileSync('artifacts/j1b-level2-generator-audit.json', JSON.stringify(audit, null, 2) + String.fromCharCode(10));
+  const auditPath = 'artifacts/j1b-level2-generator-audit.json';
+  mkdirSync(dirname(auditPath), { recursive: true });
+  writeFileSync(auditPath, JSON.stringify(audit, null, 2) + String.fromCharCode(10));
   return audit;
 }
 
