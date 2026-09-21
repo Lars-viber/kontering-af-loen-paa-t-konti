@@ -48,10 +48,18 @@ export interface V2GrossCheckpointValues {
 }
 
 export interface V2OtherCostCheckpointValues {
-  readonly employerPension: string;
-  readonly employerAtp: string;
-  readonly grossHolidayPay: string;
-  readonly holidayLiabilityAdjustment: string;
+  readonly pensionBookBalance: string;
+  readonly hourlyEmployeePensionYtd: string;
+  readonly hourlyEmployerPensionYtd: string;
+  readonly salariedEmployeePensionYtd: string;
+  readonly salariedEmployerPensionYtd: string;
+  readonly atpBookBalance: string;
+  readonly hourlyEmployeeAtpYtd: string;
+  readonly hourlyEmployerAtpYtd: string;
+  readonly salariedEmployeeAtpYtd: string;
+  readonly salariedEmployerAtpYtd: string;
+  readonly holidayPayBookBalance: string;
+  readonly holidayPayGrossYtd: string;
 }
 
 export interface V2TotalCheckpointValues {

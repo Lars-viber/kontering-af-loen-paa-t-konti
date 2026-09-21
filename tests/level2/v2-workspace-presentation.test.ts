@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest';
 import {
   presentV2WorkspaceProgress,
   presentV2WorkspaceReconciliation,
+  selectV2WorkspaceDocument,
+  selectV2WorkspaceDocumentFields,
   selectV2WorkspaceDocumentTallies,
 } from '../../src/level2/v2/workspace';
 import {
@@ -53,10 +55,17 @@ describe('V2.1 workspace presentation', () => {
       .toBe('2 af 9 bilag gennemført · 7 tilbage');
     expect(presentV2WorkspaceProgress(v2DocumentReviewAt(3)).summary)
       .toBe('3 af 9 bilag gennemført · 6 tilbage');
-    expect(labels(v2DocumentEntryAt(3))).toEqual(['B1–B2', 'B3', 'B4–B9', 'Afstemning']);
-    expect(labels(v2DocumentReviewAt(9))).toEqual(['B1–B9', 'Afstemning']);
-    expect(presentV2WorkspaceProgress(v2DocumentEntryAt(3)).steps[1].status).toBe('active');
-    expect(presentV2WorkspaceProgress(v2DocumentReviewAt(3)).steps.some(step => step.status === 'active')).toBe(false);
+    expect(labels(v2DocumentEntryAt(3))).toEqual(['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'Afstemning']);
+    expect(labels(v2DocumentReviewAt(9))).toEqual(['B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7', 'B8', 'B9', 'Afstemning']);
+    expect(presentV2WorkspaceProgress(v2DocumentEntryAt(3)).steps[2].status).toBe('active');
+    expect(presentV2WorkspaceProgress(v2DocumentReviewAt(3)).steps[2].status).toBe('active');
+  });
+
+  it('keeps the original B1-B3 and B9 document fields unchanged', () => {
+    for (const documentId of ['B1', 'B2', 'B3', 'B9'] as const) {
+      expect(selectV2WorkspaceDocumentFields(V2_WORKSPACE_CASE.source, documentId))
+        .toBe(selectV2WorkspaceDocument(V2_WORKSPACE_CASE.source, documentId).fields);
+    }
   });
 
   it('maps the exact visible B4-B8 source tallies and hides a direct B9 adjustment', () => {
@@ -80,7 +89,7 @@ describe('V2.1 workspace presentation', () => {
     sectionId => {
       const state = completeV2WorkspaceSection(v2CheckpointState(), sectionId);
       const rows = presentV2WorkspaceReconciliation(V2_WORKSPACE_CASE.source, state, sectionId);
-      expect(rows.length).toBe(sectionId === 'C' ? 4 : sectionId === 'E' ? 6 : 1);
+      expect(rows.length).toBe(sectionId === 'C' ? 3 : sectionId === 'D' ? 0 : sectionId === 'E' ? 6 : 1);
       expect(rows.every(row => row.difference === 0 && row.matches)).toBe(true);
     },
   );
@@ -109,6 +118,20 @@ describe('V2.1 workspace presentation', () => {
       'Slutkontrol',
     ]) expect(source).not.toContain(forbidden);
     expect(source).not.toMatch(/useEffect\s*\(/);
-    expect(readFileSync('src/App.tsx', 'utf8')).not.toContain('level2/v2/workspace');
+    const appSource = readFileSync('src/App.tsx', 'utf8');
+    expect(appSource).toContain("from './level2/v2/workspace'");
+    expect(appSource).not.toContain("from './level2/workspace'");
   });
-});
+
+  it('keeps independent desktop checkpoint scrolling and natural stacked mobile scrolling', () => {
+    const css = readFileSync('src/level2/v2/workspace/workspace.css', 'utf8');
+    expect(css).toMatch(/@media \(min-width: 1100px\)[\s\S]*\.l2v2-root-checkpoint[\s\S]*height: 100dvh/);
+    expect(css).toMatch(/\.l2v2-checkpoint-grid,[\s\S]*#l2v2-checkpoint-reference[\s\S]*overflow-y: auto/);
+    expect(css).toMatch(/\.l2v2-checkpoint-grid,[\s\S]*#l2v2-checkpoint-reference[\s\S]*min-height: 0/);
+    expect(css).toMatch(/\.l2v2-checkpoint-grid,[\s\S]*#l2v2-checkpoint-reference[\s\S]*overflow-x: hidden/);
+    expect(css).toMatch(/@media \(max-width: 1099px\)[\s\S]*\.l2v2-checkpoint-layout \{ grid-template-columns: minmax\(0, 1fr\); \}/);
+    expect(css).toMatch(/@media \(max-width: 1099px\)[\s\S]*\.l2v2-checkpoint-reference \{ position: static; max-height: none; \}/);
+    expect(css).toMatch(/\.l2v2-gross-pair,[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/\.l2v2-c-main-groups[\s\S]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+    expect(css).toMatch(/@media \(max-width: 899px\)[\s\S]*\.l2v2-gross-pair,[\s\S]*\.l2v2-c-main-groups,[\s\S]*grid-template-columns: minmax\(0, 1fr\)/);
+  });});

@@ -29,7 +29,18 @@ const GROSS_FIELDS = [
   'wageAccountYtd', 'employeePensionYtd', 'employeeAtpYtd', 'calculatedGrossPayYtd',
 ] as const;
 const OTHER_FIELDS = [
-  'employerPension', 'employerAtp', 'grossHolidayPay', 'holidayLiabilityAdjustment',
+  'pensionBookBalance',
+  'hourlyEmployeePensionYtd',
+  'hourlyEmployerPensionYtd',
+  'salariedEmployeePensionYtd',
+  'salariedEmployerPensionYtd',
+  'atpBookBalance',
+  'hourlyEmployeeAtpYtd',
+  'hourlyEmployerAtpYtd',
+  'salariedEmployeeAtpYtd',
+  'salariedEmployerAtpYtd',
+  'holidayPayBookBalance',
+  'holidayPayGrossYtd',
 ] as const;
 
 function freezeState(state: V2StudentState): V2StudentState {
@@ -49,7 +60,20 @@ export function createEmptyV2CheckpointState(): V2CheckpointState {
     },
     C: {
       status: 'unchecked',
-      values: { employerPension: '', employerAtp: '', grossHolidayPay: '', holidayLiabilityAdjustment: '' },
+      values: {
+        pensionBookBalance: '',
+        hourlyEmployeePensionYtd: '',
+        hourlyEmployerPensionYtd: '',
+        salariedEmployeePensionYtd: '',
+        salariedEmployerPensionYtd: '',
+        atpBookBalance: '',
+        hourlyEmployeeAtpYtd: '',
+        hourlyEmployerAtpYtd: '',
+        salariedEmployeeAtpYtd: '',
+        salariedEmployerAtpYtd: '',
+        holidayPayBookBalance: '',
+        holidayPayGrossYtd: '',
+      },
     },
     D: { status: 'unchecked', values: { operatingTotal: '' } },
     E: {
@@ -401,15 +425,26 @@ export function checkV2CheckpointSection(
       calculatedGrossPayYtd: expected.calculatedGrossPayYtd,
     });
   } else if (sectionId === 'C') {
+    const pension = answers.reconciliation.C.pension;
+    const atp = answers.reconciliation.C.atp;
+    const holidayPay = answers.reconciliation.C.holidayPay;
     correct = amountsCorrect(state.checkpoint.C.values, {
-      employerPension: answers.reconciliation.C.employerPension.bookedAmount,
-      employerAtp: answers.reconciliation.C.employerAtp.bookedAmount,
-      grossHolidayPay: answers.reconciliation.C.grossHolidayPay.bookedAmount,
-      holidayLiabilityAdjustment: answers.reconciliation.C.holidayLiabilityAdjustment.bookedAmount,
+      pensionBookBalance: pension.bookedAmount,
+      hourlyEmployeePensionYtd: pension.hourlyEmployeePensionYtd,
+      hourlyEmployerPensionYtd: pension.hourlyEmployerPensionYtd,
+      salariedEmployeePensionYtd: pension.salariedEmployeePensionYtd,
+      salariedEmployerPensionYtd: pension.salariedEmployerPensionYtd,
+      atpBookBalance: atp.bookedAmount,
+      hourlyEmployeeAtpYtd: atp.hourlyEmployeeAtpYtd,
+      hourlyEmployerAtpYtd: atp.hourlyEmployerAtpYtd,
+      salariedEmployeeAtpYtd: atp.salariedEmployeeAtpYtd,
+      salariedEmployerAtpYtd: atp.salariedEmployerAtpYtd,
+      holidayPayBookBalance: holidayPay.bookedAmount,
+      holidayPayGrossYtd: holidayPay.grossHolidayPayYtd,
     });
   } else if (sectionId === 'D') {
     correct = amountsCorrect(state.checkpoint.D.values, {
-      operatingTotal: answers.reconciliation.D.bookedAmount,
+      operatingTotal: answers.reconciliation.D.operatingTotal,
     });
   } else {
     correct = checkpointECorrect(answers, state);

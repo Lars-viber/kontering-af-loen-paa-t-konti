@@ -76,5 +76,7 @@ describe('V2.1 secure random controller start', () => {
     expect(sources.filter(item => item.source.includes('generateV2Case')).map(item => item.file))
       .toEqual(['newSession.ts']);
     expect(sources.some(item => item.source.includes('Math.random'))).toBe(false);
-    expect(readFileSync('src/App.tsx', 'utf8')).not.toContain('level2/v2/controller');
+    const appSource = readFileSync('src/App.tsx', 'utf8');
+    expect(appSource).toContain("from './level2/v2/controller'");
+    expect(appSource).not.toContain("from './level2/controller'");
   });});

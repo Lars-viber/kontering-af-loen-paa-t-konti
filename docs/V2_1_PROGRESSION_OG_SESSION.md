@@ -4,6 +4,8 @@
 
 Dette dokument fastlægger den autoritative progression, persistence og restore-adfærd for Niveau 2 i V2.1. Det beskriver kontrakten, som senere jobs skal implementere; J0 ændrer ingen produktkode.
 
+**Pre-release-korrektion efter manuel browsertest:** Checkpoint C bruger den nye 12-felts raw state, og completed-review er lokal presentation state uden ny sessionfase.
+
 ## 2. Versionskontrakt
 
 | Felt | Værdi |
@@ -168,7 +170,7 @@ Completed-status er terminal for den konkrete session. En ny opgave kræver en e
 
 Completed registreres kun efter elevens klik på **Afslut Niveau 2**. Korrekt checkpoint og checkpoint-review er nødvendige, men ikke tilstrækkelige alene.
 
-Completed-visningen skal kort vise **Niveau 2 gennemført** og budskabet: **Du har bogført juni og afstemt bogføringen pr. 30/6 mod lønsystemets tælleværker.** Den viser en readonly slutoversigt pr. 30/6. Den indeholder ingen separat slutkontrol, ingen reason choices og ingen juli-saldi.
+Completed-visningen skal kort vise **Niveau 2 gennemført** og budskabet: **Du har bogført juni og afstemt bogføringen pr. 30/6 mod lønsystemets tælleværker.** Den viser en readonly slutoversigt pr. 30/6 og handlingen **Se afsluttet opgave**. Gennemgangen viser elevens faktiske B1-B9 og Afstemning fra source og student state, bevarer split rows og har kun lokal navigation samt **Tilbage til afslutning**. Den kan ikke add/edit/remove/check/advance/complete, persistéres ikke og refresh vender tilbage til completed summary. Den indeholder ingen separat slutkontrol, ingen reason choices og ingen juli-saldi.
 
 ## 13. Historiske koncepter
 

@@ -84,18 +84,29 @@ export function completeV2WorkspaceSection(
     state = editV2CheckpointAmount(state, sectionId, 'calculatedGrossPayYtd', String(values.calculatedGrossPayYtd));
   } else if (sectionId === 'C') {
     const values = V2_WORKSPACE_CASE.answers.reconciliation.C;
-    state = editV2CheckpointAmount(state, 'C', 'employerPension', String(values.employerPension.bookedAmount));
-    state = editV2CheckpointAmount(state, 'C', 'employerAtp', String(values.employerAtp.bookedAmount));
-    state = editV2CheckpointAmount(state, 'C', 'grossHolidayPay', String(values.grossHolidayPay.bookedAmount));
-    state = editV2CheckpointAmount(state, 'C', 'holidayLiabilityAdjustment', String(values.holidayLiabilityAdjustment.bookedAmount));
+    for (const [field, amount] of [
+      ['pensionBookBalance', values.pension.bookedAmount],
+      ['hourlyEmployeePensionYtd', values.pension.hourlyEmployeePensionYtd],
+      ['hourlyEmployerPensionYtd', values.pension.hourlyEmployerPensionYtd],
+      ['salariedEmployeePensionYtd', values.pension.salariedEmployeePensionYtd],
+      ['salariedEmployerPensionYtd', values.pension.salariedEmployerPensionYtd],
+      ['atpBookBalance', values.atp.bookedAmount],
+      ['hourlyEmployeeAtpYtd', values.atp.hourlyEmployeeAtpYtd],
+      ['hourlyEmployerAtpYtd', values.atp.hourlyEmployerAtpYtd],
+      ['salariedEmployeeAtpYtd', values.atp.salariedEmployeeAtpYtd],
+      ['salariedEmployerAtpYtd', values.atp.salariedEmployerAtpYtd],
+      ['holidayPayBookBalance', values.holidayPay.bookedAmount],
+      ['holidayPayGrossYtd', values.holidayPay.grossHolidayPayYtd],
+    ] as const) {
+      state = editV2CheckpointAmount(state, 'C', field, String(amount));
+    }
   } else if (sectionId === 'D') {
     state = editV2CheckpointAmount(
       state,
       'D',
       'operatingTotal',
-      String(V2_WORKSPACE_CASE.answers.reconciliation.D.bookedAmount),
-    );
-  } else {
+      String(V2_WORKSPACE_CASE.answers.reconciliation.D.operatingTotal),
+    );  } else {
     for (const accountNumber of V2_CHECKPOINT_BALANCE_ACCOUNTS) {
       const value = V2_WORKSPACE_CASE.answers.reconciliation.E
         .find(item => item.accountNumber === accountNumber);

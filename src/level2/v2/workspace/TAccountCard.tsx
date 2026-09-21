@@ -18,26 +18,22 @@ export function V2TAccountCard({
   balance,
   activeRows,
   history,
-  historyCount,
   groups,
   reviewMode,
   onAdd,
   onEdit,
   onRemove,
-  onOpenHistory,
 }: {
   readonly account: V2Account;
   readonly opening: V2AccountBalance;
   readonly balance: V2AccountBalance;
   readonly activeRows: readonly V2StudentPostingRow[];
   readonly history: readonly V2WorkspaceHistoryRow[];
-  readonly historyCount: number;
   readonly groups: Readonly<Record<V2PostingSide, V2DocumentGroupState | null>>;
   readonly reviewMode: boolean;
   readonly onAdd: (side: V2PostingSide) => void;
   readonly onEdit: (rowId: number, changes: V2PostingRowChanges) => void;
   readonly onRemove: (rowId: number) => void;
-  readonly onOpenHistory: () => void;
 }) {
   const renderSide = (side: V2PostingSide) => {
     const group = groups[side];
@@ -76,9 +72,6 @@ export function V2TAccountCard({
       <p>{account.type === 'operating' ? 'Saldo ÅTD t.o.m. 31/5' : 'Saldo pr. 1/6'}: <strong>{formatV2WorkspaceBalance(opening)}</strong></p>
     </header>
     <div className="l2v2-t-sides">{renderSide('debit')}{renderSide('credit')}</div>
-    {historyCount > 3 && <button type="button" className="l2v2-history-more" onClick={onOpenHistory}>
-      + {historyCount - 3} tidligere
-    </button>}
     <footer><span>Aktuel saldo</span><strong>{formatV2WorkspaceBalance(balance)}</strong></footer>
   </article>;
 }

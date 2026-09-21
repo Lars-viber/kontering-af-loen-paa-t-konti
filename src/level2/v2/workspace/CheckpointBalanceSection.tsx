@@ -36,6 +36,9 @@ export function V2CheckpointBalanceSection({
       <h2 id="l2v2-checkpoint-E">Seks balanceposter</h2>
       {locked && <strong className="l2v2-correct">✓ Korrekt</strong>}
     </header>
+    <p className="l2v2-balance-sources">
+      <strong>Fra bogføringen / T-konto</strong> mod <strong>Ekstern kontroloplysning</strong>
+    </p>
     <div className="l2v2-balance-inputs">
       {balances.map(balance => {
         const parsed = parseV2WorkspaceAmount(balance.rawAmount);

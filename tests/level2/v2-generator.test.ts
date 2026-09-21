@@ -8,7 +8,6 @@ import {
   generateV2Case,
   generateV2CaseWithRandom,
   getV2Balance,
-  getV2Tally,
   isValidV2Variant,
   v2EconomicFingerprintPayload,
   v2SeedString,
@@ -21,7 +20,6 @@ function differences(generated: ReturnType<typeof generateV2Case>): readonly num
     reconciliation.A.difference,
     reconciliation.B.difference,
     ...Object.values(reconciliation.C).map(item => item.difference),
-    reconciliation.D.difference,
     ...reconciliation.E.map(item => item.difference),
   ];
 }
@@ -187,8 +185,7 @@ describe('Niveau 2 V2.1 Generator V2', () => {
       .toBe(holiday.holidayLiabilityBeforeAdjustment);
     expect(getV2Balance(generated.answers.finalBalances, '6924').amount)
       .toBe(holiday.systemAssessedHolidayLiability);
-    expect(getV2Tally(generated.source.tallies, 'holiday-liability-adjustment-ytd').amount)
-      .toBe(januaryThroughJune);
+    expect(generated.source.tallies.map(tally => tally.id)).not.toContain('holiday-liability-adjustment-ytd');
   });
 
   it('genererer præcis B1-B9, balancerer 9/9 og har 13 slutsaldi', () => {
@@ -207,10 +204,10 @@ describe('Niveau 2 V2.1 Generator V2', () => {
 
   it('afleder komplette tælleværker og balancekontroller samt A-E med difference 0', () => {
     const generated = generateV2Case(42);
-    expect(generated.source.tallies).toHaveLength(13);
+    expect(generated.source.tallies).toHaveLength(12);
     expect(generated.source.liabilityControls).toHaveLength(6);
-    expect(differences(generated)).toHaveLength(13);
-    expect(differences(generated)).toEqual(Array(13).fill(0));
+    expect(differences(generated)).toHaveLength(11);
+    expect(differences(generated)).toEqual(Array(11).fill(0));
     assertGeneratedV2Case(generated);
   });
 

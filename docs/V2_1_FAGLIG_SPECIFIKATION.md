@@ -12,6 +12,8 @@ De eksisterende Niveau 2-dokumenter bevares uændret som historik. Ved modstrid 
 
 V2.1 ændrer øvelsen fra en lang bilagsrække til en afgrænset juniopgave, hvor eleven bogfører månedens lønhændelser og derefter afstemmer bogføringen mod synlige, eksterne kontroloplysninger.
 
+**Pre-release-korrektion efter manuel browsertest:** Afstemning C bruger hele bogførte saldi mod legitime lønsystemtælleværker, D er en intern sumkontrol, og completed giver lokal read-only gennemgang. Denne korrektion er normativ for den endnu ikke frigivne V2.1-kontrakt.
+
 ## 2. Læringsmål
 
 Det overordnede læringsmål er frosset som:
@@ -48,7 +50,7 @@ V2.1 indeholder præcis ni aktive bilag:
 | B6 | Feriepenge – timelønnede – juni | Juni-feriepenge og tilhørende træk |
 | B7 | Lønkørsel – månedslønnede – juni | Juni-løn og medarbejdertræk |
 | B8 | Arbejdsgiverbidrag – månedslønnede – juni | Arbejdsgiverpension og ATP |
-| B9 | Regulering af feriepengeforpligtelse pr. 30/6 | Juni-regulering til årets tælleværk |
+| B9 | Regulering af feriepengeforpligtelse pr. 30/6 | Juni-regulering til systemopgjort forpligtelse |
 
 Bilagene behandles i rækkefølgen B1-B9. Hvert bilag skal være korrekt før eleven kan gå videre til næste bilag.
 
@@ -141,11 +143,11 @@ Bilagene skal mindst vise:
 | B6 | Akkumulerede feriepenge for timelønnede |
 | B7 | Akkumuleret bruttoløn, medarbejderpension og medarbejder-ATP for månedslønnede |
 | B8 | Akkumuleret arbejdsgiverpension og arbejdsgiver-ATP for månedslønnede |
-| B9 | Akkumuleret regulering og systemets feriepengeforpligtelse |
+| B9 | Bogført saldo før regulering og systemets feriepengeforpligtelse |
 
 Den komplette R1-værdiserie og dens sammenhæng med kontosaldi er fastlagt i reference- og afstemningsdokumenterne.
 
-Før B9 er korrekt, vises bogført saldo før regulering på 174.000 kr. og systemopgjort saldo pr. 30/6 på 182.500 kr. Junireguleringen på 8.500 kr. må ikke vises direkte. Efter korrekt B9 må afstemningsmaterialet desuden vise regulering år til dato på 32.500 kr.
+Før B9 er korrekt, vises bogført saldo før regulering på 174.000 kr. og systemopgjort saldo pr. 30/6 på 182.500 kr. Junireguleringen på 8.500 kr. må ikke vises direkte. Konto 2235 indgår fortsat i bogføring og intern kontrol, men vises ikke som et eksternt lønsystemtælleværk.
 
 ## 8. Afstemningscheckpoint
 
@@ -155,11 +157,11 @@ Når B1-B9 er korrekt bogført og gennemgået, åbnes checkpointet. Eleven skal 
 |---|---|
 | A | Timelønnedes lønomkostning mod lønsystemets tælleværk for bruttoløn |
 | B | Månedslønnedes lønomkostning mod lønsystemets tælleværk for bruttoløn |
-| C | Øvrige lønomkostninger mod lønsystemets relevante tælleværker |
-| D | Samlet lønomkostning mod summen af eksterne tælleværker |
+| C | Hele saldi på 2215, 2223 og 2230 mod de relevante lønsystemtælleværker |
+| D | Intern sumkontrol af 2210, 2211, 2215, 2223, 2230 og 2235 |
 | E | Åbne lønforpligtelser mod eksterne kontroloplysninger |
 
-Afstemningen skal gøre beregningen synlig. Eleven skal kunne se bogført saldo, eventuelle tillæg, kontroltal og difference. En afstemning er korrekt, når hver krævet difference er 0 kr.
+Afstemningen skal gøre beregningen synlig. Hvert felt markeres som **Fra bogføringen / T-konto**, **Fra lønsystemets tælleværker**, **Beregnet** eller **Ekstern kontroloplysning**. I C indtaster eleven hele 2215-, 2223- og 2230-saldi samt de underliggende legitime tælleværker. Konto 2235 indgår kun i D's interne sumkontrol. En ekstern afstemning er korrekt, når hver krævet difference er 0 kr.; D er korrekt, når den beregnede sum svarer til de seks bogførte driftskonti.
 
 Ved korrekt A-E åbnes en checkpoint-reviewtilstand. Kontrolhandlingen afslutter ikke opgaven. Eleven skal efter gennemgangen aktivt vælge **Afslut Niveau 2**.
 
@@ -207,7 +209,7 @@ Completed-status opstår kun efter:
 4. gennemført checkpoint-review,
 5. elevens klik på **Afslut Niveau 2**.
 
-Completed-visningen skal dokumentere den færdige juniopgave og dens afstemning. Den må ikke føje nye faglige opgaver til forløbet.
+Completed-visningen skal dokumentere den færdige juniopgave og dens afstemning. Handlingen **Se afsluttet opgave** åbner elevens faktiske B1-B9 og afstemning read-only med enkel lokal navigation og **Tilbage til afslutning**. Gennemgangen bruger source og student state, er ikke en ny persisted fase og må ikke ændre elevens besvarelse. Den må ikke føje nye faglige opgaver til forløbet.
 
 ## 11. Generator- og versionskontrakt
 

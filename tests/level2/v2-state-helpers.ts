@@ -59,17 +59,22 @@ export function completeV2Checkpoint(
     state = checkV2CheckpointSection(answers, state, sectionId);
   }
   const expectedC = answers.reconciliation.C;
-  state = editV2CheckpointAmount(state, 'C', 'employerPension', String(expectedC.employerPension.bookedAmount));
-  state = editV2CheckpointAmount(state, 'C', 'employerAtp', String(expectedC.employerAtp.bookedAmount));
-  state = editV2CheckpointAmount(state, 'C', 'grossHolidayPay', String(expectedC.grossHolidayPay.bookedAmount));
-  state = editV2CheckpointAmount(
-    state,
-    'C',
-    'holidayLiabilityAdjustment',
-    String(expectedC.holidayLiabilityAdjustment.bookedAmount),
-  );
+  for (const [field, amount] of [
+    ['pensionBookBalance', expectedC.pension.bookedAmount],
+    ['hourlyEmployeePensionYtd', expectedC.pension.hourlyEmployeePensionYtd],
+    ['hourlyEmployerPensionYtd', expectedC.pension.hourlyEmployerPensionYtd],
+    ['salariedEmployeePensionYtd', expectedC.pension.salariedEmployeePensionYtd],
+    ['salariedEmployerPensionYtd', expectedC.pension.salariedEmployerPensionYtd],
+    ['atpBookBalance', expectedC.atp.bookedAmount],
+    ['hourlyEmployeeAtpYtd', expectedC.atp.hourlyEmployeeAtpYtd],
+    ['hourlyEmployerAtpYtd', expectedC.atp.hourlyEmployerAtpYtd],
+    ['salariedEmployeeAtpYtd', expectedC.atp.salariedEmployeeAtpYtd],
+    ['salariedEmployerAtpYtd', expectedC.atp.salariedEmployerAtpYtd],
+    ['holidayPayBookBalance', expectedC.holidayPay.bookedAmount],
+    ['holidayPayGrossYtd', expectedC.holidayPay.grossHolidayPayYtd],
+  ] as const) state = editV2CheckpointAmount(state, 'C', field, String(amount));
   state = checkV2CheckpointSection(answers, state, 'C');
-  state = editV2CheckpointAmount(state, 'D', 'operatingTotal', String(answers.reconciliation.D.bookedAmount));
+  state = editV2CheckpointAmount(state, 'D', 'operatingTotal', String(answers.reconciliation.D.operatingTotal));
   state = checkV2CheckpointSection(answers, state, 'D');
   for (const accountNumber of V2_CHECKPOINT_BALANCE_ACCOUNTS) {
     const expected = answers.reconciliation.E.find(item => item.accountNumber === accountNumber);

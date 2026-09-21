@@ -4,7 +4,6 @@ import {
   R1_V2_SOURCE,
   assertV2AnswerKey,
   getV2Balance,
-  getV2Tally,
   type V2AnswerKey,
 } from '../../src/domain/level2/v2';
 
@@ -22,7 +21,6 @@ describe('Niveau 2 V2.1 tælleværker og checkpoint A-E', () => {
       'salaried-employee-atp-ytd': 2376,
       'salaried-employer-pension-ytd': 97200,
       'salaried-employer-atp-ytd': 4752,
-      'holiday-liability-adjustment-ytd': 32500,
       'holiday-liability-system-assessed': 182500,
     });
   });
@@ -50,44 +48,47 @@ describe('Niveau 2 V2.1 tælleværker og checkpoint A-E', () => {
     });
   });
 
-  it('afstemmer checkpoint C via uafhængige bogførings- og kontrolveje', () => {
-    const pensionBooked = getV2Balance(R1_V2_ANSWER_KEY.finalBalances, '2215').amount - 38262 - 48600;
-    const pensionControl =
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-pension-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-pension-ytd').amount;
-    const atpBooked = getV2Balance(R1_V2_ANSWER_KEY.finalBalances, '2223').amount - 2376 - 2376;
-    const atpControl =
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-atp-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-atp-ytd').amount;
-
-    expect([pensionBooked, pensionControl]).toEqual([173726, 173726]);
-    expect([atpBooked, atpControl]).toEqual([9504, 9504]);
+  it('afstemmer checkpoint C via hele bogføringssaldi mod lønsystemets tælleværker', () => {
     expect(R1_V2_ANSWER_KEY.reconciliation.C).toEqual({
-      employerPension: { bookedAmount: 173726, controlAmount: 173726, difference: 0 },
-      employerAtp: { bookedAmount: 9504, controlAmount: 9504, difference: 0 },
-      grossHolidayPay: { bookedAmount: 119574, controlAmount: 119574, difference: 0 },
-      holidayLiabilityAdjustment: { bookedAmount: 32500, controlAmount: 32500, difference: 0 },
+      pension: {
+        accountNumber: '2215',
+        hourlyEmployeePensionYtd: 38262,
+        hourlyEmployerPensionYtd: 76526,
+        salariedEmployeePensionYtd: 48600,
+        salariedEmployerPensionYtd: 97200,
+        bookedAmount: 260588,
+        controlAmount: 260588,
+        difference: 0,
+      },
+      atp: {
+        accountNumber: '2223',
+        hourlyEmployeeAtpYtd: 2376,
+        hourlyEmployerAtpYtd: 4752,
+        salariedEmployeeAtpYtd: 2376,
+        salariedEmployerAtpYtd: 4752,
+        bookedAmount: 14256,
+        controlAmount: 14256,
+        difference: 0,
+      },
+      holidayPay: {
+        accountNumber: '2230',
+        grossHolidayPayYtd: 119574,
+        bookedAmount: 119574,
+        controlAmount: 119574,
+        difference: 0,
+      },
     });
   });
 
-  it('afleder checkpoint D fra de viste komponenter', () => {
-    const sumOfTallies =
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-pay-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'salaried-gross-pay-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-pension-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-pension-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-atp-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-atp-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-holiday-pay-ytd').amount +
-      getV2Tally(R1_V2_SOURCE.tallies, 'holiday-liability-adjustment-ytd').amount;
-    expect(sumOfTallies).toBe(2506874);
-    expect(R1_V2_ANSWER_KEY.reconciliation.D).toEqual({
-      bookedAmount: 2506874,
-      controlAmount: 2506874,
-      difference: 0,
-    });
+  it('afleder checkpoint D som intern sumkontrol af de seks driftskonti', () => {
+    const operatingAccounts = ['2210', '2211', '2215', '2223', '2230', '2235'] as const;
+    const operatingTotal = operatingAccounts.reduce(
+      (sum, accountNumber) => sum + getV2Balance(R1_V2_ANSWER_KEY.finalBalances, accountNumber).amount,
+      0,
+    );
+    expect(operatingTotal).toBe(2506874);
+    expect(R1_V2_ANSWER_KEY.reconciliation.D).toEqual({ operatingTotal: 2506874 });
   });
-
   it('afstemmer checkpoint E med kredit-side og seks eksterne kontrolbeløb', () => {
     expect(R1_V2_SOURCE.liabilityControls.map(control => [
       control.accountNumber,
@@ -115,10 +116,9 @@ describe('Niveau 2 V2.1 tælleværker og checkpoint A-E', () => {
       R1_V2_ANSWER_KEY.reconciliation.A,
       R1_V2_ANSWER_KEY.reconciliation.B,
       ...Object.values(R1_V2_ANSWER_KEY.reconciliation.C),
-      R1_V2_ANSWER_KEY.reconciliation.D,
       ...R1_V2_ANSWER_KEY.reconciliation.E,
     ];
-    expect(comparisons).toHaveLength(13);
+    expect(comparisons).toHaveLength(11);
     expect(comparisons.every(item => item.difference === 0)).toBe(true);
   });
 

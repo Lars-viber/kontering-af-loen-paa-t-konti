@@ -138,7 +138,6 @@ export type V2TallyId =
   | 'salaried-employee-atp-ytd'
   | 'salaried-employer-pension-ytd'
   | 'salaried-employer-atp-ytd'
-  | 'holiday-liability-adjustment-ytd'
   | 'holiday-liability-system-assessed';
 
 export type V2TallyMeasure =
@@ -148,7 +147,6 @@ export type V2TallyMeasure =
   | 'employer-pension'
   | 'employer-atp'
   | 'gross-holiday-pay'
-  | 'holiday-liability-adjustment'
   | 'holiday-liability-balance';
 
 export interface V2ExternalTally {
@@ -229,11 +227,35 @@ export interface V2GrossPayReconciliation extends V2ReconciliationComparison {
   readonly externalTallyId: 'hourly-gross-pay-ytd' | 'salaried-gross-pay-ytd';
 }
 
+export interface V2PensionReconciliation extends V2ReconciliationComparison {
+  readonly accountNumber: '2215';
+  readonly hourlyEmployeePensionYtd: number;
+  readonly hourlyEmployerPensionYtd: number;
+  readonly salariedEmployeePensionYtd: number;
+  readonly salariedEmployerPensionYtd: number;
+}
+
+export interface V2AtpReconciliation extends V2ReconciliationComparison {
+  readonly accountNumber: '2223';
+  readonly hourlyEmployeeAtpYtd: number;
+  readonly hourlyEmployerAtpYtd: number;
+  readonly salariedEmployeeAtpYtd: number;
+  readonly salariedEmployerAtpYtd: number;
+}
+
+export interface V2HolidayPayReconciliation extends V2ReconciliationComparison {
+  readonly accountNumber: '2230';
+  readonly grossHolidayPayYtd: number;
+}
+
 export interface V2OtherCostReconciliation {
-  readonly employerPension: V2ReconciliationComparison;
-  readonly employerAtp: V2ReconciliationComparison;
-  readonly grossHolidayPay: V2ReconciliationComparison;
-  readonly holidayLiabilityAdjustment: V2ReconciliationComparison;
+  readonly pension: V2PensionReconciliation;
+  readonly atp: V2AtpReconciliation;
+  readonly holidayPay: V2HolidayPayReconciliation;
+}
+
+export interface V2InternalOperatingControl {
+  readonly operatingTotal: number;
 }
 
 export interface V2LiabilityReconciliation extends V2ReconciliationComparison {
@@ -246,7 +268,7 @@ export interface V2ReconciliationExpected {
   readonly A: V2GrossPayReconciliation;
   readonly B: V2GrossPayReconciliation;
   readonly C: V2OtherCostReconciliation;
-  readonly D: V2ReconciliationComparison;
+  readonly D: V2InternalOperatingControl;
   readonly E: readonly V2LiabilityReconciliation[];
 }
 

@@ -76,7 +76,6 @@ function reconciliationDifferences(generated: GeneratedV2Case): readonly number[
     value.A.difference,
     value.B.difference,
     ...Object.values(value.C).map(item => item.difference),
-    value.D.difference,
     ...value.E.map(item => item.difference),
   ];
 }
@@ -88,7 +87,7 @@ function validateVariant(generated: GeneratedV2Case): void {
     throw new Error('B1-B9 document count');
   }
   if (generated.answers.finalBalances.length !== 13) throw new Error('final account count');
-  if (generated.source.tallies.length !== 13) throw new Error('tælleværk count');
+  if (generated.source.tallies.length !== 12) throw new Error('tælleværk count');
   if (generated.source.liabilityControls.length !== 6) throw new Error('liability control count');
   if (generated.answers.documents.some(document =>
     !document.balanced || document.debitTotal !== document.creditTotal ||

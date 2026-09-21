@@ -8,7 +8,7 @@ import {
 import { canonicalStringify } from '../../src/domain/level2';
 
 export const LEVEL2_GENERATOR_V2_FIXTURE_SHA256 =
-  '595d9488ee7c513563d4b936ccd291fada15908a1d818bcee1ac9a35b7f47941';
+  'e15ef7072a6ad7be0769860ac4907802a35e0227d990911a3f2d2402f0cadd46';
 
 describe('Niveau 2 V2.1 Generator V2 fixtures', () => {
   it.each([1, 2, 3, 42, 999999])('variant %i matcher den frosne V2-fixture', variant => {

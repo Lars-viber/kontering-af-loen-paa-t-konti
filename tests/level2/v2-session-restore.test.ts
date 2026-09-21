@@ -178,6 +178,21 @@ describe('V2.1 checkpoint og completed restore', () => {
     expect(editV2CheckpointBalance(restored, '6920', { rawAmount: '1' })).toBe(restored);
   });
 
+  it('roundtripper partial C med den nye raw checkpointshape', () => {
+    let state = advanceV2ToCheckpoint(V2_SESSION_CASE_42.answers);
+    state = editV2CheckpointAmount(state, 'C', 'pensionBookBalance', '260.588');
+    state = editV2CheckpointAmount(state, 'C', 'hourlyEmployeePensionYtd', '38 262');
+    state = editV2CheckpointAmount(state, 'C', 'atpBookBalance', '14256');
+    state = editV2CheckpointAmount(state, 'C', 'holidayPayGrossYtd', '');
+    const restored = roundtrip(state);
+    expect(restored.checkpoint.C.status).toBe('unchecked');
+    expect(restored.checkpoint.C.values).toMatchObject({
+      pensionBookBalance: '260.588',
+      hourlyEmployeePensionYtd: '38 262',
+      atpBookBalance: '14256',
+      holidayPayGrossYtd: '',
+    });
+  });
   it('restorer checkpointReview uden auto-complete og kan complete eksplicit', () => {
     const review = completeV2Checkpoint(
       V2_SESSION_CASE_42.answers,

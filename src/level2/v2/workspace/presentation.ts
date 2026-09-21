@@ -20,6 +20,7 @@ export type V2WorkspaceProgressStatus = 'completed' | 'active' | 'upcoming';
 export interface V2WorkspaceProgressStep {
   readonly label: string;
   readonly status: V2WorkspaceProgressStatus;
+  readonly documentId?: V2DocumentId;
 }
 
 export interface V2WorkspaceProgressPresentation {
@@ -35,45 +36,45 @@ export interface V2WorkspaceComparisonRow {
   readonly bookedLabel: string;
   readonly referenceLabel: string;
   readonly bookedAmount: number | null;
-  readonly referenceAmount: number;
+  readonly referenceAmount: number | null;
   readonly difference: number | null;
   readonly matches: boolean;
+}
+
+export interface V2WorkspaceDocumentField {
+  readonly id: string;
+  readonly label: string;
+  readonly amount: number;
 }
 
 function progressStep(
   label: string,
   status: V2WorkspaceProgressStatus,
+  documentId?: V2DocumentId,
 ): V2WorkspaceProgressStep {
-  return { label, status };
-}
-
-function documentRange(from: number, to: number): string {
-  return from === to ? 'B' + from : 'B' + from + '–B' + to;
+  return { label, status, documentId };
 }
 
 export function presentV2WorkspaceProgress(
   state: V2StudentState,
 ): V2WorkspaceProgressPresentation {
   const progress = selectV2Progress(state);
-  const steps: V2WorkspaceProgressStep[] = [];
-  if (state.phase === 'documentEntry' && state.currentDocumentId !== null) {
-    const active = Number(state.currentDocumentId.slice(1));
-    if (active > 1) steps.push(progressStep(documentRange(1, active - 1), 'completed'));
-    steps.push(progressStep('B' + active, 'active'));
-    if (active < 9) steps.push(progressStep(documentRange(active + 1, 9), 'upcoming'));
-    steps.push(progressStep('Afstemning', 'upcoming'));
-  } else if (state.phase === 'documentReview' && state.currentDocumentId !== null) {
-    const reviewed = Number(state.currentDocumentId.slice(1));
-    steps.push(progressStep(documentRange(1, reviewed), 'completed'));
-    if (reviewed < 9) steps.push(progressStep(documentRange(reviewed + 1, 9), 'upcoming'));
-    steps.push(progressStep('Afstemning', 'upcoming'));
-  } else {
-    steps.push(progressStep('B1–B9', 'completed'));
-    steps.push(progressStep(
-      'Afstemning',
-      state.phase === 'checkpoint' ? 'active' : 'completed',
-    ));
-  }
+  const currentIndex = state.currentDocumentId === null
+    ? -1
+    : V2_DOCUMENT_IDS.indexOf(state.currentDocumentId);
+  const inCheckpoint = state.phase === 'checkpoint' || state.phase === 'checkpointReview';
+  const completed = state.phase === 'completed';
+  const steps = V2_DOCUMENT_IDS.map((documentId, index): V2WorkspaceProgressStep => {
+    if (completed || inCheckpoint || index < currentIndex) {
+      return progressStep(documentId, 'completed', documentId);
+    }
+    if (index === currentIndex) return progressStep(documentId, 'active', documentId);
+    return progressStep(documentId, 'upcoming', documentId);
+  });
+  steps.push(progressStep(
+    'Afstemning',
+    completed ? 'completed' : inCheckpoint ? 'active' : 'upcoming',
+  ));
   const remaining = progress.remainingDocumentCount;
   return {
     completedDocuments: progress.completedDocumentCount,
@@ -83,7 +84,6 @@ export function presentV2WorkspaceProgress(
     steps,
   };
 }
-
 export function selectV2WorkspaceDocument(
   source: V2SourceCase,
   documentId: V2DocumentId,
@@ -91,6 +91,67 @@ export function selectV2WorkspaceDocument(
   const document = source.documentSources.find(item => item.id === documentId);
   if (!document) throw new Error('Missing V2.1 document source ' + documentId);
   return document;
+}
+
+function workspaceDocumentField(
+  id: string,
+  label: string,
+  amount: number,
+): V2WorkspaceDocumentField {
+  return { id, label, amount };
+}
+
+export function selectV2WorkspaceDocumentFields(
+  source: V2SourceCase,
+  documentId: V2DocumentId,
+): readonly V2WorkspaceDocumentField[] {
+  const document = selectV2WorkspaceDocument(source, documentId);
+  if (!['B4', 'B5', 'B6', 'B7', 'B8'].includes(documentId)) return document.fields;
+
+  const june = source.history.find(month => month.month === 'jun');
+  if (!june) throw new Error('Missing V2.1 June source history');
+
+  switch (documentId) {
+    case 'B4':
+      return [
+        workspaceDocumentField('june-hourly-gross-pay', 'Bruttoløn – timelønnede – juni', june.hourlyTotals.grossSalary),
+        workspaceDocumentField('june-hourly-employee-pension', 'Medarbejderpension – timelønnede – juni', june.hourlyTotals.employeePension),
+        workspaceDocumentField('june-hourly-employee-atp', 'Medarbejder-ATP – timelønnede – juni', june.hourlyTotals.employeeAtp),
+        workspaceDocumentField('june-hourly-am-base', 'AM-bidragsgrundlag – timelønnede – juni', june.hourlyTotals.amBase),
+        workspaceDocumentField('june-hourly-am-contribution', 'AM-bidrag – timelønnede – juni', june.hourlyTotals.amContribution),
+        workspaceDocumentField('june-hourly-a-tax', 'A-skat – timelønnede – juni', june.hourlyTotals.aTax),
+        workspaceDocumentField('june-hourly-net-pay', 'Nettoløn – timelønnede – juni', june.hourlyTotals.netPay),
+      ];
+    case 'B5':
+      return [
+        workspaceDocumentField('june-hourly-employer-pension', 'Arbejdsgiverpension – timelønnede – juni', june.hourlyTotals.employerPension),
+        workspaceDocumentField('june-hourly-employer-atp', 'Arbejdsgiver-ATP – timelønnede – juni', june.hourlyTotals.employerAtp),
+      ];
+    case 'B6':
+      return [
+        workspaceDocumentField('june-hourly-gross-holiday-pay', 'Bruttoferiepenge – juni', june.hourlyHolidayTotals.grossHolidayPay),
+        workspaceDocumentField('june-hourly-holiday-am-contribution', 'AM-bidrag af feriepenge – juni', june.hourlyHolidayTotals.amContribution),
+        workspaceDocumentField('june-hourly-holiday-a-tax', 'A-skat af feriepenge – juni', june.hourlyHolidayTotals.aTax),
+        workspaceDocumentField('june-hourly-net-holiday-pay', 'Nettoferiepenge – juni', june.hourlyHolidayTotals.netHolidayPay),
+      ];
+    case 'B7':
+      return [
+        workspaceDocumentField('june-salaried-gross-pay', 'Bruttoløn – månedslønnede – juni', june.salariedTotals.grossSalary),
+        workspaceDocumentField('june-salaried-employee-pension', 'Medarbejderpension – månedslønnede – juni', june.salariedTotals.employeePension),
+        workspaceDocumentField('june-salaried-employee-atp', 'Medarbejder-ATP – månedslønnede – juni', june.salariedTotals.employeeAtp),
+        workspaceDocumentField('june-salaried-am-base', 'AM-bidragsgrundlag – månedslønnede – juni', june.salariedTotals.amBase),
+        workspaceDocumentField('june-salaried-am-contribution', 'AM-bidrag – månedslønnede – juni', june.salariedTotals.amContribution),
+        workspaceDocumentField('june-salaried-a-tax', 'A-skat – månedslønnede – juni', june.salariedTotals.aTax),
+        workspaceDocumentField('june-salaried-net-pay', 'Nettoløn – månedslønnede – juni', june.salariedTotals.netPay),
+      ];
+    case 'B8':
+      return [
+        workspaceDocumentField('june-salaried-employer-pension', 'Arbejdsgiverpension – månedslønnede – juni', june.salariedTotals.employerPension),
+        workspaceDocumentField('june-salaried-employer-atp', 'Arbejdsgiver-ATP – månedslønnede – juni', june.salariedTotals.employerAtp),
+      ];
+    default:
+      return document.fields;
+  }
 }
 
 export function selectV2WorkspaceDocumentTallies(
@@ -115,9 +176,9 @@ function comparison(
   bookedLabel: string,
   referenceLabel: string,
   bookedAmount: number | null,
-  referenceAmount: number,
+  referenceAmount: number | null,
 ): V2WorkspaceComparisonRow {
-  const difference = bookedAmount === null ? null : bookedAmount - referenceAmount;
+  const difference = bookedAmount === null || referenceAmount === null ? null : bookedAmount - referenceAmount;
   return {
     rowId,
     label,
@@ -134,16 +195,6 @@ function rawAmount(raw: string): number | null {
   return parseV2WorkspaceAmount(raw);
 }
 
-const D_TALLY_IDS: readonly V2TallyId[] = [
-  'hourly-gross-pay-ytd',
-  'salaried-gross-pay-ytd',
-  'hourly-employer-pension-ytd',
-  'salaried-employer-pension-ytd',
-  'hourly-employer-atp-ytd',
-  'salaried-employer-atp-ytd',
-  'hourly-gross-holiday-pay-ytd',
-  'holiday-liability-adjustment-ytd',
-];
 
 export function presentV2WorkspaceReconciliation(
   source: V2SourceCase,
@@ -167,52 +218,50 @@ export function presentV2WorkspaceReconciliation(
   }
   if (sectionId === 'C') {
     const values = state.checkpoint.C.values;
-    const rows: readonly [string, string, string, readonly V2TallyId[]][] = [
-      [
-        'employer-pension',
-        'Arbejdsgiverpension',
-        values.employerPension,
-        ['hourly-employer-pension-ytd', 'salaried-employer-pension-ytd'],
-      ],
-      [
-        'employer-atp',
-        'Arbejdsgiver-ATP',
-        values.employerAtp,
-        ['hourly-employer-atp-ytd', 'salaried-employer-atp-ytd'],
-      ],
-      [
-        'gross-holiday-pay',
-        'Feriepenge – timelønnede',
-        values.grossHolidayPay,
-        ['hourly-gross-holiday-pay-ytd'],
-      ],
-      [
-        'holiday-adjustment',
-        'Regulering af feriepengeforpligtelse',
-        values.holidayLiabilityAdjustment,
-        ['holiday-liability-adjustment-ytd'],
-      ],
+    const sum = (fields: readonly string[]): number | null => {
+      const amounts = fields.map(field => rawAmount(values[field as keyof typeof values]));
+      return amounts.some(amount => amount === null)
+        ? null
+        : amounts.reduce<number>((total, amount) => total + (amount ?? 0), 0);
+    };
+    return [
+      comparison(
+        'pension',
+        'Pension – 2215',
+        'Bogført saldo',
+        'Sum af lønsystemets tælleværker',
+        rawAmount(values.pensionBookBalance),
+        sum([
+          'hourlyEmployeePensionYtd',
+          'hourlyEmployerPensionYtd',
+          'salariedEmployeePensionYtd',
+          'salariedEmployerPensionYtd',
+        ]),
+      ),
+      comparison(
+        'atp',
+        'ATP – 2223',
+        'Bogført saldo',
+        'Sum af lønsystemets tælleværker',
+        rawAmount(values.atpBookBalance),
+        sum([
+          'hourlyEmployeeAtpYtd',
+          'hourlyEmployerAtpYtd',
+          'salariedEmployeeAtpYtd',
+          'salariedEmployerAtpYtd',
+        ]),
+      ),
+      comparison(
+        'holiday-pay',
+        'Feriepenge – 2230',
+        'Bogført saldo',
+        'Bruttoferiepenge ÅTD – tælleværk',
+        rawAmount(values.holidayPayBookBalance),
+        rawAmount(values.holidayPayGrossYtd),
+      ),
     ];
-    return rows.map(([rowId, label, raw, tallyIds]) => comparison(
-      rowId,
-      label,
-      'Bogført',
-      'Tælleværk',
-      rawAmount(raw),
-      tallyIds.reduce((sum, tallyId) => sum + tally(source, tallyId).amount, 0),
-    ));
   }
-  if (sectionId === 'D') {
-    const referenceAmount = D_TALLY_IDS.reduce((sum, tallyId) => sum + tally(source, tallyId).amount, 0);
-    return [comparison(
-      'operating-total',
-      'Samlede lønrelaterede omkostninger',
-      'Bogført/beregnet',
-      'Sum af tælleværker',
-      rawAmount(state.checkpoint.D.values.operatingTotal),
-      referenceAmount,
-    )];
-  }
+  if (sectionId === 'D') return [];
   return source.liabilityControls.map(control => {
     const balance = selectV2StudentDerivedBalance(
       source.startBalances,

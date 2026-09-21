@@ -105,7 +105,20 @@ function validateCheckpoint(value: unknown): boolean {
   )) return false;
   if (!validateAmountSection(
     value.C,
-    ['employerPension', 'employerAtp', 'grossHolidayPay', 'holidayLiabilityAdjustment'],
+    [
+      'pensionBookBalance',
+      'hourlyEmployeePensionYtd',
+      'hourlyEmployerPensionYtd',
+      'salariedEmployeePensionYtd',
+      'salariedEmployerPensionYtd',
+      'atpBookBalance',
+      'hourlyEmployeeAtpYtd',
+      'hourlyEmployerAtpYtd',
+      'salariedEmployeeAtpYtd',
+      'salariedEmployerAtpYtd',
+      'holidayPayBookBalance',
+      'holidayPayGrossYtd',
+    ],
   )) return false;
   if (!validateAmountSection(value.D, ['operatingTotal'])) return false;
   if (

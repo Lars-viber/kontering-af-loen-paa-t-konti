@@ -101,6 +101,41 @@ describe('V2.1 checkpoint review og explicit completion', () => {
     expect(edited.checkpoint.B.status).toBe('unchecked');
   });
 
+  it('graderer den nye C fuldt, lader incorrect være editable og låser correct', () => {
+    const expected = R1_V2_ANSWER_KEY.reconciliation.C;
+    let state = advanceV2ToCheckpoint(R1_V2_ANSWER_KEY);
+    const fields = [
+      ['pensionBookBalance', expected.pension.bookedAmount],
+      ['hourlyEmployeePensionYtd', expected.pension.hourlyEmployeePensionYtd],
+      ['hourlyEmployerPensionYtd', expected.pension.hourlyEmployerPensionYtd],
+      ['salariedEmployeePensionYtd', expected.pension.salariedEmployeePensionYtd],
+      ['salariedEmployerPensionYtd', expected.pension.salariedEmployerPensionYtd],
+      ['atpBookBalance', expected.atp.bookedAmount],
+      ['hourlyEmployeeAtpYtd', expected.atp.hourlyEmployeeAtpYtd],
+      ['hourlyEmployerAtpYtd', expected.atp.hourlyEmployerAtpYtd],
+      ['salariedEmployeeAtpYtd', expected.atp.salariedEmployeeAtpYtd],
+      ['salariedEmployerAtpYtd', expected.atp.salariedEmployerAtpYtd],
+      ['holidayPayBookBalance', expected.holidayPay.bookedAmount],
+      ['holidayPayGrossYtd', expected.holidayPay.grossHolidayPayYtd],
+    ] as const;
+    for (const [field, amount] of fields) {
+      state = editV2CheckpointAmount(state, 'C', field, String(amount));
+    }
+    state = editV2CheckpointAmount(state, 'C', 'holidayPayGrossYtd', '1');
+    state = checkV2CheckpointSection(R1_V2_ANSWER_KEY, state, 'C');
+    expect(state.checkpoint.C.status).toBe('incorrect');
+
+    state = editV2CheckpointAmount(
+      state,
+      'C',
+      'holidayPayGrossYtd',
+      String(expected.holidayPay.grossHolidayPayYtd),
+    );
+    expect(state.checkpoint.C.status).toBe('unchecked');
+    state = checkV2CheckpointSection(R1_V2_ANSWER_KEY, state, 'C');
+    expect(state.checkpoint.C.status).toBe('correct');
+    expect(editV2CheckpointAmount(state, 'C', 'pensionBookBalance', '1')).toBe(state);
+  });
   it('går til checkpointReview, bevarer inputs og venter på explicit complete', () => {
     const checkpoint = advanceV2ToCheckpoint(R1_V2_ANSWER_KEY);
     const review = completeV2Checkpoint(R1_V2_ANSWER_KEY, checkpoint);
@@ -146,7 +181,7 @@ describe('V2.1 checkpoint review og explicit completion', () => {
     const review = completeV2Checkpoint(generated.answers, checkpoint);
     expect(review.phase).toBe('checkpointReview');
     expect(review.checkpoint.D.values.operatingTotal)
-      .toBe(String(generated.answers.reconciliation.D.bookedAmount));
+      .toBe(String(generated.answers.reconciliation.D.operatingTotal));
     expect(completeV2Level(review).phase).toBe('completed');
   });
 });

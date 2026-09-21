@@ -2,6 +2,8 @@
 
 ## 1. Formål
 
+**Pre-release-korrektion efter manuel browsertest:** Den tidligere C-model udskilte arbejdsgiverandele med tælleværker på begge sider og gav derfor ikke en reel bogføring-mod-ekstern-kilde-afstemning. C bruger nu hele kontosaldi, og D er en intern bogføringskontrol.
+
 Dette dokument fastlægger den faglige model for lønsystemets synlige tælleværker og for afstemningscheckpoint A-E. De konkrete R1-beløb findes i `V2_1_REFERENCE_R1.md`.
 
 ## 2. Fagligt princip
@@ -66,13 +68,10 @@ Den bogførte konto 2211 indeholder AM-grundlaget. Bruttolønnen rekonstrueres d
 
 ### B9 – Feriepengeforpligtelse
 
-- Regulering år til dato: 32.500 kr.
+- Bogført saldo før regulering: 174.000 kr.
 - Feriepengeforpligtelse ifølge lønsystemet: 182.500 kr.
 
-Den første værdi afstemmes mod konto 2235. Den anden værdi afstemmes mod konto 6924.
-
-Før B9 er korrekt, vises kun bogført saldo før regulering på 174.000 kr. og systemopgjort saldo på 182.500 kr. Reguleringen på 8.500 kr. må ikke vises direkte. Regulering år til dato på 32.500 kr. må føjes til afstemningsmaterialet efter korrekt B9.
-
+Før B9 er korrekt, vises bogført saldo før regulering og systemopgjort saldo. Reguleringen på 8.500 kr. må ikke vises direkte. Den interne saldo på konto 2235 efter B9 er 32.500 kr., men den må ikke præsenteres som et eksternt lønsystemtælleværk.
 ## 5. Eksterne kontroloplysninger
 
 Checkpoint E bruger følgende kontroloplysninger pr. 30. juni:
@@ -96,7 +95,7 @@ Checkpointet bliver tilgængeligt, når alle ni bilag er korrekt konteret og gen
 
 Formål: At dokumentere sammenhængen mellem AM-grundlaget på konto 2210 og lønsystemets bruttoløn.
 
-Eleven indtaster lønkonto år til dato, medarbejderpension år til dato, medarbejder-ATP år til dato og beregnet bruttoløn år til dato.
+Eleven indtaster lønkonto år til dato (**Fra bogføringen / T-konto**), medarbejderpension og medarbejder-ATP (**Fra lønsystemets tælleværker**) samt bruttoløn år til dato (**Beregnet**).
 
 | Led | R1-værdi |
 |---|---:|
@@ -113,7 +112,7 @@ Efter korrekt kontrol står bogført/beregnet værdi, tælleværk, difference og
 
 Formål: At dokumentere sammenhængen mellem AM-grundlaget på konto 2211 og lønsystemets bruttoløn.
 
-Eleven indtaster lønkonto år til dato, medarbejderpension år til dato, medarbejder-ATP år til dato og beregnet bruttoløn år til dato.
+Eleven indtaster lønkonto år til dato (**Fra bogføringen / T-konto**), medarbejderpension og medarbejder-ATP (**Fra lønsystemets tælleværker**) samt bruttoløn år til dato (**Beregnet**).
 
 | Led | R1-værdi |
 |---|---:|
@@ -126,48 +125,46 @@ Eleven indtaster lønkonto år til dato, medarbejderpension år til dato, medarb
 
 Efter korrekt kontrol står bogført/beregnet værdi, tælleværk, difference og status **✓ Stemmer** permanent readonly.
 
-### C – Øvrige lønomkostninger
+### C – Afstem pension, ATP og feriepenge
 
-Formål: At afstemme de øvrige driftskonti mod lønsystemets relevante akkumulerede tælleværker.
+Formål: At sammenholde hele bogførte driftskonti med de legitime, eksterne tælleværker. Hvert input viser sin kilde som **Fra bogføringen / T-konto** eller **Fra lønsystemets tælleværker**.
 
-Eleven indtaster arbejdsgiverpension år til dato, arbejdsgiver-ATP år til dato, feriepenge for timelønnede år til dato og regulering af feriepengeforpligtelse år til dato.
+#### Pension
 
-| Afstemning | Bogført grundlag | Kontroltal | Difference |
-|---|---:|---:|---:|
-| Arbejdsgiverpension | 260.588 - 38.262 - 48.600 = 173.726 | 76.526 + 97.200 = 173.726 | 0 |
-| Arbejdsgiver-ATP | 14.256 - 2.376 - 2.376 = 9.504 | 4.752 + 4.752 = 9.504 | 0 |
-| Feriepenge, konto 2230 | 119.574 | 119.574 | 0 |
-| Regulering, konto 2235 | 32.500 | 32.500 | 0 |
+Eleven indtaster saldoen på 2215 og fire tælleværker: medarbejder- og arbejdsgiverpension for både time- og månedslønnede.
 
-Konto 2215 og 2223 indeholder både medarbejder- og arbejdsgiverandele. Bogføringssiden udskiller derfor arbejdsgiverandelene fra kontosaldoen ved hjælp af de synlige tælleværker for medarbejderandelene. Kontrolsiden summerer de synlige tælleværker for arbejdsgiverandelene. Eleven må ikke forventes at gætte en skjult fordeling.
+`38.262 + 76.526 + 48.600 + 97.200 = 260.588`
 
-Efter korrekt kontrol vises bogført værdi, tælleværk, difference og **✓ Stemmer** readonly for hver linje.
+Bogført saldo 2215: 260.588. Sum af tælleværker: 260.588. Difference: **0**.
 
-### D – Samlet lønomkostning
+#### ATP
 
-Formål: At dokumentere, at driftskontiene samlet stemmer med alle relevante tælleværker for omkostninger fra lønsystemet.
+Eleven indtaster saldoen på 2223 og fire tælleværker: medarbejder- og arbejdsgiver-ATP for både time- og månedslønnede.
 
-Eleven indtaster de samlede lønrelaterede omkostninger år til dato. Kontrolsummen er summen af de allerede viste tælleværker og er ikke et nyt, skjult facit.
+`2.376 + 4.752 + 2.376 + 4.752 = 14.256`
 
-| Led | R1-værdi |
-|---|---:|
-| Timelønnedes bruttoløn | 956.570 |
-| Månedslønnedes bruttoløn | 1.215.000 |
-| Arbejdsgiverpension | 173.726 |
-| Arbejdsgiver-ATP | 9.504 |
-| Feriepenge | 119.574 |
-| Regulering af feriepengeforpligtelse | 32.500 |
-| Kontrolsum | 2.506.874 |
-| Bogført driftssum | 2.506.874 |
-| **Difference** | **0** |
+Bogført saldo 2223: 14.256. Sum af tælleværker: 14.256. Difference: **0**.
 
-Efter korrekt kontrol vises bogført/beregnet værdi, sum af tælleværker, difference og **✓ Stemmer** readonly.
+#### Feriepenge – timelønnede
 
+Eleven indtaster saldoen på 2230 og bruttoferiepenge ÅTD fra lønsystemet. Begge er 119.574, og differencen er **0**.
+
+Konto 2235 indgår ikke i C. Der findes ikke et brugerrettet eksternt tælleværk for regulering af feriepengeforpligtelsen.
+
+### D – Intern kontrol af samlede lønrelaterede omkostninger
+
+Eleven beregner de samlede lønrelaterede omkostninger **Fra bogføringen / T-konto**:
+
+`2210 + 2211 + 2215 + 2223 + 2230 + 2235`
+
+`915.932 + 1.164.024 + 260.588 + 14.256 + 119.574 + 32.500 = 2.506.874`
+
+D har ingen ekstern reference eller tælleværkssum. Efter korrekt kontrol vises **Sum af driftskonti: 2.506.874** og **✓ Intern kontrol stemmer**.
 ### E – Åbne forpligtelser
 
 Formål: At dokumentere, at hver åben lønforpligtelse stemmer med sin eksterne kontroloplysning.
 
-For hver konto indtaster eleven både beløb og D/K. Kreditsiden er en del af det korrekte svar; et rigtigt beløb med forkert side er ikke korrekt.
+For hver konto indtaster eleven både beløb og D/K fra **Fra bogføringen / T-konto** og sammenholder med en synlig **Ekstern kontroloplysning**. Kreditsiden er en del af det korrekte svar; et rigtigt beløb med forkert side er ikke korrekt.
 
 | Konto | Bogført ultimosaldo | Ekstern kontrol | Difference |
 |---:|---:|---:|---:|

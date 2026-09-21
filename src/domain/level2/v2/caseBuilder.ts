@@ -145,7 +145,7 @@ export function buildV2SourceCase(input: V2CaseBuildInput): V2SourceCase {
     { id: 'salaried-employee-atp-ytd', employeeGroup: 'salaried', measure: 'employee-atp', period: 'ytd-through-2026-06', amount: sumMonths(history, V2_MONTHS, value => value.salariedTotals.employeeAtp), source: 'payroll-system', presentationLabel: 'Medarbejder-ATP ÅTD – månedslønnede' },
     { id: 'salaried-employer-pension-ytd', employeeGroup: 'salaried', measure: 'employer-pension', period: 'ytd-through-2026-06', amount: sumMonths(history, V2_MONTHS, value => value.salariedTotals.employerPension), source: 'payroll-system', presentationLabel: 'Arbejdsgiverpension ÅTD – månedslønnede' },
     { id: 'salaried-employer-atp-ytd', employeeGroup: 'salaried', measure: 'employer-atp', period: 'ytd-through-2026-06', amount: sumMonths(history, V2_MONTHS, value => value.salariedTotals.employerAtp), source: 'payroll-system', presentationLabel: 'Arbejdsgiver-ATP ÅTD – månedslønnede' },
-    { id: 'holiday-liability-adjustment-ytd', employeeGroup: 'all', measure: 'holiday-liability-adjustment', period: 'ytd-through-2026-06', amount: input.holidayLiabilityAdjustmentYtdMay + input.juneHolidayLiabilityAdjustment, source: 'payroll-system', presentationLabel: 'Regulering af feriepengeforpligtelse ÅTD' },
+
     { id: 'holiday-liability-system-assessed', employeeGroup: 'all', measure: 'holiday-liability-balance', period: 'as-of-2026-06-30', amount: input.systemAssessedHolidayLiability, source: 'payroll-system', presentationLabel: 'Systemopgjort feriepengeforpligtelse pr. 30/6' },
   ] satisfies readonly V2ExternalTally[]);
 
@@ -263,21 +263,42 @@ export function buildV2AnswerKey(source: V2SourceCase, input: V2CaseBuildInput):
     return Object.freeze({ wageAccountYtd, employeePensionYtd, employeeAtpYtd, calculatedGrossPayYtd, externalTallyId: grossId, bookedAmount: calculatedGrossPayYtd, controlAmount, difference: reconciliationDifference(calculatedGrossPayYtd, controlAmount) });
   };
   const hourlyEmployeePension = getV2Tally(source.tallies, 'hourly-employee-pension-ytd').amount;
+  const hourlyEmployerPension = getV2Tally(source.tallies, 'hourly-employer-pension-ytd').amount;
   const salariedEmployeePension = getV2Tally(source.tallies, 'salaried-employee-pension-ytd').amount;
+  const salariedEmployerPension = getV2Tally(source.tallies, 'salaried-employer-pension-ytd').amount;
+  const pensionTotal = hourlyEmployeePension + hourlyEmployerPension +
+    salariedEmployeePension + salariedEmployerPension;
   const hourlyEmployeeAtp = getV2Tally(source.tallies, 'hourly-employee-atp-ytd').amount;
+  const hourlyEmployerAtp = getV2Tally(source.tallies, 'hourly-employer-atp-ytd').amount;
   const salariedEmployeeAtp = getV2Tally(source.tallies, 'salaried-employee-atp-ytd').amount;
+  const salariedEmployerAtp = getV2Tally(source.tallies, 'salaried-employer-atp-ytd').amount;
+  const atpTotal = hourlyEmployeeAtp + hourlyEmployerAtp + salariedEmployeeAtp + salariedEmployerAtp;
+  const grossHolidayPayYtd = getV2Tally(source.tallies, 'hourly-gross-holiday-pay-ytd').amount;
   const otherCosts: V2OtherCostReconciliation = deepFreezeLevel2({
-    employerPension: comparison(getV2Balance(finalBalances, '2215').amount - hourlyEmployeePension - salariedEmployeePension, getV2Tally(source.tallies, 'hourly-employer-pension-ytd').amount + getV2Tally(source.tallies, 'salaried-employer-pension-ytd').amount),
-    employerAtp: comparison(getV2Balance(finalBalances, '2223').amount - hourlyEmployeeAtp - salariedEmployeeAtp, getV2Tally(source.tallies, 'hourly-employer-atp-ytd').amount + getV2Tally(source.tallies, 'salaried-employer-atp-ytd').amount),
-    grossHolidayPay: comparison(getV2Balance(finalBalances, '2230').amount, getV2Tally(source.tallies, 'hourly-gross-holiday-pay-ytd').amount),
-    holidayLiabilityAdjustment: comparison(getV2Balance(finalBalances, '2235').amount, getV2Tally(source.tallies, 'holiday-liability-adjustment-ytd').amount),
+    pension: {
+      accountNumber: '2215',
+      hourlyEmployeePensionYtd: hourlyEmployeePension,
+      hourlyEmployerPensionYtd: hourlyEmployerPension,
+      salariedEmployeePensionYtd: salariedEmployeePension,
+      salariedEmployerPensionYtd: salariedEmployerPension,
+      ...comparison(getV2Balance(finalBalances, '2215').amount, pensionTotal),
+    },
+    atp: {
+      accountNumber: '2223',
+      hourlyEmployeeAtpYtd: hourlyEmployeeAtp,
+      hourlyEmployerAtpYtd: hourlyEmployerAtp,
+      salariedEmployeeAtpYtd: salariedEmployeeAtp,
+      salariedEmployerAtpYtd: salariedEmployerAtp,
+      ...comparison(getV2Balance(finalBalances, '2223').amount, atpTotal),
+    },
+    holidayPay: {
+      accountNumber: '2230',
+      grossHolidayPayYtd,
+      ...comparison(getV2Balance(finalBalances, '2230').amount, grossHolidayPayYtd),
+    },
   });
   const operatingTotal = (['2210', '2211', '2215', '2223', '2230', '2235'] as const)
     .reduce((sum, accountNumber) => sum + getV2Balance(finalBalances, accountNumber).amount, 0);
-  const tallyTotal = getV2Tally(source.tallies, 'hourly-gross-pay-ytd').amount +
-    getV2Tally(source.tallies, 'salaried-gross-pay-ytd').amount +
-    otherCosts.employerPension.controlAmount + otherCosts.employerAtp.controlAmount +
-    otherCosts.grossHolidayPay.controlAmount + otherCosts.holidayLiabilityAdjustment.controlAmount;
   const controlIds = ['june-a-tax', 'june-am-contribution', 'june-pension', 'atp-as-of-june-30', 'june-net-holiday-pay', 'holiday-liability-as-of-june-30'] as const satisfies readonly V2LiabilityControlId[];
   const liabilities = controlIds.map((controlId): V2LiabilityReconciliation => {
     const control = getV2LiabilityControl(source.liabilityControls, controlId);
@@ -290,7 +311,7 @@ export function buildV2AnswerKey(source: V2SourceCase, input: V2CaseBuildInput):
       A: gross('2210', 'hourly-employee-pension-ytd', 'hourly-employee-atp-ytd', 'hourly-gross-pay-ytd'),
       B: gross('2211', 'salaried-employee-pension-ytd', 'salaried-employee-atp-ytd', 'salaried-gross-pay-ytd'),
       C: otherCosts,
-      D: comparison(operatingTotal, tallyTotal),
+      D: { operatingTotal },
       E: liabilities,
     },
     finalBalances,

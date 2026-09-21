@@ -443,15 +443,6 @@
           "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
         },
         {
-          "id": "holiday-liability-adjustment-ytd",
-          "employeeGroup": "all",
-          "measure": "holiday-liability-adjustment",
-          "period": "ytd-through-2026-06",
-          "amount": 32500,
-          "source": "payroll-system",
-          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
-        },
-        {
           "id": "holiday-liability-system-assessed",
           "employeeGroup": "all",
           "measure": "holiday-liability-balance",
@@ -582,31 +573,36 @@
           "difference": 0
         },
         "C": {
-          "employerPension": {
-            "bookedAmount": 178816,
-            "controlAmount": 178816,
+          "pension": {
+            "accountNumber": "2215",
+            "hourlyEmployeePensionYtd": 35288,
+            "hourlyEmployerPensionYtd": 70576,
+            "salariedEmployeePensionYtd": 54120,
+            "salariedEmployerPensionYtd": 108240,
+            "bookedAmount": 268224,
+            "controlAmount": 268224,
             "difference": 0
           },
-          "employerAtp": {
-            "bookedAmount": 9504,
-            "controlAmount": 9504,
+          "atp": {
+            "accountNumber": "2223",
+            "hourlyEmployeeAtpYtd": 2376,
+            "hourlyEmployerAtpYtd": 4752,
+            "salariedEmployeeAtpYtd": 2376,
+            "salariedEmployerAtpYtd": 4752,
+            "bookedAmount": 14256,
+            "controlAmount": 14256,
             "difference": 0
           },
-          "grossHolidayPay": {
+          "holidayPay": {
+            "accountNumber": "2230",
+            "grossHolidayPayYtd": 110280,
             "bookedAmount": 110280,
             "controlAmount": 110280,
-            "difference": 0
-          },
-          "holidayLiabilityAdjustment": {
-            "bookedAmount": 32500,
-            "controlAmount": 32500,
             "difference": 0
           }
         },
         "D": {
-          "bookedAmount": 2566310,
-          "controlAmount": 2566310,
-          "difference": 0
+          "operatingTotal": 2566310
         },
         "E": [
           {
@@ -1152,15 +1148,6 @@
           "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
         },
         {
-          "id": "holiday-liability-adjustment-ytd",
-          "employeeGroup": "all",
-          "measure": "holiday-liability-adjustment",
-          "period": "ytd-through-2026-06",
-          "amount": 34000,
-          "source": "payroll-system",
-          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
-        },
-        {
           "id": "holiday-liability-system-assessed",
           "employeeGroup": "all",
           "measure": "holiday-liability-balance",
@@ -1291,31 +1278,36 @@
           "difference": 0
         },
         "C": {
-          "employerPension": {
-            "bookedAmount": 122524,
-            "controlAmount": 122524,
+          "pension": {
+            "accountNumber": "2215",
+            "hourlyEmployeePensionYtd": 23462,
+            "hourlyEmployerPensionYtd": 46924,
+            "salariedEmployeePensionYtd": 37800,
+            "salariedEmployerPensionYtd": 75600,
+            "bookedAmount": 183786,
+            "controlAmount": 183786,
             "difference": 0
           },
-          "employerAtp": {
-            "bookedAmount": 7128,
-            "controlAmount": 7128,
+          "atp": {
+            "accountNumber": "2223",
+            "hourlyEmployeeAtpYtd": 1782,
+            "hourlyEmployerAtpYtd": 3564,
+            "salariedEmployeeAtpYtd": 1782,
+            "salariedEmployerAtpYtd": 3564,
+            "bookedAmount": 10692,
+            "controlAmount": 10692,
             "difference": 0
           },
-          "grossHolidayPay": {
+          "holidayPay": {
+            "accountNumber": "2230",
+            "grossHolidayPayYtd": 73324,
             "bookedAmount": 73324,
             "controlAmount": 73324,
-            "difference": 0
-          },
-          "holidayLiabilityAdjustment": {
-            "bookedAmount": 34000,
-            "controlAmount": 34000,
             "difference": 0
           }
         },
         "D": {
-          "bookedAmount": 1768561,
-          "controlAmount": 1768561,
-          "difference": 0
+          "operatingTotal": 1768561
         },
         "E": [
           {
@@ -1903,15 +1895,6 @@
           "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
         },
         {
-          "id": "holiday-liability-adjustment-ytd",
-          "employeeGroup": "all",
-          "measure": "holiday-liability-adjustment",
-          "period": "ytd-through-2026-06",
-          "amount": 38500,
-          "source": "payroll-system",
-          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
-        },
-        {
           "id": "holiday-liability-system-assessed",
           "employeeGroup": "all",
           "measure": "holiday-liability-balance",
@@ -2042,31 +2025,36 @@
           "difference": 0
         },
         "C": {
-          "employerPension": {
-            "bookedAmount": 191001,
-            "controlAmount": 191001,
+          "pension": {
+            "accountNumber": "2215",
+            "hourlyEmployeePensionYtd": 56262,
+            "hourlyEmployerPensionYtd": 112521,
+            "salariedEmployeePensionYtd": 39240,
+            "salariedEmployerPensionYtd": 78480,
+            "bookedAmount": 286503,
+            "controlAmount": 286503,
             "difference": 0
           },
-          "employerAtp": {
-            "bookedAmount": 10692,
-            "controlAmount": 10692,
+          "atp": {
+            "accountNumber": "2223",
+            "hourlyEmployeeAtpYtd": 3564,
+            "hourlyEmployerAtpYtd": 7128,
+            "salariedEmployeeAtpYtd": 1782,
+            "salariedEmployerAtpYtd": 3564,
+            "bookedAmount": 16038,
+            "controlAmount": 16038,
             "difference": 0
           },
-          "grossHolidayPay": {
+          "holidayPay": {
+            "accountNumber": "2230",
+            "grossHolidayPayYtd": 175815,
             "bookedAmount": 175815,
             "controlAmount": 175815,
-            "difference": 0
-          },
-          "holidayLiabilityAdjustment": {
-            "bookedAmount": 38500,
-            "controlAmount": 38500,
             "difference": 0
           }
         },
         "D": {
-          "bookedAmount": 2803518,
-          "controlAmount": 2803518,
-          "difference": 0
+          "operatingTotal": 2803518
         },
         "E": [
           {
@@ -2624,15 +2612,6 @@
           "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
         },
         {
-          "id": "holiday-liability-adjustment-ytd",
-          "employeeGroup": "all",
-          "measure": "holiday-liability-adjustment",
-          "period": "ytd-through-2026-06",
-          "amount": 37000,
-          "source": "payroll-system",
-          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
-        },
-        {
           "id": "holiday-liability-system-assessed",
           "employeeGroup": "all",
           "measure": "holiday-liability-balance",
@@ -2763,31 +2742,36 @@
           "difference": 0
         },
         "C": {
-          "employerPension": {
-            "bookedAmount": 176458,
-            "controlAmount": 176458,
+          "pension": {
+            "accountNumber": "2215",
+            "hourlyEmployeePensionYtd": 28709,
+            "hourlyEmployerPensionYtd": 57418,
+            "salariedEmployeePensionYtd": 59520,
+            "salariedEmployerPensionYtd": 119040,
+            "bookedAmount": 264687,
+            "controlAmount": 264687,
             "difference": 0
           },
-          "employerAtp": {
-            "bookedAmount": 9504,
-            "controlAmount": 9504,
+          "atp": {
+            "accountNumber": "2223",
+            "hourlyEmployeeAtpYtd": 1782,
+            "hourlyEmployerAtpYtd": 3564,
+            "salariedEmployeeAtpYtd": 2970,
+            "salariedEmployerAtpYtd": 5940,
+            "bookedAmount": 14256,
+            "controlAmount": 14256,
             "difference": 0
           },
-          "grossHolidayPay": {
+          "holidayPay": {
+            "accountNumber": "2230",
+            "grossHolidayPayYtd": 89719,
             "bookedAmount": 89719,
             "controlAmount": 89719,
-            "difference": 0
-          },
-          "holidayLiabilityAdjustment": {
-            "bookedAmount": 37000,
-            "controlAmount": 37000,
             "difference": 0
           }
         },
         "D": {
-          "bookedAmount": 2518406,
-          "controlAmount": 2518406,
-          "difference": 0
+          "operatingTotal": 2518406
         },
         "E": [
           {
@@ -3393,15 +3377,6 @@
           "presentationLabel": "Arbejdsgiver-ATP ÅTD – månedslønnede"
         },
         {
-          "id": "holiday-liability-adjustment-ytd",
-          "employeeGroup": "all",
-          "measure": "holiday-liability-adjustment",
-          "period": "ytd-through-2026-06",
-          "amount": 34000,
-          "source": "payroll-system",
-          "presentationLabel": "Regulering af feriepengeforpligtelse ÅTD"
-        },
-        {
           "id": "holiday-liability-system-assessed",
           "employeeGroup": "all",
           "measure": "holiday-liability-balance",
@@ -3532,31 +3507,36 @@
           "difference": 0
         },
         "C": {
-          "employerPension": {
-            "bookedAmount": 265667,
-            "controlAmount": 265667,
+          "pension": {
+            "accountNumber": "2215",
+            "hourlyEmployeePensionYtd": 54597,
+            "hourlyEmployerPensionYtd": 109187,
+            "salariedEmployeePensionYtd": 78240,
+            "salariedEmployerPensionYtd": 156480,
+            "bookedAmount": 398504,
+            "controlAmount": 398504,
             "difference": 0
           },
-          "employerAtp": {
-            "bookedAmount": 14256,
-            "controlAmount": 14256,
+          "atp": {
+            "accountNumber": "2223",
+            "hourlyEmployeeAtpYtd": 3564,
+            "hourlyEmployerAtpYtd": 7128,
+            "salariedEmployeeAtpYtd": 3564,
+            "salariedEmployerAtpYtd": 7128,
+            "bookedAmount": 21384,
+            "controlAmount": 21384,
             "difference": 0
           },
-          "grossHolidayPay": {
+          "holidayPay": {
+            "accountNumber": "2230",
+            "grossHolidayPayYtd": 170611,
             "bookedAmount": 170611,
             "controlAmount": 170611,
-            "difference": 0
-          },
-          "holidayLiabilityAdjustment": {
-            "bookedAmount": 34000,
-            "controlAmount": 34000,
             "difference": 0
           }
         },
         "D": {
-          "bookedAmount": 3805394,
-          "controlAmount": 3805394,
-          "difference": 0
+          "operatingTotal": 3805394
         },
         "E": [
           {

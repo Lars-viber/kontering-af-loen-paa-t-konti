@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { V2SourceCase } from '../../../domain/level2/v2';
+import type { V2DocumentId, V2SourceCase } from '../../../domain/level2/v2';
 import type {
   V2AmountCheckpointSectionId,
   V2CheckpointAmountField,
@@ -14,15 +14,17 @@ import { V2_CHECKPOINT_AMOUNT_SECTIONS } from './checkpointPresentation';
 import { V2Progress } from './Progress';
 import type { Level2V2WorkspaceActions } from './types';
 
-export function V2CheckpointWorkspace({ source, state, actions }: {
+export function V2CheckpointWorkspace({ source, state, actions, completedReview = false, onViewApprovedDocument }: {
   readonly source: V2SourceCase;
   readonly state: V2StudentState;
   readonly actions: Level2V2WorkspaceActions;
+  readonly completedReview?: boolean;
+  readonly onViewApprovedDocument?: (documentId: V2DocumentId) => void;
 }) {
   const [referenceOpen, setReferenceOpen] = useState(true);
   const checkpoint = state.checkpoint;
   const correctCount = Object.values(checkpoint).filter(section => section.status === 'correct').length;
-  const review = state.phase === 'checkpointReview';
+  const review = completedReview || state.phase === 'checkpointReview';
   const editAmount = (
     sectionId: V2AmountCheckpointSectionId,
     field: V2CheckpointAmountField,
@@ -49,14 +51,36 @@ export function V2CheckpointWorkspace({ source, state, actions }: {
         >{referenceOpen ? 'Skjul reference' : 'Vis reference'}</button>
       </div>
     </header>
-    <V2Progress state={state} />
+    <V2Progress state={state} onViewDocument={onViewApprovedDocument} />
     {review && <section className="l2v2-checkpoint-review" role="status">
-      <strong>✓ Afstemningen pr. 30/6 stemmer</strong>
-      <span>5 af 5 afstemninger korrekte</span>
+      <div>
+        <strong>✓ Afstemningen pr. 30/6 stemmer</strong>
+        <span>5 af 5 afstemninger korrekte</span>
+      </div>
+      {state.phase === 'checkpointReview' && !completedReview && <button
+        type="button"
+        className="l2v2-primary l2v2-complete-top"
+        onClick={actions.complete}
+      >Afslut Niveau 2</button>}
     </section>}
     <div className={'l2v2-checkpoint-layout' + (referenceOpen ? '' : ' l2v2-reference-closed')}>
       <div className="l2v2-checkpoint-grid">
-        {V2_CHECKPOINT_AMOUNT_SECTIONS.map(presentation => {
+        <div className="l2v2-gross-pair" role="group" aria-label="Afstemning A og B">
+          {V2_CHECKPOINT_AMOUNT_SECTIONS.slice(0, 2).map(presentation => {
+            const section = checkpoint[presentation.sectionId];
+            return <V2CheckpointSection
+              key={presentation.sectionId}
+              source={source}
+              state={state}
+              presentation={presentation}
+              status={section.status}
+              values={section.values as unknown as Readonly<Record<string, string>>}
+              onEdit={editAmount}
+              onCheck={actions.checkCheckpointSection}
+            />;
+          })}
+        </div>
+        {V2_CHECKPOINT_AMOUNT_SECTIONS.slice(2).map(presentation => {
           const section = checkpoint[presentation.sectionId];
           return <V2CheckpointSection
             key={presentation.sectionId}
@@ -77,7 +101,7 @@ export function V2CheckpointWorkspace({ source, state, actions }: {
           onEdit={editBalance}
           onCheck={() => actions.checkCheckpointSection('E')}
         />
-        {review && <button type="button" className="l2v2-primary l2v2-complete" onClick={actions.complete}>
+        {review && !completedReview && <button type="button" className="l2v2-primary l2v2-complete" onClick={actions.complete}>
           Afslut Niveau 2
         </button>}
       </div>

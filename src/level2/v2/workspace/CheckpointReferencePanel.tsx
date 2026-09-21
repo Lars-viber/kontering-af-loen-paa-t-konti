@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import type { V2Account, V2SourceCase } from '../../../domain/level2/v2';
+import type { V2SourceCase } from '../../../domain/level2/v2';
 import type { V2StudentState } from '../state';
-import { V2AccountHistoryDialog } from './AccountHistoryDialog';
 import { formatV2WorkspaceAmount, formatV2WorkspaceBalance } from './format';
 import {
   groupV2WorkspaceTallies,
@@ -29,7 +27,6 @@ export function V2CheckpointReferencePanel({ source, state }: {
   readonly source: V2SourceCase;
   readonly state: V2StudentState;
 }) {
-  const [historyAccount, setHistoryAccount] = useState<V2Account | null>(null);
   const tallies = groupV2WorkspaceTallies(source);
   const controls = selectV2WorkspaceControls(source);
   return <aside className="l2v2-checkpoint-reference" aria-labelledby="l2v2-reference-title">
@@ -55,7 +52,6 @@ export function V2CheckpointReferencePanel({ source, state }: {
       <div className="l2v2-reference-accounts">
         {source.accounts.map(account => {
           const history = selectV2WorkspaceHistory(state, account.accountNumber);
-          const recent = history.slice(-4);
           const balance = selectV2WorkspaceBalance(source.startBalances, state, account.accountNumber);
           return <article className="l2v2-reference-account" data-reference-account={account.accountNumber} key={account.accountNumber}>
             <header>
@@ -66,25 +62,16 @@ export function V2CheckpointReferencePanel({ source, state }: {
             <div className="l2v2-reference-sides">
               {(['debit', 'credit'] as const).map(side => <div data-side={side} key={side}>
                 <h5>{side === 'debit' ? 'Debet' : 'Kredit'}</h5>
-                {recent.filter(row => row.side === side).map(row => <p key={row.documentId + '-' + row.rowId}>
+                {history.filter(row => row.side === side).map(row => <p key={row.documentId + '-' + row.rowId}>
                   <span>{row.documentId} · {row.text || 'Postering'}</span>
                   <strong>{formatV2WorkspaceAmount(row.amount)}</strong>
                 </p>)}
               </div>)}
             </div>
-            {history.length > 4 && <button type="button" onClick={() => setHistoryAccount(account)}>
-              + {history.length - 4} tidligere
-            </button>}
             <footer><span>Saldo pr. 30/6</span><strong>{formatV2WorkspaceBalance(balance)}</strong></footer>
           </article>;
         })}
       </div>
     </section>
-    {historyAccount && <V2AccountHistoryDialog
-      account={historyAccount}
-      openingBalances={source.startBalances}
-      state={state}
-      onClose={() => setHistoryAccount(null)}
-    />}
   </aside>;
 }

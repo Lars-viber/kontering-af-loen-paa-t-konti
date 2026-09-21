@@ -7,6 +7,8 @@ import type {
 export interface V2CheckpointFieldPresentation {
   readonly field: V2CheckpointAmountField;
   readonly label: string;
+  readonly sourceLabel: 'Fra bogføringen / T-konto' | 'Fra lønsystemets tælleværker' | 'Beregnet';
+  readonly group?: 'Pension' | 'ATP' | 'Feriepenge – timelønnede';
 }
 
 export interface V2CheckpointSectionPresentation {
@@ -20,40 +22,49 @@ export const V2_CHECKPOINT_AMOUNT_SECTIONS: readonly V2CheckpointSectionPresenta
   {
     sectionId: 'A',
     title: 'Timelønnede',
-    relationship: 'Lønkonto + medarbejderpension + medarbejder-ATP = bruttoløn',
+    relationship: '2210 Lønninger + medarbejderpension + medarbejder-ATP = bruttoløn ÅTD',
     fields: [
-      { field: 'wageAccountYtd', label: 'Lønninger – timelønnede, saldo ÅTD' },
-      { field: 'employeePensionYtd', label: 'Medarbejderpension ÅTD' },
-      { field: 'employeeAtpYtd', label: 'Medarbejder-ATP ÅTD' },
-      { field: 'calculatedGrossPayYtd', label: 'Bruttoløn ÅTD' },
+      { field: 'wageAccountYtd', label: '2210 Lønninger – timelønnede, saldo ÅTD', sourceLabel: 'Fra bogføringen / T-konto' },
+      { field: 'employeePensionYtd', label: 'Medarbejderpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker' },
+      { field: 'employeeAtpYtd', label: 'Medarbejder-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker' },
+      { field: 'calculatedGrossPayYtd', label: 'Bruttoløn ÅTD', sourceLabel: 'Beregnet' },
     ],
   },
   {
     sectionId: 'B',
     title: 'Månedslønnede',
-    relationship: 'Lønkonto + medarbejderpension + medarbejder-ATP = bruttoløn',
+    relationship: '2211 Lønninger + medarbejderpension + medarbejder-ATP = bruttoløn ÅTD',
     fields: [
-      { field: 'wageAccountYtd', label: 'Lønninger – månedslønnede, saldo ÅTD' },
-      { field: 'employeePensionYtd', label: 'Medarbejderpension ÅTD' },
-      { field: 'employeeAtpYtd', label: 'Medarbejder-ATP ÅTD' },
-      { field: 'calculatedGrossPayYtd', label: 'Bruttoløn ÅTD' },
+      { field: 'wageAccountYtd', label: '2211 Lønninger – månedslønnede, saldo ÅTD', sourceLabel: 'Fra bogføringen / T-konto' },
+      { field: 'employeePensionYtd', label: 'Medarbejderpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker' },
+      { field: 'employeeAtpYtd', label: 'Medarbejder-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker' },
+      { field: 'calculatedGrossPayYtd', label: 'Bruttoløn ÅTD', sourceLabel: 'Beregnet' },
     ],
   },
   {
     sectionId: 'C',
-    title: 'Øvrige lønrelaterede omkostninger',
+    title: 'Afstem pension, ATP og feriepenge',
     fields: [
-      { field: 'employerPension', label: 'Arbejdsgiverpension ÅTD' },
-      { field: 'employerAtp', label: 'Arbejdsgiver-ATP ÅTD' },
-      { field: 'grossHolidayPay', label: 'Feriepenge – timelønnede ÅTD' },
-      { field: 'holidayLiabilityAdjustment', label: 'Regulering af feriepengeforpligtelse ÅTD' },
+      { field: 'pensionBookBalance', label: '2215 Pensioner – saldo ÅTD', sourceLabel: 'Fra bogføringen / T-konto', group: 'Pension' },
+      { field: 'hourlyEmployeePensionYtd', label: 'Timelønnede – medarbejderpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'Pension' },
+      { field: 'hourlyEmployerPensionYtd', label: 'Timelønnede – arbejdsgiverpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'Pension' },
+      { field: 'salariedEmployeePensionYtd', label: 'Månedslønnede – medarbejderpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'Pension' },
+      { field: 'salariedEmployerPensionYtd', label: 'Månedslønnede – arbejdsgiverpension ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'Pension' },
+      { field: 'atpBookBalance', label: '2223 ATP – saldo ÅTD', sourceLabel: 'Fra bogføringen / T-konto', group: 'ATP' },
+      { field: 'hourlyEmployeeAtpYtd', label: 'Timelønnede – medarbejder-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'ATP' },
+      { field: 'hourlyEmployerAtpYtd', label: 'Timelønnede – arbejdsgiver-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'ATP' },
+      { field: 'salariedEmployeeAtpYtd', label: 'Månedslønnede – medarbejder-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'ATP' },
+      { field: 'salariedEmployerAtpYtd', label: 'Månedslønnede – arbejdsgiver-ATP ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'ATP' },
+      { field: 'holidayPayBookBalance', label: '2230 Feriepenge – timelønnede, saldo ÅTD', sourceLabel: 'Fra bogføringen / T-konto', group: 'Feriepenge – timelønnede' },
+      { field: 'holidayPayGrossYtd', label: 'Bruttoferiepenge ÅTD', sourceLabel: 'Fra lønsystemets tælleværker', group: 'Feriepenge – timelønnede' },
     ],
   },
   {
     sectionId: 'D',
-    title: 'Samlede lønrelaterede omkostninger',
+    title: 'Intern kontrol af samlede lønrelaterede omkostninger',
+    relationship: 'Beregnes ud fra driftskontiene: 2210, 2211, 2215, 2223, 2230 og 2235.',
     fields: [
-      { field: 'operatingTotal', label: 'Samlede lønrelaterede omkostninger ÅTD' },
+      { field: 'operatingTotal', label: 'Samlede lønrelaterede omkostninger ÅTD', sourceLabel: 'Beregnet' },
     ],
   },
 ];

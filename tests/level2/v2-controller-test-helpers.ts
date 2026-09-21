@@ -105,13 +105,24 @@ export function completeCheckpointThroughV2Controller(
     next = checkV2ControllerCheckpointSection(storage, next, clock, sectionId);
   }
   const expectedC = answers.reconciliation.C;
-  next = editV2ControllerCheckpointAmount(storage, next, clock, 'C', 'employerPension', String(expectedC.employerPension.bookedAmount));
-  next = editV2ControllerCheckpointAmount(storage, next, clock, 'C', 'employerAtp', String(expectedC.employerAtp.bookedAmount));
-  next = editV2ControllerCheckpointAmount(storage, next, clock, 'C', 'grossHolidayPay', String(expectedC.grossHolidayPay.bookedAmount));
-  next = editV2ControllerCheckpointAmount(storage, next, clock, 'C', 'holidayLiabilityAdjustment', String(expectedC.holidayLiabilityAdjustment.bookedAmount));
+  for (const [field, amount] of [
+    ['pensionBookBalance', expectedC.pension.bookedAmount],
+    ['hourlyEmployeePensionYtd', expectedC.pension.hourlyEmployeePensionYtd],
+    ['hourlyEmployerPensionYtd', expectedC.pension.hourlyEmployerPensionYtd],
+    ['salariedEmployeePensionYtd', expectedC.pension.salariedEmployeePensionYtd],
+    ['salariedEmployerPensionYtd', expectedC.pension.salariedEmployerPensionYtd],
+    ['atpBookBalance', expectedC.atp.bookedAmount],
+    ['hourlyEmployeeAtpYtd', expectedC.atp.hourlyEmployeeAtpYtd],
+    ['hourlyEmployerAtpYtd', expectedC.atp.hourlyEmployerAtpYtd],
+    ['salariedEmployeeAtpYtd', expectedC.atp.salariedEmployeeAtpYtd],
+    ['salariedEmployerAtpYtd', expectedC.atp.salariedEmployerAtpYtd],
+    ['holidayPayBookBalance', expectedC.holidayPay.bookedAmount],
+    ['holidayPayGrossYtd', expectedC.holidayPay.grossHolidayPayYtd],
+  ] as const) {
+    next = editV2ControllerCheckpointAmount(storage, next, clock, 'C', field, String(amount));
+  }
   next = checkV2ControllerCheckpointSection(storage, next, clock, 'C');
-  next = editV2ControllerCheckpointAmount(storage, next, clock, 'D', 'operatingTotal', String(answers.reconciliation.D.bookedAmount));
-  next = checkV2ControllerCheckpointSection(storage, next, clock, 'D');
+  next = editV2ControllerCheckpointAmount(storage, next, clock, 'D', 'operatingTotal', String(answers.reconciliation.D.operatingTotal));  next = checkV2ControllerCheckpointSection(storage, next, clock, 'D');
   for (const accountNumber of V2_CHECKPOINT_BALANCE_ACCOUNTS) {
     const expected = answers.reconciliation.E.find(item => item.accountNumber === accountNumber);
     if (!expected) throw new Error('Missing checkpoint balance');

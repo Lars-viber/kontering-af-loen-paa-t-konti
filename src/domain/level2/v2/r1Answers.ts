@@ -133,32 +133,43 @@ function grossPayReconciliation(
 }
 
 const hourlyEmployeePension = getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employee-pension-ytd').amount;
+const hourlyEmployerPension = getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-pension-ytd').amount;
 const salariedEmployeePension = getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employee-pension-ytd').amount;
+const salariedEmployerPension = getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-pension-ytd').amount;
 const hourlyEmployeeAtp = getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employee-atp-ytd').amount;
+const hourlyEmployerAtp = getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-atp-ytd').amount;
 const salariedEmployeeAtp = getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employee-atp-ytd').amount;
-
-const employerPensionBooked = getV2Balance(R1_V2_FINAL_BALANCES, '2215').amount -
-  hourlyEmployeePension - salariedEmployeePension;
-const employerPensionControl =
-  getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-pension-ytd').amount +
-  getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-pension-ytd').amount;
-const employerAtpBooked = getV2Balance(R1_V2_FINAL_BALANCES, '2223').amount -
-  hourlyEmployeeAtp - salariedEmployeeAtp;
-const employerAtpControl =
-  getV2Tally(R1_V2_SOURCE.tallies, 'hourly-employer-atp-ytd').amount +
-  getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-atp-ytd').amount;
+const salariedEmployerAtp = getV2Tally(R1_V2_SOURCE.tallies, 'salaried-employer-atp-ytd').amount;
+const grossHolidayPayYtd = getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-holiday-pay-ytd').amount;
 
 const otherCosts: V2OtherCostReconciliation = deepFreezeLevel2({
-  employerPension: comparison(employerPensionBooked, employerPensionControl),
-  employerAtp: comparison(employerAtpBooked, employerAtpControl),
-  grossHolidayPay: comparison(
-    getV2Balance(R1_V2_FINAL_BALANCES, '2230').amount,
-    getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-holiday-pay-ytd').amount,
-  ),
-  holidayLiabilityAdjustment: comparison(
-    getV2Balance(R1_V2_FINAL_BALANCES, '2235').amount,
-    getV2Tally(R1_V2_SOURCE.tallies, 'holiday-liability-adjustment-ytd').amount,
-  ),
+  pension: {
+    accountNumber: '2215',
+    hourlyEmployeePensionYtd: hourlyEmployeePension,
+    hourlyEmployerPensionYtd: hourlyEmployerPension,
+    salariedEmployeePensionYtd: salariedEmployeePension,
+    salariedEmployerPensionYtd: salariedEmployerPension,
+    ...comparison(
+      getV2Balance(R1_V2_FINAL_BALANCES, '2215').amount,
+      hourlyEmployeePension + hourlyEmployerPension + salariedEmployeePension + salariedEmployerPension,
+    ),
+  },
+  atp: {
+    accountNumber: '2223',
+    hourlyEmployeeAtpYtd: hourlyEmployeeAtp,
+    hourlyEmployerAtpYtd: hourlyEmployerAtp,
+    salariedEmployeeAtpYtd: salariedEmployeeAtp,
+    salariedEmployerAtpYtd: salariedEmployerAtp,
+    ...comparison(
+      getV2Balance(R1_V2_FINAL_BALANCES, '2223').amount,
+      hourlyEmployeeAtp + hourlyEmployerAtp + salariedEmployeeAtp + salariedEmployerAtp,
+    ),
+  },
+  holidayPay: {
+    accountNumber: '2230',
+    grossHolidayPayYtd,
+    ...comparison(getV2Balance(R1_V2_FINAL_BALANCES, '2230').amount, grossHolidayPayYtd),
+  },
 });
 
 const operatingAccounts = ['2210', '2211', '2215', '2223', '2230', '2235'] as const;
@@ -167,13 +178,6 @@ const operatingTotal = operatingAccounts.reduce(
   0,
 );
 
-const tallyTotal =
-  getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-pay-ytd').amount +
-  getV2Tally(R1_V2_SOURCE.tallies, 'salaried-gross-pay-ytd').amount +
-  employerPensionControl +
-  employerAtpControl +
-  getV2Tally(R1_V2_SOURCE.tallies, 'hourly-gross-holiday-pay-ytd').amount +
-  getV2Tally(R1_V2_SOURCE.tallies, 'holiday-liability-adjustment-ytd').amount;
 
 const liabilityControlIds = [
   'june-a-tax',
@@ -213,7 +217,7 @@ export const R1_V2_ANSWER_KEY: V2AnswerKey = deepFreezeLevel2({
       'salaried-gross-pay-ytd',
     ),
     C: otherCosts,
-    D: comparison(operatingTotal, tallyTotal),
+    D: { operatingTotal },
     E: liabilityReconciliation,
   },
   finalBalances: R1_V2_FINAL_BALANCES,

@@ -21,7 +21,6 @@ const REQUIRED_TALLY_IDS = [
   'salaried-employee-atp-ytd',
   'salaried-employer-pension-ytd',
   'salaried-employer-atp-ytd',
-  'holiday-liability-adjustment-ytd',
   'holiday-liability-system-assessed',
 ] as const satisfies readonly V2TallyId[];
 
@@ -117,11 +116,9 @@ export function assertV2AnswerKey(source: V2SourceCase, answerKey: V2AnswerKey):
   const comparisons = [
     answerKey.reconciliation.A,
     answerKey.reconciliation.B,
-    answerKey.reconciliation.C.employerPension,
-    answerKey.reconciliation.C.employerAtp,
-    answerKey.reconciliation.C.grossHolidayPay,
-    answerKey.reconciliation.C.holidayLiabilityAdjustment,
-    answerKey.reconciliation.D,
+    answerKey.reconciliation.C.pension,
+    answerKey.reconciliation.C.atp,
+    answerKey.reconciliation.C.holidayPay,
     ...answerKey.reconciliation.E,
   ];
   for (const comparison of comparisons) {
@@ -133,6 +130,82 @@ export function assertV2AnswerKey(source: V2SourceCase, answerKey: V2AnswerKey):
     if (comparison.difference !== 0) throw new Error('Expected reconciliation difference must be zero');
   }
 
+  const finalAmount = (accountNumber: typeof V2_ACCOUNT_NUMBERS[number]): number => {
+    const balance = answerKey.finalBalances.find(item => item.accountNumber === accountNumber);
+    if (!balance) throw new Error('Missing final balance ' + accountNumber);
+    return balance.amount;
+  };
+  const tallyAmount = (id: V2TallyId): number => {
+    const tally = source.tallies.find(item => item.id === id);
+    if (!tally) throw new Error('Missing tælleværk ' + id);
+    return tally.amount;
+  };
+
+  for (const [section, accountNumber, employeePensionId, employeeAtpId] of [
+    ['A', '2210', 'hourly-employee-pension-ytd', 'hourly-employee-atp-ytd'],
+    ['B', '2211', 'salaried-employee-pension-ytd', 'salaried-employee-atp-ytd'],
+  ] as const) {
+    const item = answerKey.reconciliation[section];
+    const expectedBook = finalAmount(accountNumber);
+    const expectedPension = tallyAmount(employeePensionId);
+    const expectedAtp = tallyAmount(employeeAtpId);
+    if (
+      item.wageAccountYtd !== expectedBook ||
+      item.employeePensionYtd !== expectedPension ||
+      item.employeeAtpYtd !== expectedAtp ||
+      item.calculatedGrossPayYtd !== expectedBook + expectedPension + expectedAtp ||
+      item.bookedAmount !== item.calculatedGrossPayYtd ||
+      item.controlAmount !== tallyAmount(item.externalTallyId)
+    ) throw new Error('Invalid reconciliation ' + section);
+  }
+
+  const pension = answerKey.reconciliation.C.pension;
+  const expectedPensionTallies = [
+    tallyAmount('hourly-employee-pension-ytd'),
+    tallyAmount('hourly-employer-pension-ytd'),
+    tallyAmount('salaried-employee-pension-ytd'),
+    tallyAmount('salaried-employer-pension-ytd'),
+  ] as const;
+  if (
+    pension.accountNumber !== '2215' ||
+    pension.bookedAmount !== finalAmount('2215') ||
+    pension.hourlyEmployeePensionYtd !== expectedPensionTallies[0] ||
+    pension.hourlyEmployerPensionYtd !== expectedPensionTallies[1] ||
+    pension.salariedEmployeePensionYtd !== expectedPensionTallies[2] ||
+    pension.salariedEmployerPensionYtd !== expectedPensionTallies[3] ||
+    pension.controlAmount !== expectedPensionTallies.reduce((sum, amount) => sum + amount, 0)
+  ) throw new Error('Invalid pension reconciliation');
+
+  const atp = answerKey.reconciliation.C.atp;
+  const expectedAtpTallies = [
+    tallyAmount('hourly-employee-atp-ytd'),
+    tallyAmount('hourly-employer-atp-ytd'),
+    tallyAmount('salaried-employee-atp-ytd'),
+    tallyAmount('salaried-employer-atp-ytd'),
+  ] as const;
+  if (
+    atp.accountNumber !== '2223' ||
+    atp.bookedAmount !== finalAmount('2223') ||
+    atp.hourlyEmployeeAtpYtd !== expectedAtpTallies[0] ||
+    atp.hourlyEmployerAtpYtd !== expectedAtpTallies[1] ||
+    atp.salariedEmployeeAtpYtd !== expectedAtpTallies[2] ||
+    atp.salariedEmployerAtpYtd !== expectedAtpTallies[3] ||
+    atp.controlAmount !== expectedAtpTallies.reduce((sum, amount) => sum + amount, 0)
+  ) throw new Error('Invalid ATP reconciliation');
+
+  const holidayPay = answerKey.reconciliation.C.holidayPay;
+  const expectedHolidayPay = tallyAmount('hourly-gross-holiday-pay-ytd');
+  if (
+    holidayPay.accountNumber !== '2230' ||
+    holidayPay.bookedAmount !== finalAmount('2230') ||
+    holidayPay.grossHolidayPayYtd !== expectedHolidayPay ||
+    holidayPay.controlAmount !== expectedHolidayPay
+  ) throw new Error('Invalid holiday-pay reconciliation');
+  requireWholeKrone(answerKey.reconciliation.D.operatingTotal, 'internal operating total');
+  if (answerKey.reconciliation.D.operatingTotal !== answerKey.operatingTotal) {
+    throw new Error('Invalid internal operating total');
+  }
+
   assertExactOrder(
     answerKey.reconciliation.E.map(item => item.controlId),
     REQUIRED_LIABILITY_CONTROL_IDS,
@@ -141,7 +214,14 @@ export function assertV2AnswerKey(source: V2SourceCase, answerKey: V2AnswerKey):
   for (const item of answerKey.reconciliation.E) {
     const balance = answerKey.finalBalances.find(candidate => candidate.accountNumber === item.accountNumber);
     const control = source.liabilityControls.find(candidate => candidate.id === item.controlId);
-    if (!balance || balance.side !== item.bookedSide || !control || control.accountNumber !== item.accountNumber) {
+    if (
+      !balance ||
+      balance.side !== item.bookedSide ||
+      item.bookedAmount !== balance.amount ||
+      !control ||
+      control.accountNumber !== item.accountNumber ||
+      item.controlAmount !== control.amount
+    ) {
       throw new Error('Invalid liability reconciliation for ' + item.accountNumber);
     }
   }

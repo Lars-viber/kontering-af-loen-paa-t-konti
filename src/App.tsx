@@ -1,24 +1,31 @@
 import { useState } from 'react';
 import { isValidVariant, type AccountId, type EntrySide } from './domain/payroll';
 import {
-  applyLevel2StudentState,
-  browserLevel2Storage,
-  browserLevel2Uint32,
-  inspectLevel2Session,
-  level2PhaseLabel,
-  parseLevel2VariantInput,
-  randomLevel2Variant,
-  removeInvalidLevel2Session,
-  resetLevel2Session,
-  retryLevel2Save,
-  startNewLevel2Session,
-  type Level2CaseFactory,
-  type Level2Clock,
-  type Level2ControllerState,
-  type Level2Uint32Source,
-} from './level2/controller';
-import type { Level2Storage } from './level2/session';
-import { Level2Workspace } from './level2/workspace';
+  addV2ControllerPostingRow,
+  advanceV2ControllerDocumentReview,
+  browserV2ControllerUint32,
+  checkV2ControllerCheckpointSection,
+  checkV2ControllerCurrentDocument,
+  completeV2ControllerLevel,
+  editV2ControllerCheckpointAmount,
+  editV2ControllerCheckpointBalance,
+  editV2ControllerPostingRow,
+  loadCurrentV2ControllerSession,
+  parseV2ControllerVariantInput,
+  removeV2ControllerPostingRow,
+  resetV2ControllerSession,
+  retryV2ControllerSave,
+  startNewV2ControllerSession,
+  startRandomV2ControllerSession,
+  type V2ControllerCaseFactory,
+  type V2ControllerClock,
+  type V2ControllerCurrentSession,
+  type V2ControllerLoadResult,
+  type V2ControllerUint32Source,
+} from './level2/v2/controller';
+import { browserV2Storage } from './level2/v2/runtime';
+import type { V2Storage } from './level2/v2/session';
+import { Level2V2Workspace, type Level2V2WorkspaceActions } from './level2/v2/workspace';
 import {
   clearSession,
   createSessionFromVariant,
@@ -39,16 +46,20 @@ import { ExerciseView } from './ui/exercise';
 type AppMode = 'home' | 'level1' | 'level2';
 type Level1View = 'menu' | 'exercise' | 'completed';
 type Level1Pending = { variant: number } | null;
+type Level2PendingStart =
+  | { readonly kind: 'variant'; readonly variant: number }
+  | { readonly kind: 'random' }
+  | null;
 
 export interface AppProps {
   storage?: StorageLike;
   clock?: () => string;
   randomUint32?: () => number;
   generator?: ExerciseGenerator;
-  level2Storage?: Level2Storage;
-  level2Clock?: Level2Clock;
-  level2RandomUint32?: Level2Uint32Source;
-  level2Generator?: Level2CaseFactory;
+  level2Storage?: V2Storage;
+  level2Clock?: V2ControllerClock;
+  level2RandomUint32?: V2ControllerUint32Source;
+  level2Generator?: V2ControllerCaseFactory;
 }
 
 const browserStorage: StorageLike = {
@@ -59,14 +70,23 @@ const browserStorage: StorageLike = {
 
 const saveFailure = 'Ændringen kunne ikke gemmes lokalt.';
 
+function level2PhaseLabel(current: V2ControllerCurrentSession): string {
+  const phase = current.studentState.phase;
+  if (phase === 'documentEntry' || phase === 'documentReview') {
+    return 'Bilag ' + current.studentState.currentDocumentId;
+  }
+  if (phase === 'checkpoint' || phase === 'checkpointReview') return 'Afstemning';
+  return 'Færdig';
+}
+
 export function App({
   storage = browserStorage,
   clock = () => new Date().toISOString(),
   randomUint32,
   generator,
-  level2Storage = browserLevel2Storage,
+  level2Storage = browserV2Storage,
   level2Clock,
-  level2RandomUint32 = browserLevel2Uint32,
+  level2RandomUint32 = browserV2ControllerUint32,
   level2Generator,
 }: AppProps) {
   const activeLevel2Storage = level2Storage;
@@ -84,11 +104,11 @@ export function App({
   const [pending, setPending] = useState<Level1Pending>(null);
   const [resetOpen, setResetOpen] = useState(false);
 
-  const [level2, setLevel2] = useState<Level2ControllerState>(() => inspectLevel2Session(activeLevel2Storage));
+  const [level2, setLevel2] = useState<V2ControllerLoadResult>(() => loadCurrentV2ControllerSession(activeLevel2Storage));
   const [level2SetupOpen, setLevel2SetupOpen] = useState(false);
   const [level2VariantInput, setLevel2VariantInput] = useState('');
   const [level2VariantError, setLevel2VariantError] = useState('');
-  const [pendingLevel2Variant, setPendingLevel2Variant] = useState<number | null>(null);
+  const [pendingLevel2Start, setPendingLevel2Start] = useState<Level2PendingStart>(null);
   const [level2ResetOpen, setLevel2ResetOpen] = useState(false);
 
   const start = (variant: number) => {
@@ -167,64 +187,123 @@ export function App({
     setLevel1View('menu');
   };
 
+  const reloadLevel2 = () => {
+    setLevel2(loadCurrentV2ControllerSession(activeLevel2Storage));
+  };
+
   const openLevel2Setup = () => {
     setLevel2VariantInput('');
     setLevel2VariantError('');
     setLevel2SetupOpen(true);
   };
 
-  const performLevel2Start = (variant: number) => {
-    const next = startNewLevel2Session(activeLevel2Storage, variant, activeLevel2Clock, level2Generator);
-    setLevel2(next);
+  const performLevel2Start = (request: Exclude<Level2PendingStart, null>) => {
+    const result = request.kind === 'variant'
+      ? startNewV2ControllerSession(
+        activeLevel2Storage,
+        request.variant,
+        activeLevel2Clock,
+        level2Generator,
+      )
+      : startRandomV2ControllerSession(
+        activeLevel2Storage,
+        activeLevel2Clock,
+        level2RandomUint32,
+        level2Generator,
+      );
+    if (!result.ok) {
+      setLevel2VariantError(request.kind === 'random'
+        ? 'En tilfældig variant kunne ikke vælges. Prøv igen.'
+        : 'Indtast et heltal fra 1 til 999999.');
+      return;
+    }
+    setLevel2({
+      status: 'loaded',
+      current: result.current,
+      legacyV1Present: level2.legacyV1Present,
+    });
     setLevel2SetupOpen(false);
-    setPendingLevel2Variant(null);
+    setPendingLevel2Start(null);
     setLevel2ResetOpen(false);
     setMode('level2');
   };
 
-  const requestLevel2Start = (variant: number) => {
-    if (level2.lifecycle === 'valid') {
+  const requestLevel2Start = (request: Exclude<Level2PendingStart, null>) => {
+    if (level2.status === 'loaded') {
       setLevel2SetupOpen(false);
-      setPendingLevel2Variant(variant);
+      setPendingLevel2Start(request);
       return;
     }
-    if (level2.lifecycle === 'none') performLevel2Start(variant);
+    performLevel2Start(request);
   };
 
   const submitLevel2Variant = (event: React.FormEvent) => {
     event.preventDefault();
-    const parsed = parseLevel2VariantInput(level2VariantInput);
-    if (!parsed.ok) {
+    const variant = parseV2ControllerVariantInput(level2VariantInput);
+    if (variant === null) {
       setLevel2VariantError('Indtast et heltal fra 1 til 999999.');
       return;
     }
     setLevel2VariantError('');
-    requestLevel2Start(parsed.variant);
+    requestLevel2Start({ kind: 'variant', variant });
   };
 
   const startRandomLevel2Variant = () => {
-    requestLevel2Start(randomLevel2Variant(level2RandomUint32));
-  };
-
-  const removeInvalidLevel2 = () => {
-    setLevel2(current => removeInvalidLevel2Session(activeLevel2Storage, current));
+    setLevel2VariantError('');
+    requestLevel2Start({ kind: 'random' });
   };
 
   const confirmLevel2Reset = () => {
-    if (level2.lifecycle === 'valid') {
-      setLevel2(resetLevel2Session(activeLevel2Storage, level2, activeLevel2Clock));
-    }
+    setLevel2(runtime => runtime.status === 'loaded'
+      ? {
+        ...runtime,
+        current: resetV2ControllerSession(
+          activeLevel2Storage,
+          runtime.current,
+          activeLevel2Clock,
+        ),
+      }
+      : runtime);
     setLevel2ResetOpen(false);
   };
 
-  const retrySave = () => {
-    if (level2.lifecycle === 'valid') setLevel2(retryLevel2Save(activeLevel2Storage, level2));
+  const updateLevel2Current = (
+    transition: (current: V2ControllerCurrentSession) => V2ControllerCurrentSession,
+  ) => {
+    setLevel2(runtime => runtime.status === 'loaded'
+      ? { ...runtime, current: transition(runtime.current) }
+      : runtime);
   };
 
-  const changeLevel2StudentState = (nextStudentState: Parameters<typeof applyLevel2StudentState>[2]) => {
-    setLevel2(current => current.lifecycle === 'valid'
-      ? applyLevel2StudentState(activeLevel2Storage, current, nextStudentState, activeLevel2Clock)
-      : current);
+  const level2Actions: Level2V2WorkspaceActions = {
+    addPosting: (accountNumber, side, rawAmount, text) => updateLevel2Current(current =>
+      addV2ControllerPostingRow(
+        activeLevel2Storage, current, activeLevel2Clock, accountNumber, side, rawAmount, text,
+      )),
+    editPosting: (rowId, changes) => updateLevel2Current(current =>
+      editV2ControllerPostingRow(activeLevel2Storage, current, activeLevel2Clock, rowId, changes)),
+    removePosting: rowId => updateLevel2Current(current =>
+      removeV2ControllerPostingRow(activeLevel2Storage, current, activeLevel2Clock, rowId)),
+    checkDocument: () => updateLevel2Current(current =>
+      checkV2ControllerCurrentDocument(activeLevel2Storage, current, activeLevel2Clock)),
+    advanceDocument: () => updateLevel2Current(current =>
+      advanceV2ControllerDocumentReview(activeLevel2Storage, current, activeLevel2Clock)),
+    editCheckpointAmount: (sectionId, field, rawAmount) => updateLevel2Current(current =>
+      editV2ControllerCheckpointAmount(
+        activeLevel2Storage, current, activeLevel2Clock, sectionId, field, rawAmount,
+      )),
+    editCheckpointBalance: (accountNumber, changes) => updateLevel2Current(current =>
+      editV2ControllerCheckpointBalance(
+        activeLevel2Storage, current, activeLevel2Clock, accountNumber, changes,
+      )),
+    checkCheckpointSection: sectionId => updateLevel2Current(current =>
+      checkV2ControllerCheckpointSection(
+        activeLevel2Storage, current, activeLevel2Clock, sectionId,
+      )),
+    complete: () => updateLevel2Current(current =>
+      completeV2ControllerLevel(activeLevel2Storage, current, activeLevel2Clock)),
+    retrySave: () => updateLevel2Current(current =>
+      retryV2ControllerSave(activeLevel2Storage, current, activeLevel2Clock)),
   };
 
   const level1SessionCard = session && (session.completed ? <section className="session-card completed-session-card">
@@ -256,30 +335,40 @@ export function App({
     {mode === 'level1' && <div className="menu-footer-actions"><button onClick={goHome}>Til forsiden</button></div>}
   </main>;
 
-  const level2HomeContent = level2.lifecycle === 'none' ? <>
-    <p>Start en ny avanceret opgave med en bestemt eller tilfældig variant.</p>
-    <button className="primary" onClick={openLevel2Setup}>Ny Niveau 2-opgave</button>
-  </> : level2.lifecycle === 'valid' ? <>
-    <p>Variant {level2.session.variant} · {level2PhaseLabel(level2.session)}</p>
-    <div className="level-card-actions">
-      <button className="primary" onClick={() => setMode('level2')}>Fortsæt Niveau 2</button>
-      <button onClick={openLevel2Setup}>Ny Niveau 2-opgave</button>
-    </div>
-  </> : level2.lifecycle === 'invalid' ? <div className="level2-problem" role="alert">
-    <strong>Den gemte Niveau 2-opgave kan ikke indlæses.</strong>
-    <p>Den bliver ikke fjernet eller overskrevet automatisk.</p>
-    {level2.removeError && <p>Den gemte opgave kunne ikke fjernes. Prøv igen senere.</p>}
-    <button onClick={removeInvalidLevel2}>Fjern ugyldig gemt opgave</button>
-  </div> : <div className="level2-problem" role="alert">
-    <strong>Gemte Niveau 2-opgaver kan ikke tilgås lige nu.</strong>
-    <p>Oprettelse og fortsættelse er midlertidigt blokeret for at beskytte dine data.</p>
-  </div>;
+  const level2HomeContent = level2.status === 'missing'
+    ? level2.legacyV1Present
+      ? <>
+        <div className="level2-problem" role="status">
+          <strong>Du har en gemt Niveau 2-opgave fra en tidligere version.</strong>
+          <p>Niveau 2 er siden ændret til den nye juni-afstemningsmodel.</p>
+        </div>
+        <button className="primary" onClick={openLevel2Setup}>Start ny Niveau 2-opgave</button>
+      </>
+      : <>
+        <p>Start en ny opgave, bogfør juni og afstem pr. 30/6.</p>
+        <button className="primary" onClick={openLevel2Setup}>Ny Niveau 2-opgave</button>
+      </>
+    : level2.status === 'loaded' ? <>
+      <p>Variant {level2.current.variant} · {level2PhaseLabel(level2.current)}</p>
+      <div className="level-card-actions">
+        <button className="primary" onClick={() => setMode('level2')}>Fortsæt Niveau 2</button>
+        <button onClick={openLevel2Setup}>Ny Niveau 2-opgave</button>
+      </div>
+    </> : level2.status === 'invalid' ? <div className="level2-problem" role="alert">
+      <strong>Den gemte Niveau 2-opgave kan ikke indlæses.</strong>
+      <p>Den bliver ikke migreret, fjernet eller overskrevet automatisk.</p>
+      <button onClick={openLevel2Setup}>Start ny Niveau 2-opgave</button>
+    </div> : <div className="level2-problem" role="alert">
+      <strong>Gemte Niveau 2-opgaver kan ikke tilgås lige nu.</strong>
+      <p>Oprettelse og fortsættelse er blokeret, indtil storage kan læses sikkert.</p>
+      <button onClick={reloadLevel2}>Prøv igen</button>
+    </div>;
 
   const home = <main className="menu level-home">
     <section className="menu-intro">
       <p className="eyebrow">LØNBOGFØRING · DOBBELT BOGFØRING</p>
       <h2>Vælg niveau</h2>
-      <p>Arbejd med grundlæggende lønkontering eller den avancerede opgave med periodisering og afstemning.</p>
+      <p>Arbejd med grundlæggende lønkontering eller bogfør juni og afstem pr. 30/6.</p>
     </section>
 
     {loadProblem && <section className="problem" role="alert">
@@ -304,24 +393,25 @@ export function App({
       <section className="menu-card level-card">
         <span aria-hidden="true">2</span>
         <h3>Niveau 2</h3>
-        <p>Avanceret lønkontering, periodisering og afstemning</p>
+        <p>Bogfør juni og afstem bogføringen pr. 30/6</p>
         {level2HomeContent}
       </section>
     </div>
   </main>;
 
-  const level2Shell = level2.lifecycle === 'valid' ? <Level2Workspace
-    session={level2.session}
-    saveStatus={level2.saveStatus}
-    onStudentStateChange={changeLevel2StudentState}
-    onRetrySave={retrySave}
+  const level2Shell = level2.status === 'loaded' ? <Level2V2Workspace
+    variant={level2.current.variant}
+    source={level2.current.caseSnapshot.source}
+    studentState={level2.current.studentState}
+    saveStatus={level2.current.saveStatus}
+    actions={level2Actions}
     onGoHome={goHome}
   /> : null;
 
-  const headerContext = mode === 'level2' && level2.lifecycle === 'valid'
+  const headerContext = mode === 'level2' && level2.status === 'loaded'
     ? <div className="header-context">
-      <span>Niveau 2 · Variant {level2.session.variant}</span>
-      <span>{level2PhaseLabel(level2.session)}</span>
+      <span>Niveau 2 · Variant {level2.current.variant}</span>
+      <span>{level2PhaseLabel(level2.current)}</span>
       <button onClick={goHome}>Til forsiden</button>
       <button className="header-reset" onClick={() => setLevel2ResetOpen(true)}>Nulstil opgave</button>
     </div>
@@ -391,9 +481,9 @@ export function App({
       </form>
     </Dialog>}
 
-    {pendingLevel2Variant !== null && <Dialog title="Start ny Niveau 2-opgave?" onClose={() => setPendingLevel2Variant(null)}>
+    {pendingLevel2Start && <Dialog title="Start ny Niveau 2-opgave?" onClose={() => setPendingLevel2Start(null)}>
       <p>Du har allerede en gemt Niveau 2-opgave. Hvis du starter en ny, bliver den nuværende erstattet.</p>
-      <div className="dialog-actions"><button onClick={() => setPendingLevel2Variant(null)}>Annuller</button><button className="primary" onClick={() => performLevel2Start(pendingLevel2Variant)}>Start ny opgave</button></div>
+      <div className="dialog-actions"><button onClick={() => setPendingLevel2Start(null)}>Annuller</button><button className="primary" onClick={() => performLevel2Start(pendingLevel2Start)}>Start ny opgave</button></div>
     </Dialog>}
 
     {level2ResetOpen && <Dialog title="Nulstil Niveau 2-opgaven?" onClose={() => setLevel2ResetOpen(false)}>

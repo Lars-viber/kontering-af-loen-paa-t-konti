@@ -1,4 +1,4 @@
-import type { V2SourceCase } from '../../../domain/level2/v2';
+import type { V2DocumentId, V2SourceCase } from '../../../domain/level2/v2';
 import {
   selectV2CurrentDocument,
   selectV2CurrentDocumentTotals,
@@ -7,6 +7,7 @@ import {
 import { formatV2WorkspaceAmount } from './format';
 import {
   selectV2WorkspaceDocument,
+  selectV2WorkspaceDocumentFields,
   selectV2WorkspaceDocumentTallies,
 } from './presentation';
 import { V2Progress } from './Progress';
@@ -17,16 +18,23 @@ export function V2DocumentPanel({
   onCheck,
   onAdvance,
   onOpenAccountPlan,
+  completedReview = false,
+  hideProgress = false,
+  onViewApprovedDocument,
 }: {
   readonly source: V2SourceCase;
   readonly state: V2StudentState;
   readonly onCheck: () => void;
   readonly onAdvance: () => void;
   readonly onOpenAccountPlan: () => void;
+  readonly completedReview?: boolean;
+  readonly hideProgress?: boolean;
+  readonly onViewApprovedDocument?: (documentId: V2DocumentId) => void;
 }) {
   if (state.currentDocumentId === null ||
       (state.phase !== 'documentEntry' && state.phase !== 'documentReview')) return null;
   const documentSource = selectV2WorkspaceDocument(source, state.currentDocumentId);
+  const documentFields = selectV2WorkspaceDocumentFields(source, state.currentDocumentId);
   const tallies = selectV2WorkspaceDocumentTallies(source, state.currentDocumentId);
   const document = selectV2CurrentDocument(state);
   const totals = selectV2CurrentDocumentTotals(state);
@@ -40,9 +48,10 @@ export function V2DocumentPanel({
   return <aside className="l2v2-document-panel" aria-labelledby="l2v2-document-title">
     <p className="l2v2-eyebrow">{documentSource.id} · Juni 2026</p>
     <h1 id="l2v2-document-title">{documentSource.title}</h1>
-    <V2Progress state={state} compact />
+    {!hideProgress && <V2Progress state={state} compact onViewDocument={onViewApprovedDocument} />}
+    {tallies.length > 0 && <h2 className="l2v2-current-document-title">Lønbilag – juni</h2>}
     <dl className="l2v2-source-lines">
-      {documentSource.fields.map(field => <div key={field.id}>
+      {documentFields.map(field => <div key={field.id}>
         <dt>{field.label}</dt><dd>{formatV2WorkspaceAmount(field.amount)}</dd>
       </div>)}
     </dl>
@@ -63,16 +72,17 @@ export function V2DocumentPanel({
           ? <p className="l2v2-correct">Balancerer</p>
           : totals.balanceState === 'unbalanced' && <p className="l2v2-incorrect">Ikke i balance</p>}
     </section>
-    {hasIncorrect && !review && <p className="l2v2-feedback l2v2-incorrect" role="status">
+    {hasIncorrect && !review && !completedReview && <p className="l2v2-feedback l2v2-incorrect" role="status">
       Bilaget er ikke færdigt. Der mangler eller er fejl i en eller flere posteringer.
     </p>}
-    {review ? <section className="l2v2-review-status" role="status">
+    {review && <section className="l2v2-review-status" role="status">
       <strong>✓ Bilaget er korrekt bogført</strong>
-      <p>Gennemgå gerne T-kontiene, før du fortsætter.</p>
-      <button type="button" className="l2v2-primary" onClick={onAdvance}>
+      <p>{completedReview ? 'Elevens godkendte besvarelse vises read-only.' : 'Gennemgå gerne T-kontiene, før du fortsætter.'}</p>
+      {!completedReview && <button type="button" className="l2v2-primary" onClick={onAdvance}>
         {state.currentDocumentId === 'B9' ? 'Gå videre til afstemning' : 'Gå videre til næste bilag'}
-      </button>
-    </section> : <button type="button" className="l2v2-primary l2v2-check-document" onClick={onCheck}>
+      </button>}
+    </section>}
+    {!review && !completedReview && <button type="button" className="l2v2-primary l2v2-check-document" onClick={onCheck}>
       Kontrollér bilag
     </button>}
   </aside>;

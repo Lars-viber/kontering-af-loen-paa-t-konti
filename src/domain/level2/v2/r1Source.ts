@@ -133,8 +133,6 @@ function field(
   return Object.freeze({ id, label, amount });
 }
 
-const adjustment = R1_V2_HOLIDAY_LIABILITY.systemAssessedBalance -
-  R1_V2_HOLIDAY_LIABILITY.balanceBeforeAdjustment;
 
 export const R1_V2_TALLIES = deepFreezeLevel2([
   { id: 'hourly-gross-pay-ytd', employeeGroup: 'hourly', measure: 'gross-pay', period: 'ytd-through-2026-06', amount: sumMonths(V2_MONTHS, month => month.hourlyTotals.grossSalary), source: 'payroll-system', presentationLabel: 'Bruttoløn ÅTD – timelønnede' },
@@ -148,7 +146,7 @@ export const R1_V2_TALLIES = deepFreezeLevel2([
   { id: 'salaried-employee-atp-ytd', employeeGroup: 'salaried', measure: 'employee-atp', period: 'ytd-through-2026-06', amount: sumMonths(V2_MONTHS, month => month.salariedTotals.employeeAtp), source: 'payroll-system', presentationLabel: 'Medarbejder-ATP ÅTD – månedslønnede' },
   { id: 'salaried-employer-pension-ytd', employeeGroup: 'salaried', measure: 'employer-pension', period: 'ytd-through-2026-06', amount: sumMonths(V2_MONTHS, month => month.salariedTotals.employerPension), source: 'payroll-system', presentationLabel: 'Arbejdsgiverpension ÅTD – månedslønnede' },
   { id: 'salaried-employer-atp-ytd', employeeGroup: 'salaried', measure: 'employer-atp', period: 'ytd-through-2026-06', amount: sumMonths(V2_MONTHS, month => month.salariedTotals.employerAtp), source: 'payroll-system', presentationLabel: 'Arbejdsgiver-ATP ÅTD – månedslønnede' },
-  { id: 'holiday-liability-adjustment-ytd', employeeGroup: 'all', measure: 'holiday-liability-adjustment', period: 'ytd-through-2026-06', amount: R1_V2_HOLIDAY_LIABILITY.adjustmentYtdThroughMay + adjustment, source: 'payroll-system', presentationLabel: 'Regulering af feriepengeforpligtelse ÅTD' },
+
   { id: 'holiday-liability-system-assessed', employeeGroup: 'all', measure: 'holiday-liability-balance', period: 'as-of-2026-06-30', amount: R1_V2_HOLIDAY_LIABILITY.systemAssessedBalance, source: 'payroll-system', presentationLabel: 'Systemopgjort feriepengeforpligtelse pr. 30/6' },
 ] satisfies readonly V2ExternalTally[]);
 

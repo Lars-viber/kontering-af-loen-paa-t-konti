@@ -1,161 +1,195 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { cleanup, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { App } from '../../src/App';
-import { generateLevel2Case } from '../../src/domain/level2';
+import { generateV2Case } from '../../src/domain/level2/v2';
 import {
-  FINAL_CONTROL_EXPECTED_REASONS,
-  checkCheckpointSection,
-  checkFinalControlItem,
-  editCheckpointAmount,
-  selectFinalControlReason,
-  type Level2StudentState,
-} from '../../src/level2/state';
+  advanceV2ControllerDocumentReview,
+  completeV2ControllerLevel,
+  startNewV2ControllerSession,
+  type V2ControllerCaseFactory,
+  type V2ControllerCurrentSession,
+} from '../../src/level2/v2/controller';
+import { V2_SESSION_STORAGE_KEY } from '../../src/level2/v2/session';
 import {
-  LEVEL2_SESSION_STORAGE_KEY,
-  createLevel2PersistedSession,
-  decodeLevel2Session,
-  encodeLevel2Session,
-  type Level2Storage,
-} from '../../src/level2/session';
+  V2ControllerStorage,
+  advanceToCheckpointThroughV2Controller,
+  completeCheckpointThroughV2Controller,
+  completeCurrentDocumentThroughV2Controller,
+  sequenceClock,
+  startedCurrent,
+} from './v2-controller-test-helpers';
 import {
-  advanceToCheckpoint,
-  advanceToFinalControl,
-  completeCheckpoint,
-  completeFinalControl,
-} from './state-helpers';
+  V2RuntimeStorage,
+  continueV2,
+  renderV2Runtime,
+} from './v2-runtime-test-helpers';
 
 afterEach(cleanup);
-const snapshot = generateLevel2Case(42);
-const clock = () => '2026-09-19T08:00:00.000Z';
 
-class PhaseStorage implements Level2Storage {
-  readonly data = new Map<string, string>();
-  failSet = false;
-  getItem(key: string) { return this.data.get(key) ?? null; }
-  setItem(key: string, value: string) {
-    if (this.failSet) throw new Error('quota');
-    this.data.set(key, value);
-  }
-  removeItem(key: string) { this.data.delete(key); }
+function started(): {
+  storage: V2ControllerStorage;
+  current: V2ControllerCurrentSession;
+  clock: ReturnType<typeof sequenceClock>;
+} {
+  const storage = new V2ControllerStorage();
+  const clock = sequenceClock();
+  const current = startedCurrent(startNewV2ControllerSession(storage, 42, clock));
+  return { storage, current, clock };
 }
 
-function preload(state: Level2StudentState): PhaseStorage {
-  const storage = new PhaseStorage();
-  const session = createLevel2PersistedSession(snapshot, state, clock());
-  storage.data.set(LEVEL2_SESSION_STORAGE_KEY, encodeLevel2Session(session));
+function reviewAt(documentNumber: number) {
+  const setup = started();
+  let current = setup.current;
+  for (let index = 1; index <= documentNumber; index += 1) {
+    current = completeCurrentDocumentThroughV2Controller(setup.storage, current, setup.clock);
+    if (index < documentNumber) {
+      current = advanceV2ControllerDocumentReview(setup.storage, current, setup.clock);
+    }
+  }
+  return { ...setup, current };
+}
+
+function runtimeStorage(controllerStorage: V2ControllerStorage): V2RuntimeStorage {
+  const storage = new V2RuntimeStorage();
+  const raw = controllerStorage.values.get(V2_SESSION_STORAGE_KEY);
+  if (!raw) throw new Error('Missing persisted V2.1 session');
+  storage.data.set(V2_SESSION_STORAGE_KEY, raw);
   return storage;
 }
 
-function renderPhase(state: Level2StudentState) {
-  const storage = preload(state);
-  const generator = vi.fn(generateLevel2Case);
-  render(<App
-    storage={storage}
-    level2Storage={storage}
-    clock={clock}
-    level2Clock={clock}
-    level2Generator={generator}
-  />);
-  return { storage, generator };
+function mockGenerator() {
+  return vi.fn(generateV2Case) as unknown as V2ControllerCaseFactory;
 }
 
-function partialCheckpoint(): Level2StudentState {
-  let state = advanceToCheckpoint(snapshot);
-  for (const [field, amount] of Object.entries(snapshot.derived.checkpoint.hourlyGrossPayroll)) {
-    state = editCheckpointAmount(state, 'A', field as never, String(amount));
-  }
-  state = checkCheckpointSection(snapshot, state, 'A');
-  state = editCheckpointAmount(state, 'B', 'wageAccount', '1');
-  return checkCheckpointSection(snapshot, state, 'B');
-}
+describe('J3C active V2.1 phase and restore integration', () => {
+  it('restores documentReview B4 without advancing and advances only after click', async () => {
+    const setup = reviewAt(4);
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    const first = renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByText('B4 · Juni 2026')).toBeTruthy();
+    expect(screen.getByText('✓ Bilaget er korrekt bogført')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Gå videre til næste bilag' })).toBeTruthy();
+    expect(screen.queryByText('B5 · Juni 2026')).toBeNull();
 
-function partialFinal(): Level2StudentState {
-  let state = advanceToFinalControl(snapshot);
-  state = selectFinalControlReason(state, 'aTax', FINAL_CONTROL_EXPECTED_REASONS.aTax);
-  state = checkFinalControlItem(state, 'aTax');
-  state = selectFinalControlReason(state, 'amContribution', 'aTaxJunePaid');
-  return checkFinalControlItem(state, 'amContribution');
-}
-
-async function openAndRoundtrip(expectedHeading: string, storage: PhaseStorage, generator: ReturnType<typeof vi.fn>) {
-  const before = storage.data.get(LEVEL2_SESSION_STORAGE_KEY);
-  await userEvent.click(screen.getByRole('button', { name: 'Fortsæt Niveau 2' }));
-  expect(screen.getByRole('heading', { name: expectedHeading })).toBeTruthy();
-  await userEvent.click(within(screen.getByRole('main')).getByRole('button', { name: 'Til forsiden' }));
-  await userEvent.click(screen.getByRole('button', { name: 'Fortsæt Niveau 2' }));
-  expect(screen.getByRole('heading', { name: expectedHeading })).toBeTruthy();
-  expect(storage.data.get(LEVEL2_SESSION_STORAGE_KEY)).toBe(before);
-  expect(generator).toHaveBeenCalledTimes(0);
-}
-
-describe('J3C controller, autosave og reload', () => {
-  it('roundtripper partial checkpoint med locked A og editable B', async () => {
-    const { storage, generator } = renderPhase(partialCheckpoint());
-    await openAndRoundtrip('Afstemning pr. 30/6', storage, generator);
-    const a = screen.getByRole('heading', { name: 'Bruttoløn ÅTD – timelønnede' }).closest('section')!;
-    const b = screen.getByRole('heading', { name: 'Bruttoløn ÅTD – månedslønnede' }).closest('section')!;
-    expect(within(a).getByText('✓ Korrekt')).toBeTruthy();
-    expect(within(a).queryByRole('textbox')).toBeNull();
-    expect(within(b).getByText('Kontrollér dine beregninger og prøv igen.')).toBeTruthy();
-    expect(within(b).getByRole('textbox', { name: 'Lønninger – månedslønnede, saldo ÅTD' })).toBeTruthy();
+    first.view.unmount();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByText('B4 · Juni 2026')).toBeTruthy();
+    expect(screen.getByText('✓ Bilaget er korrekt bogført')).toBeTruthy();
+    await userEvent.click(screen.getByRole('button', { name: 'Gå videre til næste bilag' }));
+    expect(screen.getByText('B5 · Juni 2026')).toBeTruthy();
+    expect(generator).toHaveBeenCalledTimes(0);
   });
 
-  it('roundtripper B10 efter completed checkpoint', async () => {
-    const state = completeCheckpoint(snapshot, advanceToCheckpoint(snapshot));
-    const { storage, generator } = renderPhase(state);
-    await openAndRoundtrip('Betaling via Samlet Betaling – ATP', storage, generator);
+  it('restores B9 review and opens checkpoint only after explicit click', async () => {
+    const setup = reviewAt(9);
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    const first = renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByText('B9 · Juni 2026')).toBeTruthy();
+    expect(screen.getByRole('button', { name: 'Gå videre til afstemning' })).toBeTruthy();
+    expect(screen.queryByRole('heading', { name: 'Afstemning pr. 30/6' })).toBeNull();
+
+    first.view.unmount();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByText('B9 · Juni 2026')).toBeTruthy();
+    await userEvent.click(screen.getByRole('button', { name: 'Gå videre til afstemning' }));
+    expect(screen.getByRole('heading', { name: 'Afstemning pr. 30/6' })).toBeTruthy();
+    expect(generator).toHaveBeenCalledTimes(0);
   });
 
-  it('roundtripper partial slutkontrol', async () => {
-    const { storage, generator } = renderPhase(partialFinal());
-    await openAndRoundtrip('Slutkontrol', storage, generator);
-    const correct = screen.getByRole('heading', { name: 'Skyldig A-skat' }).closest('section')!;
-    const wrong = screen.getByRole('heading', { name: 'Skyldig AM-bidrag' }).closest('section')!;
-    expect(within(correct).getByText('✓ Korrekt')).toBeTruthy();
-    expect(within(wrong).getByText('Vælg en anden forklaring.')).toBeTruthy();
+  it('restores checkpoint with source tallies, six controls, 13 accounts and editable A-E', async () => {
+    const setup = started();
+    setup.current = advanceToCheckpointThroughV2Controller(setup.storage, setup.current, setup.clock);
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByRole('heading', { name: 'Afstemning pr. 30/6' })).toBeTruthy();
+    const reference = screen.getByRole('complementary', { name: 'Reference pr. 30/6' });
+    expect(within(reference).getByRole('heading', { name: 'A. Lønsystemets tælleværker pr. 30/6' })).toBeTruthy();
+    expect(within(reference).getByRole('heading', { name: 'B. Eksterne kontroloplysninger pr. 30/6' })).toBeTruthy();
+    expect(reference.querySelectorAll('[data-reference-account]')).toHaveLength(13);
+    expect(screen.getAllByPlaceholderText('Beløb')).toHaveLength(27);
+    expect(document.body.textContent).not.toContain('Slutkontrol');
+    expect(document.body.textContent).not.toMatch(/B1[0-3]/);
+    expect(generator).toHaveBeenCalledTimes(0);
   });
 
-  it('roundtripper completed write-protected', async () => {
-    const completed = completeFinalControl(advanceToFinalControl(snapshot));
-    const { storage, generator } = renderPhase(completed);
-    await openAndRoundtrip('Niveau 2 gennemført', storage, generator);
-    expect(screen.queryByRole('textbox')).toBeNull();
-    expect(screen.queryByRole('combobox')).toBeNull();
+  it('restores checkpointReview and completes only after explicit action', async () => {
+    const setup = started();
+    setup.current = advanceToCheckpointThroughV2Controller(setup.storage, setup.current, setup.clock);
+    setup.current = completeCheckpointThroughV2Controller(
+      setup.storage,
+      setup.current,
+      setup.clock,
+    );
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    const first = renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByText('✓ Afstemningen pr. 30/6 stemmer')).toBeTruthy();
+    expect(screen.getAllByText('5 af 5 afstemninger korrekte').length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('button', { name: 'Afslut Niveau 2' })).toHaveLength(2);
+    expect(screen.queryByRole('heading', { name: 'Niveau 2 gennemført' })).toBeNull();
+
+    first.view.unmount();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getAllByRole('button', { name: 'Afslut Niveau 2' })).toHaveLength(2);
+    await userEvent.click(screen.getAllByRole('button', { name: 'Afslut Niveau 2' })[1]);
+    expect(screen.getByRole('heading', { name: 'Niveau 2 gennemført' })).toBeTruthy();
+    expect(screen.getByText('9 af 9 bilag gennemført · Afstemning ✓')).toBeTruthy();
+    expect(generator).toHaveBeenCalledTimes(0);
+  }, 15_000);
+
+  it('restores completed V2.1 as the June summary', async () => {
+    const setup = started();
+    setup.current = advanceToCheckpointThroughV2Controller(setup.storage, setup.current, setup.clock);
+    setup.current = completeCheckpointThroughV2Controller(
+      setup.storage,
+      setup.current,
+      setup.clock,
+    );
+    setup.current = completeV2ControllerLevel(
+      setup.storage,
+      setup.current,
+      setup.clock,
+    );
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect(screen.getByRole('heading', { name: 'Niveau 2 gennemført' })).toBeTruthy();
+    expect(screen.getByText(/bogført juni og afstemt bogføringen pr. 30\/6/)).toBeTruthy();
+    expect(document.querySelectorAll('.l2v2-completed-balances > div')).toHaveLength(13);
+    expect(document.body.textContent).not.toContain('Slutkontrol');
+    expect(document.body.textContent).not.toMatch(/B1[0-3]/);
+    expect(document.body.textContent).not.toContain('juli');
+    expect(generator).toHaveBeenCalledTimes(0);
   });
 
-  it('beholder checkpoint-edit ved savefejl og retry gemmer samme state', async () => {
-    const { storage } = renderPhase(advanceToCheckpoint(snapshot));
-    const user = userEvent.setup();
-    await user.click(screen.getByRole('button', { name: 'Fortsæt Niveau 2' }));
-    storage.failSet = true;
-    const input = screen.getByLabelText('Lønninger – timelønnede, saldo ÅTD');
-    await user.type(input, '123');
-    expect((input as HTMLInputElement).value).toBe('123');
-    expect(screen.getByRole('alert').textContent).toContain('seneste ændring kunne ikke gemmes');
-    storage.failSet = false;
-    await user.click(screen.getByRole('button', { name: 'Prøv at gemme igen' }));
-    const decoded = decodeLevel2Session(storage.data.get(LEVEL2_SESSION_STORAGE_KEY)!);
-    expect(decoded.ok).toBe(true);
-    if (!decoded.ok) throw new Error('Expected valid checkpoint session');
-    expect(decoded.value.studentState.checkpoint.A.values.wageAccount).toBe('123');
-  });
+  it('continues the same partial input after Home and a fresh App mount', async () => {
+    const setup = started();
+    const storage = runtimeStorage(setup.storage);
+    const generator = mockGenerator();
+    const first = renderV2Runtime(storage, generator);
+    await continueV2();
+    await userEvent.click(screen.getByRole('button', { name: 'Tilføj postering på 2210 Debet' }));
+    await userEvent.type(screen.getByLabelText('Beløb på 2210 Debet'), '123');
+    await userEvent.click(within(screen.getByRole('main')).getByRole('button', { name: 'Til forsiden' }));
+    await continueV2();
+    expect((screen.getByLabelText('Beløb på 2210 Debet') as HTMLInputElement).value).toBe('123');
 
-  it('beholder final-reason ved savefejl og retry gemmer samme state', async () => {
-    const { storage } = renderPhase(advanceToFinalControl(snapshot));
-    const user = userEvent.setup();
-    await user.click(screen.getByRole('button', { name: 'Fortsæt Niveau 2' }));
-    storage.failSet = true;
-    const select = screen.getAllByLabelText('Vælg forklaring')[0];
-    await user.selectOptions(select, FINAL_CONTROL_EXPECTED_REASONS.aTax);
-    expect((select as HTMLSelectElement).value).toBe(FINAL_CONTROL_EXPECTED_REASONS.aTax);
-    expect(screen.getByRole('alert').textContent).toContain('seneste ændring kunne ikke gemmes');
-    storage.failSet = false;
-    await user.click(screen.getByRole('button', { name: 'Prøv at gemme igen' }));
-    const decoded = decodeLevel2Session(storage.data.get(LEVEL2_SESSION_STORAGE_KEY)!);
-    expect(decoded.ok).toBe(true);
-    if (!decoded.ok) throw new Error('Expected valid final session');
-    expect(decoded.value.studentState.finalControl.items[0].selectedReasonId).toBe(FINAL_CONTROL_EXPECTED_REASONS.aTax);
+    first.view.unmount();
+    renderV2Runtime(storage, generator);
+    await continueV2();
+    expect((screen.getByLabelText('Beløb på 2210 Debet') as HTMLInputElement).value).toBe('123');
+    expect(generator).toHaveBeenCalledTimes(0);
   });
 });

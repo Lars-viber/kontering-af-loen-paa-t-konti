@@ -179,6 +179,12 @@ describe('V2.1 case snapshot tampering', () => {
     });
     expectInvalidCase(session => { session.caseSnapshot.answers.finalBalances[0].amount += 1; });
     expectInvalidCase(session => {
+      session.caseSnapshot.answers.reconciliation.C.pension.hourlyEmployeePensionYtd += 1;
+    });
+    expectInvalidCase(session => {
+      session.caseSnapshot.answers.reconciliation.D.operatingTotal += 1;
+    });
+    expectInvalidCase(session => {
       session.caseSnapshot.inputs.holidayLiability.monthlyAdjustments.jun += 1;
     });
     expectInvalidCase(session => { session.caseSnapshot.inputs.bank.requiredCash += 1; });
@@ -213,6 +219,17 @@ describe('V2.1 restored student state validation', () => {
     expectInvalidState(session => { session.studentState.currentDocumentId = 'B10'; });
   });
 
+  it('afviser den gamle eller manipulerede C checkpointshape', () => {
+    expectInvalidState(session => {
+      delete session.studentState.checkpoint.C.values.pensionBookBalance;
+    });
+    expectInvalidState(session => {
+      session.studentState.checkpoint.C.values.holidayLiabilityAdjustment = '32500';
+    });
+    expectInvalidState(session => {
+      session.studentState.checkpoint.C.values.hourlyEmployeePensionYtd = 38262;
+    });
+  });
   it('afviser invalid rows og case/state grading mismatch', () => {
     expectInvalidState(session => {
       session.studentState.documents[0].rows.push({

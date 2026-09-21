@@ -2,6 +2,8 @@
 
 ## 1. Formål og status
 
+**Pre-release-korrektion efter manuel browsertest:** C afstemmer hele kontosaldi mod lønsystemets tælleværker, 2235 har ingen konstrueret ekstern tælleværkskontrol, og D er en intern driftskontosum.
+
 Dette dokument er den autoritative, numeriske R1-reference for V2.1. Beløbene er hele kroner. `D` betyder debetsaldo, og `K` betyder kreditsaldo.
 
 Referencen fastlægger:
@@ -221,7 +223,7 @@ Kontrol: 16.992 = 16.992.
 
 Kontrol: 8.500 = 8.500.
 
-Før bogføring af B9 er den bogførte saldo 174.000 K, og den systemopgjorte saldo pr. 30/6 er 182.500 K. Reguleringen på 8.500 må ikke oplyses direkte før elevens bogføring. Efter korrekt B9 kan referenceområdet vise regulering år til dato på 32.500.
+Før bogføring af B9 er den bogførte saldo 174.000 K, og den systemopgjorte saldo pr. 30/6 er 182.500 K. Reguleringen på 8.500 må ikke oplyses direkte før elevens bogføring. Konto 2235 har efter B9 en bogført saldo på 32.500 D, men beløbet er ikke et eksternt lønsystemtælleværk.
 
 Samlet bilagskontrol: **9 af 9 bilag balancerer med difference 0 kr.**
 
@@ -240,7 +242,6 @@ Samlet bilagskontrol: **9 af 9 bilag balancerer med difference 0 kr.**
 | B7 | Medarbejder-ATP, månedslønnede år til dato | 2.376 |
 | B8 | Arbejdsgiverpension, månedslønnede år til dato | 97.200 |
 | B8 | Arbejdsgiver-ATP, månedslønnede år til dato | 4.752 |
-| B9 | Regulering af feriepengeforpligtelse år til dato | 32.500 |
 | B9 | Feriepengeforpligtelse ifølge lønsystem | 182.500 |
 
 Eksterne kontroloplysninger om åbne forpligtelser pr. 30. juni:
@@ -296,21 +297,21 @@ Kontroltal: 956.570. Difference: **0**.
 
 Kontroltal: 1.215.000. Difference: **0**.
 
-### C – Øvrige lønomkostninger
+### C – Afstem pension, ATP og feriepenge
 
-| Post | Bogført grundlag | Kontroltal | Difference |
-|---|---:|---:|---:|
-| Arbejdsgiverpension | 260.588 - 38.262 - 48.600 = 173.726 | 76.526 + 97.200 = 173.726 | 0 |
-| Arbejdsgiver-ATP | 14.256 - 2.376 - 2.376 = 9.504 | 4.752 + 4.752 = 9.504 | 0 |
-| Feriepenge | 119.574 | 119.574 | 0 |
-| Regulering af feriepengeforpligtelse | 32.500 | 32.500 | 0 |
+| Område | Fra bogføringen / T-konto | Fra lønsystemets tælleværker | Sum | Difference |
+|---|---:|---|---:|---:|
+| Pension | 2215: 260.588 | 38.262 + 76.526 + 48.600 + 97.200 | 260.588 | 0 |
+| ATP | 2223: 14.256 | 2.376 + 4.752 + 2.376 + 4.752 | 14.256 | 0 |
+| Feriepenge – timelønnede | 2230: 119.574 | Bruttoferiepenge ÅTD: 119.574 | 119.574 | 0 |
 
-### D – Samlet lønomkostning
+Eleven indtaster bogføringssaldoen og alle fire pensions-/ATP-tælleværker samt bruttoferiepengetælleværket. Summerne afledes. Konto 2235 indgår ikke i C.
 
-`956.570 + 1.215.000 + 173.726 + 9.504 + 119.574 + 32.500 = 2.506.874`
+### D – Intern kontrol af samlede lønrelaterede omkostninger
 
-Bogført driftssum: 2.506.874. Difference: **0**.
+`915.932 + 1.164.024 + 260.588 + 14.256 + 119.574 + 32.500 = 2.506.874`
 
+D er beregnet fra bogføringens seks driftskonti 2210, 2211, 2215, 2223, 2230 og 2235. Der findes ingen ekstern tællerværkssum eller difference i D.
 ### E – Åbne forpligtelser
 
 | Konto | Bogført saldo | Ekstern kontrol | Difference |
