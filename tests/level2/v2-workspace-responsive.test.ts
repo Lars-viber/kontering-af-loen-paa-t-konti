@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
 describe('V2.1 workspace responsive CSS contract', () => {
-  const css = readFileSync('src/level2/v2/workspace/workspace.css', 'utf8');
+  const css = readFileSync('src/level2/v2/workspace/workspace.css', 'utf8').replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
   it('keeps every selector scoped to the isolated l2v2 namespace', () => {
     const selectors = css.split('{').slice(0, -1).map(block => block.split('}').at(-1)?.trim() ?? '')
